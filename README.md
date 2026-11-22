@@ -24,8 +24,8 @@ npm run build      # bygger till dist/
 
 ## Publicering
 
-Push till `main` bygger och laddar upp via FTPS (`.github/workflows/deploy-test.yml`).
-Repo-secrets som krävs: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`, `FTP_SERVER_DIR`.
+Push till `main` bygger och laddar upp via SFTP till Inleed (`.github/workflows/deploy-test.yml`).
+Repo-secrets: `SFTP_HOST`, `SFTP_PORT`, `SFTP_USERNAME`, `SFTP_PASSWORD`, `SFTP_DIR`, `SFTP_KNOWN_HOSTS`.
 
 ## Lansering på sakerhetsmaklarna.se (senare)
 

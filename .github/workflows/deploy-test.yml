@@ -1,6 +1,5 @@
-# Bygger sajten och laddar upp den till testmiljön asparagus.se/sakerhetsmaklarna/
-# Kräver repo-secrets: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD, FTP_SERVER_DIR
-# (FTP_SERVER_DIR t.ex. "/public_html/sakerhetsmaklarna/" – mappen under webbroten hos Inleed)
+# Bygger sajten och laddar upp den till testmiljön asparagus.se/sakerhetsmaklarna/ via SFTP (Inleed)
+# Repo-secrets: SFTP_HOST, SFTP_PORT, SFTP_USERNAME, SFTP_PASSWORD, SFTP_DIR, SFTP_KNOWN_HOSTS
 name: Deploy test (asparagus.se)
 
 on:
@@ -26,17 +25,25 @@ jobs:
         env:
           SITE_URL: https://asparagus.se
           BASE_PATH: /sakerhetsmaklarna
-      - name: Ladda upp via FTPS
-        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          protocol: ftps
-          local-dir: ./dist/
-          server-dir: ${{ secrets.FTP_SERVER_DIR }}
-          # Rör aldrig formulärets hemliga config på servern
-          exclude: |
-            **/.git*
-            **/.git*/**
-            api/config.php
+      - name: Installera lftp
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq lftp
+      - name: Ladda upp via SFTP
+        env:
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_PORT: ${{ secrets.SFTP_PORT }}
+          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+          LFTP_PASSWORD: ${{ secrets.SFTP_PASSWORD }}
+          SFTP_DIR: ${{ secrets.SFTP_DIR }}
+          SFTP_KNOWN_HOSTS: ${{ secrets.SFTP_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SFTP_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          # Speglar bara dist/ till sakerhetsmaklarna-mappen. --delete tar bort gamla
+          # filer där, men formulärets config.php på servern lämnas orörd.
+          lftp -u "$SFTP_USERNAME" --env-password -p "$SFTP_PORT" "sftp://$SFTP_HOST" -e "
+            set sftp:auto-confirm no;
+            set net:max-retries 2;
+            set net:timeout 30;
+            mkdir -p -f $SFTP_DIR;
+            mirror --reverse --delete --parallel=4 --exclude-glob api/config.php dist/ $SFTP_DIR;
+            quit"
