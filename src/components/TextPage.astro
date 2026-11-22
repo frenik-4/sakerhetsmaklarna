@@ -1,0 +1,19 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import CtaBand from './CtaBand.astro';
+interface Props { id: string; }
+const sida = await getEntry('sidor', Astro.props.id);
+if (!sida) throw new Error(`Saknar sida: ${Astro.props.id}`);
+const { Content } = await render(sida);
+---
+<Base title={sida.data.title} description={sida.data.description}>
+  <section class="section">
+    <div class="wrap">
+      <h1>{sida.data.h1}</h1>
+      <article class="prose"><Content /></article>
+    </div>
+  </section>
+  <slot />
+  <CtaBand />
+</Base>

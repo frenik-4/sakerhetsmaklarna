@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import referenser from '../data/referenser.json';
+import kunder from '../data/kunder.json';
+import { url } from '../lib/site';
+const namn: Record<string, string> = { bygglarm: 'Bygglarm', stallningslarm: 'Ställningslarm', 'butik-kontor': 'Butik & kontor', kamerabevakning: 'Kamerabevakning', larmvaska: 'Larmväska' };
+---
+<Base title="Referenser och uppdrag – larmuthyrning | Säkerhetsmäklarna" description="Exempel på uppdrag: bygglarm för hela kvarter, stormarknad larmad samma dag, containerlarm och ställningslarm. Se några av våra kunder.">
+  <section class="section">
+    <div class="wrap">
+      <h1>Referenser</h1>
+      <p class="lead">Några exempel på uppdrag där vi har hyrt ut och installerat larm.</p>
+      <ul class="refs">
+        {referenser.map((r) => (
+          <li class="ref">
+            <a class="ref__tag" href={url(`/${r.kategori}/`)}>{namn[r.kategori] ?? r.kategori}</a>
+            <h2>{r.titel}</h2>
+            <p>{r.text}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+  {kunder.length > 0 && (
+    <section class="section section--soft">
+      <div class="wrap">
+        <h2>Några av våra kunder</h2>
+        <ul class="kunder">{kunder.map((k) => <li>{k}</li>)}</ul>
+      </div>
+    </section>
+  )}
+  <CtaBand />
+</Base>
+
+<style>
+  .refs { list-style: none; padding: 0; margin: var(--s6) 0 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s5); }
+  .ref { border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s5); }
+  .ref h2 { font-size: 1.5rem; margin-top: var(--s3); }
+  .ref p { margin: 0; }
+  .ref__tag { display: inline-block; font-size: .85rem; font-weight: 700; padding: var(--s1) var(--s3); background: var(--blue-50); border-radius: 999px; text-decoration: none; }
+  @media (max-width: 800px) { .refs { grid-template-columns: 1fr; } }
+  .kunder { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--s3); }
+  .kunder li { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s3) var(--s4); font-weight: 600; color: var(--ink); }
+</style>

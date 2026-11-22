@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+# Originalbilder från gamla sajten (82 MB) – används som källa, checkas inte in
+src/assets/img/original/*
+!src/assets/img/original/INDEX.md
+# Hemligheter för formuläret
+public/api/config.php

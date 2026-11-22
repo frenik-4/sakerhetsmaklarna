@@ -1,0 +1,138 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+import Faq from '../components/Faq.astro';
+import CtaBand from '../components/CtaBand.astro';
+import start from '../data/start.json';
+import faq from '../data/faq.json';
+import referenser from '../data/referenser.json';
+import kunder from '../data/kunder.json';
+import hero from '../assets/img/hero-skapbil.jpg';
+import montor from '../assets/img/montor.jpg';
+import { SITE, url } from '../lib/site';
+---
+<Base
+  title="Larmuthyrning i Stockholm – hyrlarm i drift samma dag | Säkerhetsmäklarna"
+  description="Hyr larm för bygge, ställning, butik, kontor och evenemang. Vi installerar, kopplar till larmcentral och tar ner igen – oftast i drift samma dag.">
+
+  <section class="hero">
+    <div class="wrap hero__in">
+      <div class="hero__copy">
+        <h1>{start.heroH1}</h1>
+        <p class="lead">{start.heroLead}</p>
+        <div class="hero__btns">
+          <a class="btn btn--primary" href={SITE.telefonHref}><Icon name="phone" />Ring {SITE.telefon}</a>
+          <a class="btn btn--secondary" href={url('/kontakt/')}>Begär offert</a>
+        </div>
+        <ul class="hero__proof">
+          <li><Icon name="check" />Larmuthyrning sedan {SITE.grundat}</li>
+          <li><Icon name="check" />Kopplat till larmcentral dygnet runt</li>
+        </ul>
+      </div>
+      <Image src={hero} alt="Säkerhetsmäklarnas servicebil framför en tegelbyggnad" widths={[600, 900, 1300]} sizes="(max-width: 900px) 100vw, 560px" loading="eager" fetchpriority="high" class="hero__img" />
+    </div>
+  </section>
+
+  <section class="section usps" aria-label="Därför Säkerhetsmäklarna">
+    <div class="wrap usps__grid">
+      {start.usps.map((u) => (
+        <div class="usp">
+          <h2 class="usp__h">{u.titel}</h2>
+          <p>{u.text}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="wrap">
+      <div class="section__head">
+        <h2>Vad behöver du larma?</h2>
+        <p>Vi hyr ut larm för tillfälliga och akuta behov. Välj det som liknar ditt uppdrag.</p>
+      </div>
+      <ServiceCards />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap steps">
+      <div>
+        <h2>Så går det till</h2>
+        <ol class="steps__list">
+          {start.steg.map((s, i) => (
+            <li>
+              <span class="steps__n" aria-hidden="true">{i + 1}</span>
+              <div><h3>{s.titel}</h3><p>{s.text}</p></div>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <Image src={montor} alt="Montör från Säkerhetsmäklarna sätter upp en detektor på en byggställning" widths={[500, 900]} sizes="(max-width: 900px) 100vw, 500px" class="steps__img" />
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="wrap">
+      <div class="section__head">
+        <h2>Uppdrag vi har gjort</h2>
+      </div>
+      <ul class="refs">
+        {referenser.slice(0, 3).map((r) => (
+          <li class="ref"><h3>{r.titel}</h3><p>{r.text}</p></li>
+        ))}
+      </ul>
+      {kunder.length > 0 && (
+        <p class="kunder"><strong>Bland våra kunder:</strong> {kunder.join(' · ')}</p>
+      )}
+      <a href={url('/referenser/')} class="more">Fler uppdrag <Icon name="arrow" /></a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <Faq items={faq.slice(0, 5)} />
+      <a href={url('/fragor-och-svar/')} class="more">Alla frågor och svar <Icon name="arrow" /></a>
+    </div>
+  </section>
+
+  <CtaBand />
+</Base>
+
+<style>
+  .hero { padding: var(--s7) 0 var(--s8); }
+  .hero__in { display: grid; grid-template-columns: 1.05fr 1fr; gap: var(--s7); align-items: center; }
+  .hero__btns { display: flex; gap: var(--s3); flex-wrap: wrap; margin: var(--s5) 0; }
+  .hero__proof { list-style: none; padding: 0; margin: 0; display: flex; gap: var(--s5); flex-wrap: wrap; color: var(--text); font-weight: 600; font-size: .95rem; }
+  .hero__proof li { display: flex; align-items: center; gap: var(--s2); }
+  .hero__proof :global(svg) { width: 18px; height: 18px; color: var(--ok); }
+  .hero :global(.hero__img) { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
+  @media (max-width: 900px) {
+    .hero { padding-top: var(--s5); }
+    .hero__in { grid-template-columns: 1fr; gap: var(--s5); }
+  }
+
+  .usps { padding: var(--s7) 0; border-bottom: 1px solid var(--line); }
+  .usps__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s6); }
+  .usp__h { font-size: 1.35rem; color: var(--blue); }
+  .usp p { margin: 0; }
+  @media (max-width: 800px) { .usps__grid { grid-template-columns: 1fr; gap: var(--s5); } }
+
+  .steps { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s7); align-items: center; }
+  .steps__list { list-style: none; padding: 0; margin: var(--s5) 0 0; display: grid; gap: var(--s5); }
+  .steps__list li { display: flex; gap: var(--s4); }
+  .steps__list h3 { margin-bottom: var(--s1); }
+  .steps__list p { margin: 0; }
+  .steps__n { flex: none; width: 44px; height: 44px; border-radius: 50%; background: var(--yellow); color: #1a1a1a; display: grid; place-items: center; font: 400 1.35rem var(--font-head); }
+  .steps :global(.steps__img) { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
+  @media (max-width: 900px) { .steps { grid-template-columns: 1fr; } }
+
+  .refs { list-style: none; padding: 0; margin: 0 0 var(--s5); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s5); }
+  .ref { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s5); }
+  .ref p { margin: 0; }
+  @media (max-width: 900px) { .refs { grid-template-columns: 1fr; } }
+  .kunder { color: var(--text); }
+  .more { display: inline-flex; align-items: center; gap: var(--s2); font-weight: 700; margin-top: var(--s4); }
+  .more :global(svg) { width: 18px; height: 18px; }
+</style>

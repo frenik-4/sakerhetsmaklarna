@@ -1,0 +1,77 @@
+---
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import Faq from '../components/Faq.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+import { TJANST_BILD } from '../lib/bilder';
+import { SITE } from '../lib/site';
+
+export async function getStaticPaths() {
+  const tjanster = await getCollection('tjanster');
+  return tjanster.map((t) => ({ params: { tjanst: t.id }, props: { t } }));
+}
+const { t } = Astro.props;
+const { Content } = await render(t);
+const bild = TJANST_BILD[t.id];
+---
+<Base title={t.data.title} description={t.data.description}>
+  <section class="thero">
+    <div class="wrap thero__in">
+      <div>
+        <h1>{t.data.h1}</h1>
+        <ul class="benefits">
+          {t.data.benefits.map((b) => <li><Icon name="check" />{b}</li>)}
+        </ul>
+        <div class="thero__btns">
+          <a class="btn btn--primary" href={SITE.telefonHref}><Icon name="phone" />Ring {SITE.telefon}</a>
+          <a class="btn btn--secondary" href="#offert">Begär offert</a>
+        </div>
+      </div>
+      <Image src={bild.src} alt={bild.alt} widths={[600, 900, 1200]} sizes="(max-width: 900px) 100vw, 520px" loading="eager" fetchpriority="high" class="thero__img" />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap tbody">
+      <article class="prose"><Content /></article>
+      <aside class="tside" id="offert" aria-labelledby="offert-rubrik">
+        <h2 id="offert-rubrik">Begär offert</h2>
+        <p>Vi ringer upp, oftast samma dag.</p>
+        <QuoteForm />
+      </aside>
+    </div>
+  </section>
+
+  {t.data.faq.length > 0 && (
+    <section class="section section--soft">
+      <div class="wrap"><Faq items={t.data.faq} /></div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Andra larmlösningar</h2>
+      <ServiceCards exclude={t.id} />
+    </div>
+  </section>
+</Base>
+
+<style>
+  .thero { padding: var(--s7) 0; background: var(--bg-soft); }
+  .thero__in { display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--s7); align-items: center; }
+  .thero h1 { font-size: clamp(1.9rem, 3.8vw, 2.75rem); }
+  .benefits { list-style: none; padding: 0; margin: 0 0 var(--s5); display: grid; gap: var(--s2); }
+  .benefits li { display: flex; gap: var(--s2); align-items: flex-start; font-weight: 600; color: var(--ink); }
+  .benefits :global(svg) { width: 20px; height: 20px; color: var(--ok); flex: none; margin-top: 4px; }
+  .thero__btns { display: flex; gap: var(--s3); flex-wrap: wrap; }
+  .thero :global(.thero__img) { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
+  @media (max-width: 900px) { .thero__in { grid-template-columns: 1fr; gap: var(--s5); } .thero { padding-top: var(--s5); } }
+
+  .tbody { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: var(--s8); align-items: start; }
+  .tside { position: sticky; top: 100px; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s5); box-shadow: var(--shadow); }
+  .tside h2 { font-size: 1.6rem; margin-bottom: var(--s1); }
+  @media (max-width: 1000px) { .tbody { grid-template-columns: 1fr; } .tside { position: static; } }
+</style>

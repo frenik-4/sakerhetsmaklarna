@@ -1,0 +1,39 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { TJANST_BILD } from '../lib/bilder';
+import { url } from '../lib/site';
+interface Props { exclude?: string; }
+const { exclude } = Astro.props;
+const tjanster = (await getCollection('tjanster')).filter((t) => t.id !== exclude).sort((a, b) => a.data.order - b.data.order);
+const namn: Record<string, string> = { bygglarm: 'Bygglarm', stallningslarm: 'Ställningslarm', 'butik-kontor': 'Butik & kontor', kamerabevakning: 'Kamerabevakning', larmvaska: 'Larmväska' };
+---
+<ul class="cards">
+  {tjanster.map((t) => (
+    <li class="card">
+      <Image src={TJANST_BILD[t.id].src} alt="" widths={[400, 700]} sizes="(max-width: 700px) 100vw, 360px" class="card__img" />
+      <div class="card__body">
+        <h3><a href={url(`/${t.id}/`)} class="card__link">{namn[t.id] ?? t.data.h1}</a></h3>
+        <p>{t.data.short}</p>
+        <span class="card__more" aria-hidden="true">Läs mer <Icon name="arrow" /></span>
+      </div>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .cards { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s5); grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
+  .card { position: relative; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: border-color .15s; }
+  .card:hover { border-color: var(--blue); }
+  .card :global(.card__img) { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+  .card__body { padding: var(--s4) var(--s5) var(--s5); display: flex; flex-direction: column; flex: 1; }
+  .card h3 { margin-bottom: var(--s2); }
+  .card p { color: var(--text); flex: 1; }
+  .card__link { color: var(--ink); text-decoration: none; }
+  .card__link::after { content: ''; position: absolute; inset: 0; }
+  .card__more { display: inline-flex; align-items: center; gap: var(--s2); color: var(--blue); font-weight: 700; }
+  .card__more :global(svg) { width: 18px; height: 18px; }
+  .card:focus-within { outline: 3px solid var(--blue); outline-offset: 2px; }
+  .card__link:focus-visible { outline: none; }
+</style>

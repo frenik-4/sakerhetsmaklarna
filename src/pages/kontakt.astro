@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import { SITE } from '../lib/site';
+---
+<Base title="Kontakt och offert – hyr larm | Säkerhetsmäklarna" description="Ring 08-752 98 00 eller skicka en offertförfrågan. Säkerhetsmäklarna, Strålgatan 11, Stockholm. Larmet är oftast i drift samma dag.">
+  <section class="section">
+    <div class="wrap kontakt">
+      <div>
+        <h1>Kontakta oss</h1>
+        <p class="lead">Snabbast är att ringa. Då kan vi oftast ha larmet i drift samma dag.</p>
+        <a class="btn btn--primary big" href={SITE.telefonHref}><Icon name="phone" />Ring {SITE.telefon}</a>
+        <dl class="info">
+          <dt>E-post</dt><dd><a href={`mailto:${SITE.epost}`}>{SITE.epost}</a></dd>
+          <dt>Adress</dt><dd>{SITE.juridisktNamn}<br />{SITE.gata}<br />{SITE.postnr} {SITE.ort}</dd>
+        </dl>
+      </div>
+      <div class="kontakt__form">
+        <h2>Begär offert</h2>
+        <p>Fyll i det du vet, så ringer vi upp.</p>
+        <QuoteForm />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .kontakt { display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--s8); align-items: start; }
+  .big { margin: var(--s3) 0 var(--s6); font-size: 1.1rem; }
+  .info { display: grid; grid-template-columns: auto 1fr; gap: var(--s3) var(--s5); margin: 0; }
+  .info dt { font-weight: 700; color: var(--ink); }
+  .info dd { margin: 0; }
+  .kontakt__form { background: var(--bg-soft); border-radius: var(--radius); padding: var(--s6); }
+  @media (max-width: 900px) { .kontakt { grid-template-columns: 1fr; gap: var(--s6); } .kontakt__form { padding: var(--s5); } }
+</style>

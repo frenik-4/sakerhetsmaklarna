@@ -1,0 +1,15 @@
+{
+  "heroH1": "Hyr larm i Stockholm – i drift samma dag",
+  "heroLead": "Säkerhetsmäklarna hyr ut och installerar mobila larm för byggarbetsplatser, ställningar, butiker, kontor och evenemang. Vi kopplar larmet till larmcentral och tar ner det när du är klar.",
+  "usps": [
+    {"titel": "I drift samma dag", "text": "Vi arbetar i huvudsak med trådlösa detektorer, så larmet är ofta i drift samma dag som du ringer."},
+    {"titel": "Bildverifiering vid larm", "text": "Detektorer med kamera skickar bilder till larmcentralen, så väktare bara åker ut när det behövs."},
+    {"titel": "Vi sköter allt", "text": "Installation, uppkoppling mot larmcentral och nedmontering. Larmet anpassas under tiden, och du hyr så länge du behöver."}
+  ],
+  "steg": [
+    {"titel": "Ring oss", "text": "Berätta vad du behöver skydda och när. Ring 08-752 98 00."},
+    {"titel": "Vi installerar", "text": "Vi monterar trådlösa detektorer, kopplar upp mot larmcentral och testar att allt fungerar."},
+    {"titel": "Larmet i drift", "text": "Larmet övervakas dygnet runt av larmcentral. Behovet ändras, så justerar vi, och när du är klar monterar vi ner."}
+  ],
+  "omKort": "Säkerhetsmäklarna startades 1999 och hyr idag ut mobila larmsystem till företag, främst inom bygg, fastighet, handel och event. Vi sitter på Strålgatan 11 i Stockholm och arbetar i hela landet."
+}

@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import ServiceCards from '../components/ServiceCards.astro';
+import { SITE, url } from '../lib/site';
+---
+<Base title="Sidan finns inte | Säkerhetsmäklarna" description="Sidan du letade efter finns inte.">
+  <section class="section">
+    <div class="wrap">
+      <h1>Sidan finns inte</h1>
+      <p class="lead">Den kan ha flyttats när vi byggde om webbplatsen. Gå till <a href={url('/')}>startsidan</a> eller ring <a href={SITE.telefonHref}>{SITE.telefon}</a>.</p>
+      <h2>Våra larmlösningar</h2>
+      <ServiceCards />
+    </div>
+  </section>
+</Base>

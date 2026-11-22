@@ -1,0 +1,121 @@
+# Redirects från gamla sajten till nya URL:er
+# Apache mod_rewrite-regler (301). Gäller både /?page_id=NN och /index.php?page_id=NN.
+# Avslutande ? i målet tar bort query stringen.
+
+RewriteEngine On
+
+# 2 startsida -> /
+RewriteCond %{QUERY_STRING} ^page_id=2$
+RewriteRule ^(index\.php)?$ /? [R=301,L]
+
+# 270 tack-for-ditt-intresse-2 -> /kontakt/
+RewriteCond %{QUERY_STRING} ^page_id=270$
+RewriteRule ^(index\.php)?$ /kontakt/? [R=301,L]
+
+# 4 tack-for-ditt-intresse -> /kontakt/
+RewriteCond %{QUERY_STRING} ^page_id=4$
+RewriteRule ^(index\.php)?$ /kontakt/? [R=301,L]
+
+# 256 utrymningslarm-byggarbetsplats -> /bygglarm/
+RewriteCond %{QUERY_STRING} ^page_id=256$
+RewriteRule ^(index\.php)?$ /bygglarm/? [R=301,L]
+
+# 253 uthyrning-larm -> /
+RewriteCond %{QUERY_STRING} ^page_id=253$
+RewriteRule ^(index\.php)?$ /? [R=301,L]
+
+# 251 stallningslarm -> /stallningslarm/
+RewriteCond %{QUERY_STRING} ^page_id=251$
+RewriteRule ^(index\.php)?$ /stallningslarm/? [R=301,L]
+
+# 246 tillfalligt-inbrottslarm -> /bygglarm/
+RewriteCond %{QUERY_STRING} ^page_id=246$
+RewriteRule ^(index\.php)?$ /bygglarm/? [R=301,L]
+
+# 244 larmuthyrning-foretag -> /
+RewriteCond %{QUERY_STRING} ^page_id=244$
+RewriteRule ^(index\.php)?$ /? [R=301,L]
+
+# 241 larmvaska -> /larmvaska/
+RewriteCond %{QUERY_STRING} ^page_id=241$
+RewriteRule ^(index\.php)?$ /larmvaska/? [R=301,L]
+
+# 239 larm-bodetablering -> /bygglarm/
+RewriteCond %{QUERY_STRING} ^page_id=239$
+RewriteRule ^(index\.php)?$ /bygglarm/? [R=301,L]
+
+# 237 larm-byggarbetsplats -> /bygglarm/
+RewriteCond %{QUERY_STRING} ^page_id=237$
+RewriteRule ^(index\.php)?$ /bygglarm/? [R=301,L]
+
+# 233 larm-byggstallning -> /stallningslarm/
+RewriteCond %{QUERY_STRING} ^page_id=233$
+RewriteRule ^(index\.php)?$ /stallningslarm/? [R=301,L]
+
+# 230 kameralarm-foretag -> /kamerabevakning/
+RewriteCond %{QUERY_STRING} ^page_id=230$
+RewriteRule ^(index\.php)?$ /kamerabevakning/? [R=301,L]
+
+# 226 kamerabevakning-i-stockholm -> /kamerabevakning/
+RewriteCond %{QUERY_STRING} ^page_id=226$
+RewriteRule ^(index\.php)?$ /kamerabevakning/? [R=301,L]
+
+# 222 inbrottslarm-byggarbetsplats -> /bygglarm/
+RewriteCond %{QUERY_STRING} ^page_id=222$
+RewriteRule ^(index\.php)?$ /bygglarm/? [R=301,L]
+
+# 218 hyrlarm -> /
+RewriteCond %{QUERY_STRING} ^page_id=218$
+RewriteRule ^(index\.php)?$ /? [R=301,L]
+
+# 214 bygglarm -> /bygglarm/
+RewriteCond %{QUERY_STRING} ^page_id=214$
+RewriteRule ^(index\.php)?$ /bygglarm/? [R=301,L]
+
+# 203 alarm-byggarbetsplats -> /bygglarm/
+RewriteCond %{QUERY_STRING} ^page_id=203$
+RewriteRule ^(index\.php)?$ /bygglarm/? [R=301,L]
+
+# 161 cookies -> /integritetspolicy/
+RewriteCond %{QUERY_STRING} ^page_id=161$
+RewriteRule ^(index\.php)?$ /integritetspolicy/? [R=301,L]
+
+# 122 sitemap -> /
+RewriteCond %{QUERY_STRING} ^page_id=122$
+RewriteRule ^(index\.php)?$ /? [R=301,L]
+
+# 87 kunder -> /referenser/
+RewriteCond %{QUERY_STRING} ^page_id=87$
+RewriteRule ^(index\.php)?$ /referenser/? [R=301,L]
+
+# 39 for-stallningar -> /stallningslarm/
+RewriteCond %{QUERY_STRING} ^page_id=39$
+RewriteRule ^(index\.php)?$ /stallningslarm/? [R=301,L]
+
+# 37 for-byggen -> /bygglarm/
+RewriteCond %{QUERY_STRING} ^page_id=37$
+RewriteRule ^(index\.php)?$ /bygglarm/? [R=301,L]
+
+# 35 for-butiker-kontor -> /butik-kontor/
+RewriteCond %{QUERY_STRING} ^page_id=35$
+RewriteRule ^(index\.php)?$ /butik-kontor/? [R=301,L]
+
+# 16 kontakt -> /kontakt/
+RewriteCond %{QUERY_STRING} ^page_id=16$
+RewriteRule ^(index\.php)?$ /kontakt/? [R=301,L]
+
+# 14 om-oss -> /om-oss/
+RewriteCond %{QUERY_STRING} ^page_id=14$
+RewriteRule ^(index\.php)?$ /om-oss/? [R=301,L]
+
+# 12 referenser -> /referenser/
+RewriteCond %{QUERY_STRING} ^page_id=12$
+RewriteRule ^(index\.php)?$ /referenser/? [R=301,L]
+
+# 10 varalarmlosningar -> /
+RewriteCond %{QUERY_STRING} ^page_id=10$
+RewriteRule ^(index\.php)?$ /? [R=301,L]
+
+# 8 tjanster -> /
+RewriteCond %{QUERY_STRING} ^page_id=8$
+RewriteRule ^(index\.php)?$ /? [R=301,L]

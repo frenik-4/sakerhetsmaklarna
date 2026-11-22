@@ -1,0 +1,26 @@
+---
+import Icon from './Icon.astro';
+import { SITE, url } from '../lib/site';
+interface Props { rubrik?: string; text?: string; }
+const { rubrik = 'Behöver du larm redan i dag?', text = 'Ring oss så berättar vi vad som går att ordna. I de flesta fall är larmet i drift samma dag som beställningen.' } = Astro.props;
+---
+<section class="cta">
+  <div class="wrap cta__in">
+    <div>
+      <h2>{rubrik}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="cta__btns">
+      <a class="btn btn--primary" href={SITE.telefonHref}><Icon name="phone" />Ring {SITE.telefon}</a>
+      <a class="btn btn--on-blue" href={url('/kontakt/')}>Begär offert</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta { background: var(--blue); color: #fff; padding: var(--s8) 0; }
+  .cta h2 { color: #fff; }
+  .cta p { max-width: 52ch; margin: 0; }
+  .cta__in { display: flex; gap: var(--s6); align-items: center; justify-content: space-between; flex-wrap: wrap; }
+  .cta__btns { display: flex; gap: var(--s3); flex-wrap: wrap; }
+</style>

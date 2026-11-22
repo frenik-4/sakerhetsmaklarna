@@ -1,0 +1,17 @@
+# Testmiljö: håll sökmotorer borta (tas bort vid lansering på sakerhetsmaklarna.se)
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow"
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set X-Frame-Options "SAMEORIGIN"
+  <FilesMatch "\.(webp|jpg|png|svg|woff2|css|js)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+ErrorDocument 404 /sakerhetsmaklarna/404.html
+
+# Skydda formulärets config om den laddas upp
+<Files "config.php">
+  Require all denied
+</Files>

@@ -1,0 +1,35 @@
+---
+interface Props { items: { q: string; a: string; todo?: string }[]; rubrik?: string; }
+const { items, rubrik = 'Vanliga frågor' } = Astro.props;
+// Dölj frågor där svaret är ett TODO eller bygger på ett antagande som Tobbe inte bekräftat
+const synliga = items.filter((i) => !/TODO/i.test(i.a) && !(i.todo && /antag/i.test(i.todo)));
+const schema = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: synliga.map((i) => ({ '@type': 'Question', name: i.q, acceptedAnswer: { '@type': 'Answer', text: i.a } })),
+};
+---
+{synliga.length > 0 && (
+  <section class="faq" aria-labelledby="faq-rubrik">
+    <h2 id="faq-rubrik">{rubrik}</h2>
+    {synliga.map((i) => (
+      <details>
+        <summary>{i.q}</summary>
+        <p>{i.a}</p>
+      </details>
+    ))}
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  </section>
+)}
+
+<style>
+  .faq { max-width: 68ch; }
+  details { border-bottom: 1px solid var(--line); }
+  summary {
+    cursor: pointer; list-style: none; padding: var(--s4) var(--s6) var(--s4) 0; position: relative;
+    font-weight: 700; color: var(--ink);
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: '+'; position: absolute; right: 0; top: 50%; translate: 0 -50%; font-size: 1.5rem; color: var(--blue); }
+  details[open] summary::after { content: '–'; }
+  details p { padding-bottom: var(--s4); }
+</style>

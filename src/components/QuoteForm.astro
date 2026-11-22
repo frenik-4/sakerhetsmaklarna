@@ -1,0 +1,101 @@
+---
+import { url, SITE } from '../lib/site';
+const typer = ['Byggarbetsplats', 'Ställning', 'Butik eller kontor', 'Kamerabevakning', 'Evenemang eller container', 'Annat / vet inte'];
+const action = url('/api/offert.php');
+---
+<form class="qf" method="post" action={action} novalidate>
+  <div class="qf__row">
+    <div class="qf__field">
+      <label for="qf-namn">Namn</label>
+      <input id="qf-namn" name="namn" type="text" autocomplete="name" required />
+    </div>
+    <div class="qf__field">
+      <label for="qf-tel">Telefon</label>
+      <input id="qf-tel" name="telefon" type="tel" autocomplete="tel" inputmode="tel" placeholder="070-123 45 67" required />
+    </div>
+  </div>
+  <div class="qf__row">
+    <div class="qf__field">
+      <label for="qf-epost">E-post <span class="qf__opt">(frivilligt)</span></label>
+      <input id="qf-epost" name="epost" type="email" autocomplete="email" spellcheck="false" />
+    </div>
+    <div class="qf__field">
+      <label for="qf-start">Önskad start</label>
+      <input id="qf-start" name="start" type="date" />
+    </div>
+  </div>
+  <div class="qf__field">
+    <label for="qf-typ">Vad ska larmas?</label>
+    <select id="qf-typ" name="typ">
+      {typer.map((t) => <option>{t}</option>)}
+    </select>
+  </div>
+  <div class="qf__field">
+    <label for="qf-medd">Berätta kort <span class="qf__opt">(adress, storlek, hur länge)</span></label>
+    <textarea id="qf-medd" name="meddelande" rows="4"></textarea>
+  </div>
+  <!-- Fälla för spam-botar, osynlig för människor -->
+  <div class="visually-hidden" aria-hidden="true">
+    <label for="qf-web">Lämna tomt</label>
+    <input id="qf-web" name="webbplats" type="text" tabindex="-1" autocomplete="off" />
+  </div>
+  <p class="qf__gdpr">Vi använder uppgifterna bara för att kontakta dig om din förfrågan. Läs mer i vår <a href={url('/integritetspolicy/')}>integritetspolicy</a>.</p>
+  <button class="btn btn--primary qf__submit" type="submit">Skicka förfrågan</button>
+  <p class="qf__status" role="status" aria-live="polite"></p>
+</form>
+
+<script define:vars={{ tel: SITE.telefon }}>
+  document.querySelectorAll('form.qf').forEach((form) => {
+    const status = form.querySelector('.qf__status');
+    const btn = form.querySelector('.qf__submit');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+      const missing = [...form.querySelectorAll('[required]')].filter((el) => !el.value.trim());
+      if (missing.length) {
+        missing.forEach((el) => el.setAttribute('aria-invalid', 'true'));
+        status.textContent = 'Fyll i namn och telefon så ringer vi upp.';
+        status.dataset.state = 'error';
+        missing[0].focus();
+        return;
+      }
+      btn.disabled = true; btn.textContent = 'Skickar…';
+      try {
+        const res = await fetch(form.action, { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        const data = await res.json();
+        if (!res.ok || !data.ok) throw new Error(data.error || 'fel');
+        form.reset();
+        status.dataset.state = 'ok';
+        status.textContent = data.test
+          ? 'Tack! (Testmiljö: förfrågan sparades inte och skickades inte.)'
+          : 'Tack! Vi hör av oss så snart vi kan, oftast samma dag.';
+      } catch {
+        status.dataset.state = 'error';
+        status.textContent = `Det gick inte att skicka just nu. Ring oss på ${tel}.`;
+      } finally {
+        btn.disabled = false; btn.textContent = 'Skicka förfrågan';
+      }
+    });
+  });
+</script>
+
+<style>
+  .qf { display: grid; gap: var(--s4); }
+  .qf__row { display: grid; gap: var(--s4); grid-template-columns: 1fr 1fr; align-items: end; }
+  @media (max-width: 560px) { .qf__row { grid-template-columns: 1fr; } }
+  .qf__field { display: grid; gap: var(--s2); }
+  label { font-weight: 600; color: var(--ink); font-size: .95rem; }
+  .qf__opt { font-weight: 400; color: var(--muted); }
+  input, select, textarea {
+    font: inherit; font-size: 1rem; width: 100%; min-height: 48px; padding: var(--s3); color: var(--ink);
+    background: #fff; border: 1px solid #b9c2cd; border-radius: var(--radius);
+  }
+  textarea { resize: vertical; }
+  input:focus, select:focus, textarea:focus { outline: 3px solid rgba(0, 92, 185, .25); border-color: var(--blue); }
+  [aria-invalid='true'] { border-color: var(--error); }
+  .qf__gdpr { font-size: .9rem; color: var(--muted); margin: 0; }
+  .qf__submit { justify-self: start; }
+  .qf__status { margin: 0; font-weight: 600; }
+  .qf__status[data-state='ok'] { color: var(--ok); }
+  .qf__status[data-state='error'] { color: var(--error); }
+</style>

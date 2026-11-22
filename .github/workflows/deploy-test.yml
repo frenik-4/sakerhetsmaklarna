@@ -1,0 +1,42 @@
+# Bygger sajten och laddar upp den till testmiljön asparagus.se/sakerhetsmaklarna/
+# Kräver repo-secrets: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD, FTP_SERVER_DIR
+# (FTP_SERVER_DIR t.ex. "/public_html/sakerhetsmaklarna/" – mappen under webbroten hos Inleed)
+name: Deploy test (asparagus.se)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-test
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+        env:
+          SITE_URL: https://asparagus.se
+          BASE_PATH: /sakerhetsmaklarna
+      - name: Ladda upp via FTPS
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./dist/
+          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          # Rör aldrig formulärets hemliga config på servern
+          exclude: |
+            **/.git*
+            **/.git*/**
+            api/config.php

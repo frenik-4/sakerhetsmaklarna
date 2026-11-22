@@ -1,0 +1,41 @@
+[
+  {
+    "q": "Hur snabbt kan larmet vara i drift?",
+    "a": "I de flesta fall samma dag som du beställer. Vi arbetar i huvudsak med trådlösa detektorer, vilket gör installationen snabb. Ring 08-752 98 00 så bokar vi in installationen.",
+    "todo": "TODO Tobbe: gäller samma-dag-löftet även helger och utanför Stockholm? Vilket är senaste klockslag för beställning samma dag?"
+  },
+  {
+    "q": "Hur länge kan jag hyra larmet?",
+    "a": "Du hyr larmet så länge du behöver det, och vi monterar ner det när uppdraget är slut.",
+    "todo": "TODO Tobbe: finns minsta hyrestid, bindningstid eller uppsägningstid?"
+  },
+  {
+    "q": "Vad ingår i uthyrningen?",
+    "a": "Vi tar hand om hela jobbet: installation, montering och uppkoppling mot larmcentral, och därefter nedmontering när du inte längre behöver larmet. Larmet kan ändras under tiden, till exempel i takt med att ett bygge fortskrider.",
+    "todo": "TODO Tobbe: vad ingår i hyran och vad debiteras separat (installation, utryckning, service, batteri)?"
+  },
+  {
+    "q": "Vad kostar det att hyra larm?",
+    "a": "Priset beror på typ av larm, antal detektorer och hyrestid. Ring oss så får du en offert.",
+    "todo": "TODO Tobbe: prismodell, och ev. från-pris vi får visa (konkurrenter visar från-pris i sökresultaten)."
+  },
+  {
+    "q": "Vilken larmcentral kopplas larmet till?",
+    "a": "Vi ansluter larmet till någon av de stora larmcentralerna, där övervakning och utryckningsberedskap finns dygnet runt. Vi samarbetar med flera larmcentraler och bevakningsföretag. Vid larm vidtar larmcentralen åtgärder enligt det vi kommit överens om, oftast genom att skicka en väktare.",
+    "todo": "TODO Tobbe: får vi nämna vilka larmcentraler och bevakningsbolag ni samarbetar med?"
+  },
+  {
+    "q": "Vem äger utrustningen?",
+    "a": "Utrustningen är vår, och du hyr den. Du behöver inte köpa något.",
+    "todo": "TODO Tobbe: bekräfta ägande, ansvar vid skada eller förlust och försäkring av utrustningen."
+  },
+  {
+    "q": "Var i landet kan ni installera larm?",
+    "a": "Vi sitter i Stockholm men arbetar i hela landet. Vi har till exempel monterat larm i en stormarknad i Örebro, och larmat containrar från Ystad till Haparanda.",
+    "todo": "TODO Tobbe: finns installatörer/samarbetspartners utanför Stockholm, och är samma-dag-installation möjlig överallt?"
+  },
+  {
+    "q": "Kan ni minska onödiga väktarutryckningar?",
+    "a": "Ja. Våra rörelsedetektorer med bildverifiering skickar bilder till larmcentralen vid larm. Operatören ser om det finns personer på plats innan en väktare skickas, vilket eliminerar utryckningar på grund av fåglar eller sönderblåsta skyddstäckningar."
+  }
+]

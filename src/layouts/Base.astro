@@ -1,0 +1,191 @@
+---
+import '../styles/global.css';
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+import Icon from '../components/Icon.astro';
+import { SITE, NAV, url } from '../lib/site';
+
+interface Props { title: string; description: string; }
+const { title, description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const path = Astro.url.pathname;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  name: SITE.juridisktNamn,
+  alternateName: SITE.namn,
+  url: new URL(url('/'), Astro.site).href,
+  telephone: '+46-8-752-98-00',
+  email: SITE.epost,
+  foundingDate: String(SITE.grundat),
+  address: { '@type': 'PostalAddress', streetAddress: SITE.gata, postalCode: SITE.postnr, addressLocality: SITE.ort, addressCountry: 'SE' },
+  areaServed: 'Stockholm',
+  description: 'Larmuthyrning för tillfälliga och akuta behov: bygglarm, ställningslarm, kamerabevakning och larmväskor.',
+};
+---
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {!SITE.indexera && <meta name="robots" content="noindex, nofollow" />}
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="sv_SE" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <link rel="icon" href={url('/favicon.png')} type="image/png" />
+  <meta name="theme-color" content="#005cb9" />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <slot name="head" />
+</head>
+<body>
+  <a class="skip" href="#innehall">Hoppa till innehållet</a>
+
+  <header class="hdr">
+    <div class="wrap hdr__in">
+      <a href={url('/')} class="hdr__logo" aria-label="Säkerhetsmäklarna – startsida">
+        <Image src={logo} alt="" width={96} height={77} loading="eager" />
+      </a>
+      <nav class="hdr__nav" aria-label="Huvudmeny">
+        <ul>
+          {NAV.map((n) => (
+            <li><a href={url(n.href)} aria-current={path === url(n.href) ? 'page' : undefined}>{n.label}</a></li>
+          ))}
+        </ul>
+      </nav>
+      <div class="hdr__cta">
+        <a class="hdr__login" href={url('/kameror/')} aria-current={path === url('/kameror/') ? 'page' : undefined}><Icon name="lock" /><span>Logga in</span></a>
+        <a class="hdr__phone" href={SITE.telefonHref}><Icon name="phone" /><span>{SITE.telefon}</span></a>
+        <a class="btn btn--primary hdr__offert" href={url('/kontakt/')}>Begär offert</a>
+      </div>
+      <button class="hdr__menu" type="button" aria-label="Meny" aria-expanded="false" aria-controls="mobilmeny">
+        <Icon name="menu" />
+      </button>
+    </div>
+    <div id="mobilmeny" class="mnav" hidden>
+      <ul class="wrap">
+        {NAV.map((n) => <li><a href={url(n.href)}>{n.label}</a></li>)}
+        <li><a href={url('/om-oss/')}>Om oss</a></li>
+        <li><a href={url('/fragor-och-svar/')}>Frågor och svar</a></li>
+        <li><a href={url('/kontakt/')}>Kontakt</a></li>
+        <li><a href={url('/kameror/')}>Mina kameror (logga in)</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="innehall">
+    <slot />
+  </main>
+
+  <footer class="ftr">
+    <div class="wrap ftr__grid">
+      <div>
+        <Image src={logo} alt="Säkerhetsmäklarna" width={220} height={176} class="ftr__logo" loading="eager" />
+        <p class="ftr__tag">Larmuthyrning för tillfälliga och akuta behov sedan {SITE.grundat}.</p>
+      </div>
+      <div>
+        <h2 class="ftr__h">Kontakt</h2>
+        <p>
+          <a href={SITE.telefonHref}>{SITE.telefon}</a><br />
+          <a href={`mailto:${SITE.epost}`}>{SITE.epost}</a><br />
+          {SITE.gata}, {SITE.postnr} {SITE.ort}
+        </p>
+      </div>
+      <div>
+        <h2 class="ftr__h">Tjänster</h2>
+        <ul class="ftr__links">
+          {NAV.slice(0, 5).map((n) => <li><a href={url(n.href)}>{n.label}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <h2 class="ftr__h">Företaget</h2>
+        <ul class="ftr__links">
+          <li><a href={url('/referenser/')}>Referenser</a></li>
+          <li><a href={url('/om-oss/')}>Om oss</a></li>
+          <li><a href={url('/fragor-och-svar/')}>Frågor och svar</a></li>
+          <li><a href={url('/kontakt/')}>Kontakt</a></li>
+          <li><a href={url('/integritetspolicy/')}>Integritetspolicy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="wrap ftr__legal">© {new Date().getFullYear()} {SITE.juridisktNamn}. Vi använder inga spårningskakor.</div>
+  </footer>
+
+  <!-- Mobil: alltid nåbar ring-knapp -->
+  <div class="callbar">
+    <a class="btn btn--primary" href={SITE.telefonHref}><Icon name="phone" />Ring {SITE.telefon}</a>
+    <a class="btn btn--on-blue" href={url('/kontakt/')}>Offert</a>
+  </div>
+
+  <script>
+    const btn = document.querySelector<HTMLButtonElement>('.hdr__menu');
+    const menu = document.getElementById('mobilmeny');
+    btn?.addEventListener('click', () => {
+      const open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      if (menu) menu.hidden = open;
+    });
+  </script>
+</body>
+</html>
+
+<style>
+  .hdr { position: sticky; top: 0; z-index: 50; background: #fff; border-top: 6px solid var(--blue); border-bottom: 1px solid var(--line); }
+  .hdr__in { display: flex; align-items: center; gap: var(--s4); min-height: 76px; }
+  .hdr__logo { flex: none; }
+  .hdr__logo img { width: 80px; height: auto; }
+  .hdr__cta { flex: none; }
+  .hdr__nav { flex: 1; }
+  .hdr__nav ul { display: flex; gap: 0; list-style: none; margin: 0; padding: 0; flex-wrap: nowrap; }
+  .hdr__nav a { display: block; padding: var(--s2) var(--s2); color: var(--ink); text-decoration: none; font-weight: 600; font-size: .92rem; border-radius: 6px; white-space: nowrap; }
+  .hdr__nav a:hover { background: var(--bg-soft); }
+  .hdr__nav a[aria-current='page'] { color: var(--blue); box-shadow: inset 0 -3px 0 var(--blue); border-radius: 0; }
+  .hdr__cta { display: flex; align-items: center; gap: var(--s4); }
+  .hdr__phone { display: inline-flex; align-items: center; gap: var(--s2); font-weight: 700; color: var(--blue); text-decoration: none; white-space: nowrap; }
+  .hdr__phone :global(svg), .hdr__login :global(svg) { width: 18px; height: 18px; }
+  .hdr__login { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 600; font-size: .92rem; color: var(--ink); text-decoration: none; white-space: nowrap; }
+  .hdr__login:hover, .hdr__login[aria-current='page'] { color: var(--blue); }
+  .hdr__menu { display: none; margin-left: auto; width: 48px; height: 48px; border: 0; background: none; color: var(--ink); cursor: pointer; }
+  .hdr__menu :global(svg) { width: 28px; height: 28px; }
+  .mnav { border-top: 1px solid var(--line); background: #fff; }
+  .mnav ul { list-style: none; margin: 0; padding-top: var(--s2); padding-bottom: var(--s4); }
+  .mnav a { display: block; padding: var(--s3) 0; font-weight: 600; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
+
+  @media (max-width: 1339px) {
+    .hdr__nav, .hdr__offert { display: none; }
+    .hdr__menu { display: grid; place-items: center; }
+    .hdr__cta { margin-left: auto; }
+  }
+  @media (max-width: 600px) {
+    .hdr__phone, .hdr__login { display: none; }
+    .hdr__in { min-height: 64px; }
+    .hdr__logo img { width: 64px; }
+  }
+
+  .ftr { background: var(--ink); color: #d5dbe2; padding: var(--s8) 0 var(--s9); margin-top: 0; }
+  .ftr a { color: #fff; }
+  .ftr__grid { display: grid; gap: var(--s6); grid-template-columns: 1.4fr 1fr 1fr 1fr; }
+  .ftr__logo { background: #fff; padding: var(--s2); border-radius: var(--radius); width: 110px; margin-bottom: var(--s4); }
+  .ftr__tag { max-width: 30ch; }
+  .ftr__h { font-size: 1.1rem; color: #fff; margin-bottom: var(--s3); }
+  .ftr__links { list-style: none; margin: 0; padding: 0; }
+  .ftr__links li { margin-bottom: var(--s2); }
+  .ftr__legal { margin-top: var(--s7); padding-top: var(--s5); border-top: 1px solid #3a4552; font-size: .9rem; }
+  @media (max-width: 900px) { .ftr__grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .ftr__grid { grid-template-columns: 1fr; } }
+
+  .callbar { display: none; }
+  @media (max-width: 768px) {
+    .callbar {
+      display: flex; gap: var(--s2); position: fixed; inset: auto 0 0 0; z-index: 60;
+      padding: var(--s2) var(--s3) calc(var(--s2) + env(safe-area-inset-bottom));
+      background: var(--blue); box-shadow: 0 -2px 10px rgba(0,0,0,.15);
+    }
+    .callbar .btn:first-child { flex: 1; }
+  }
+</style>
