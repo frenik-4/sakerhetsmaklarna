@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
 import referenser from '../data/referenser.json';
 import kunder from '../data/kunder.json';
-import { url } from '../lib/site';
+import { SITE, url } from '../lib/site';
 const namn: Record<string, string> = { bygglarm: 'Bygglarm', stallningslarm: 'Ställningslarm', 'butik-kontor': 'Butik & kontor', kamerabevakning: 'Kamerabevakning', larmvaska: 'Larmväska' };
 ---
 <Base title="Referenser och uppdrag – larmuthyrning | Säkerhetsmäklarna" description="Exempel på uppdrag: bygglarm för hela kvarter, stormarknad larmad samma dag, containerlarm och ställningslarm. Se några av våra kunder.">
@@ -11,9 +11,9 @@ const namn: Record<string, string> = { bygglarm: 'Bygglarm', stallningslarm: 'St
     <div class="wrap">
       <h1>Referenser</h1>
       <p class="lead">Några exempel på uppdrag där vi har hyrt ut och installerat larm.</p>
-      <ul class="refs">
+      <ul class="fields refs">
         {referenser.map((r) => (
-          <li class="ref">
+          <li class="field ref">
             <a class="ref__tag" href={url(`/${r.kategori}/`)}>{namn[r.kategori] ?? r.kategori}</a>
             <h2>{r.titel}</h2>
             <p>{r.text}</p>
@@ -22,8 +22,8 @@ const namn: Record<string, string> = { bygglarm: 'Bygglarm', stallningslarm: 'St
       </ul>
     </div>
   </section>
-  {kunder.length > 0 && (
-    <section class="section section--soft">
+  {SITE.visaKunder && kunder.length > 0 && (
+    <section class="section section--plate">
       <div class="wrap">
         <h2>Några av våra kunder</h2>
         <ul class="kunder">{kunder.map((k) => <li>{k}</li>)}</ul>
@@ -34,12 +34,13 @@ const namn: Record<string, string> = { bygglarm: 'Bygglarm', stallningslarm: 'St
 </Base>
 
 <style>
-  .refs { list-style: none; padding: 0; margin: var(--s6) 0 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s5); }
-  .ref { border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s5); }
-  .ref h2 { font-size: 1.5rem; margin-top: var(--s3); }
+  .refs { list-style: none; padding: 0; margin: var(--s6) 0 0; grid-template-columns: repeat(2, 1fr); border: var(--frame) solid var(--blue); }
+  .ref { padding: var(--s5) var(--s6) var(--s6); }
+  .ref h2 { font-size: clamp(1.6rem, 2.6vw, 2.1rem); margin-top: var(--s3); }
   .ref p { margin: 0; }
-  .ref__tag { display: inline-block; font-size: .85rem; font-weight: 700; padding: var(--s1) var(--s3); background: var(--blue-50); border-radius: 999px; text-decoration: none; }
-  @media (max-width: 800px) { .refs { grid-template-columns: 1fr; } }
-  .kunder { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--s3); }
-  .kunder li { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s3) var(--s4); font-weight: 600; color: var(--ink); }
+  .ref__tag { display: inline-block; font: 700 .78rem/1.2 var(--font); font-stretch: 85%; text-transform: uppercase; letter-spacing: .1em; padding: 6px 10px; background: var(--yellow); color: var(--ink); text-decoration: none; }
+  .ref__tag:hover { background: var(--ink); color: var(--yellow); }
+  @media (max-width: 800px) { .refs { grid-template-columns: 1fr; } .ref { padding: var(--s5) var(--s4); } }
+  .kunder { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--s3) var(--s6); border-top: 2px solid var(--ink); padding-top: var(--s5); }
+  .kunder li { font: 800 1.6rem/1.1 var(--font); font-stretch: 72%; text-transform: uppercase; color: var(--ink); }
 </style>

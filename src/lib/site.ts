@@ -10,6 +10,9 @@ export const SITE = {
   grundat: 1999,
   // Testmiljö: indexeras inte av sökmotorer förrän PUBLIC_INDEXERA=true
   indexera: import.meta.env.PUBLIC_INDEXERA === 'true',
+  // Kundlistan är obekräftad (TODO Tobbe): visas i testmiljön men inte i produktion
+  // förrän PUBLIC_KUNDER_BEKRAFTADE=true.
+  visaKunder: import.meta.env.PUBLIC_INDEXERA !== 'true' || import.meta.env.PUBLIC_KUNDER_BEKRAFTADE === 'true',
 };
 
 /** Bygger en länk som respekterar base-sökvägen (/sakerhetsmaklarna/ i test). */

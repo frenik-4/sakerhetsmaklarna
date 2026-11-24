@@ -1,6 +1,5 @@
 ---
 import Base from '../layouts/Base.astro';
-import Icon from '../components/Icon.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import { SITE } from '../lib/site';
 ---
@@ -10,27 +9,35 @@ import { SITE } from '../lib/site';
       <div>
         <h1>Kontakta oss</h1>
         <p class="lead">Snabbast är att ringa. Då kan vi oftast ha larmet i drift samma dag.</p>
-        <a class="btn btn--primary big" href={SITE.telefonHref}><Icon name="phone" />Ring {SITE.telefon}</a>
+        <div class="field field--yellow kontakt__call">
+          <span class="field__k">Ring oss</span>
+          <a class="tel num" href={SITE.telefonHref}>{SITE.telefon}</a>
+        </div>
         <dl class="info">
           <dt>E-post</dt><dd><a href={`mailto:${SITE.epost}`}>{SITE.epost}</a></dd>
           <dt>Adress</dt><dd>{SITE.juridisktNamn}<br />{SITE.gata}<br />{SITE.postnr} {SITE.ort}</dd>
         </dl>
       </div>
-      <div class="kontakt__form">
-        <h2>Begär offert</h2>
-        <p>Fyll i det du vet, så ringer vi upp.</p>
-        <QuoteForm />
+      <div class="sign">
+        <div class="sign__band"><h2>Begär offert</h2></div>
+        <div class="kontakt__in">
+          <p>Fyll i det du vet, så ringer vi upp.</p>
+          <QuoteForm />
+        </div>
       </div>
     </div>
   </section>
 </Base>
 
 <style>
-  .kontakt { display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--s8); align-items: start; }
-  .big { margin: var(--s3) 0 var(--s6); font-size: 1.1rem; }
-  .info { display: grid; grid-template-columns: auto 1fr; gap: var(--s3) var(--s5); margin: 0; }
-  .info dt { font-weight: 700; color: var(--ink); }
+  .kontakt { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: var(--s7); align-items: start; }
+  .kontakt__call { margin: var(--s5) 0 var(--s6); }
+  .kontakt__call .field__k { color: var(--ink); margin: 0; }
+  .tel { display: block; color: var(--ink); text-decoration: none; font: 800 clamp(2.4rem, 5vw, 3.6rem)/1 var(--font); font-stretch: 72%; }
+  .tel:hover { color: var(--ink); text-decoration: underline; text-decoration-thickness: 3px; }
+  .info { display: grid; grid-template-columns: auto 1fr; gap: var(--s3) var(--s5); margin: 0; padding-top: var(--s5); border-top: 2px solid var(--ink); }
+  .info dt { font: 700 .78rem/1.6 var(--font); font-stretch: 85%; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
   .info dd { margin: 0; }
-  .kontakt__form { background: var(--bg-soft); border-radius: var(--radius); padding: var(--s6); }
-  @media (max-width: 900px) { .kontakt { grid-template-columns: 1fr; gap: var(--s6); } .kontakt__form { padding: var(--s5); } }
+  .kontakt__in { padding: var(--s5) var(--s6) var(--s6); }
+  @media (max-width: 900px) { .kontakt { grid-template-columns: 1fr; gap: var(--s6); } .kontakt__in { padding: var(--s4); } }
 </style>

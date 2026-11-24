@@ -101,7 +101,7 @@ const zoner = [...new Set(kameror.map((k) => k.zon))];
           </ol>
           <div class="kp-help-box">
             <p>Något som inte stämmer? Vi flyttar, kompletterar eller servar kameran.</p>
-            <a class="btn btn--primary" href={SITE.telefonHref}><Icon name="phone" />Ring {SITE.telefon}</a>
+            <a class="btn btn--ink" href={SITE.telefonHref}><Icon name="phone" />Ring {SITE.telefon}</a>
           </div>
         </aside>
       </div>
@@ -171,16 +171,16 @@ const zoner = [...new Set(kameror.map((k) => k.zon))];
 
 <style>
   /* Inloggning */
-  .kp-login { background: var(--bg-soft); }
+  .kp-login { background: var(--steel); }
   .kp-login__in { display: grid; grid-template-columns: 1fr 440px; gap: var(--s8); align-items: center; }
   .kp-points { list-style: none; padding: 0; margin: var(--s5) 0 0; display: grid; gap: var(--s3); }
   .kp-points li { display: flex; gap: var(--s3); align-items: center; font-weight: 600; color: var(--ink); }
   .kp-points :global(svg) { width: 22px; height: 22px; color: var(--blue); flex: none; }
-  .kp-card { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s6); box-shadow: var(--shadow); display: grid; gap: var(--s2); }
+  .kp-card { background: #fff; border: var(--frame) solid var(--blue); padding: var(--s6); box-shadow: var(--shadow); display: grid; gap: var(--s2); }
   .kp-card h2 { font-size: 1.75rem; margin-bottom: 0; }
-  .kp-demo { background: #fff8cc; border-radius: 6px; padding: var(--s2) var(--s3); font-size: .9rem; margin: 0 0 var(--s3); }
-  .kp-card label { font-weight: 600; color: var(--ink); font-size: .95rem; margin-top: var(--s2); }
-  .kp-card input { font: inherit; font-size: 1rem; min-height: 48px; padding: var(--s3); border: 1px solid #b9c2cd; border-radius: var(--radius); }
+  .kp-demo { background: var(--yellow); color: var(--ink); font-weight: 600; padding: var(--s2) var(--s3); font-size: .9rem; margin: 0 0 var(--s3); }
+  .kp-card label { font: 700 .82rem/1.2 var(--font); font-stretch: 88%; text-transform: uppercase; letter-spacing: .06em; color: var(--ink); margin-top: var(--s2); }
+  .kp-card input { font: inherit; font-size: 1rem; min-height: 48px; padding: var(--s3); border: 2px solid #8794a2; border-radius: var(--radius); }
   .kp-card input:focus { outline: 3px solid rgba(0, 92, 185, .25); border-color: var(--blue); }
   .kp-card input[aria-invalid] { border-color: var(--error); }
   .kp-error { color: var(--error); font-weight: 600; min-height: 1.4em; margin: 0; }
@@ -193,22 +193,23 @@ const zoner = [...new Set(kameror.map((k) => k.zon))];
   .kp-title { margin-bottom: var(--s1); }
   .kp-title:focus { outline: none; }
   .kp-site { color: var(--muted); margin: 0; }
-  .kp-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--s4); margin: 0 0 var(--s6); }
-  .kp-stats div { border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s4); }
-  .kp-stats dt { font-size: .9rem; color: var(--muted); }
-  .kp-stats dd { margin: 0; font: 400 1.75rem/1.2 var(--font-head); color: var(--ink); }
+  .kp-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--rule); border: 2px solid var(--rule); margin: 0 0 var(--s6); }
+  .kp-stats div { background: #fff; padding: var(--s4); }
+  .kp-stats dt { font: 700 .78rem/1.2 var(--font); font-stretch: 85%; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+  .kp-stats dd { margin: 0; font: 800 2rem/1.1 var(--font); font-stretch: 72%; color: var(--ink); }
   .kp-stats .is-bad { color: var(--error); } .kp-stats .is-ok { color: var(--ok); }
   @media (max-width: 700px) { .kp-stats { grid-template-columns: 1fr 1fr; } }
 
   .kp-layout { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: var(--s6); align-items: start; }
   @media (max-width: 1000px) { .kp-layout { grid-template-columns: 1fr; } }
   .kp-filter { display: flex; gap: var(--s2); flex-wrap: wrap; margin-bottom: var(--s4); }
-  .kp-filter button { min-height: 44px; padding: 0 var(--s4); border-radius: 999px; border: 1px solid var(--line); background: #fff; font: 600 .95rem var(--font-body); color: var(--ink); cursor: pointer; }
-  .kp-filter button[aria-pressed='true'] { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .kp-filter button { min-height: 44px; padding: 0 var(--s4); border-radius: var(--radius); border: 2px solid var(--ink); background: #fff; font: 700 .9rem var(--font); font-stretch: 85%; text-transform: uppercase; letter-spacing: .05em; color: var(--ink); cursor: pointer; }
+  .kp-filter button:hover { background: var(--yellow); }
+  .kp-filter button[aria-pressed='true'] { background: var(--ink); border-color: var(--ink); color: var(--yellow); }
 
   .kp-grid { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s4); grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
   .kp-cam { display: block; width: 100%; padding: 0; text-align: left; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; cursor: pointer; font: inherit; color: inherit; }
-  .kp-cam:hover { border-color: var(--blue); }
+  .kp-cam:hover { border-color: var(--ink); box-shadow: 0 0 0 2px var(--yellow); }
   .kp-feed, .kp-big { position: relative; display: block; aspect-ratio: 16 / 9; background: #10151c; overflow: hidden; }
   .kp-feed img, .kp-big img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.85); }
   .kp-nosignal { position: absolute; inset: 0; display: grid; place-items: center; color: #c5ccd6; font-size: .95rem; padding: var(--s4); text-align: center; }
@@ -222,7 +223,7 @@ const zoner = [...new Set(kameror.map((k) => k.zon))];
   .kp-info strong { color: var(--ink); }
   .kp-info span { font-size: .9rem; color: var(--muted); }
 
-  .kp-events { border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s5); }
+  .kp-events { background: #fff; border: 2px solid var(--rule); padding: var(--s5); }
   .kp-events h2 { font-size: 1.35rem; }
   .kp-events ol { list-style: none; margin: 0 0 var(--s5); padding: 0; }
   .kp-events li { position: relative; display: grid; padding: var(--s3) 0 var(--s3) var(--s5); border-top: 1px solid var(--line); font-size: .95rem; }
@@ -232,7 +233,7 @@ const zoner = [...new Set(kameror.map((k) => k.zon))];
   .kp-events li.is-bad::before { background: var(--error); }
   .kp-events strong { color: var(--ink); }
   .kp-events span { font-size: .85rem; color: var(--muted); }
-  .kp-help-box { background: var(--blue-50); border-radius: var(--radius); padding: var(--s4); }
+  .kp-help-box { background: var(--yellow); padding: var(--s4); }
   .kp-help-box p { font-size: .95rem; }
   .kp-help-box .btn { width: 100%; }
 
@@ -244,7 +245,7 @@ const zoner = [...new Set(kameror.map((k) => k.zon))];
   .kp-close { width: 44px; height: 44px; border: 0; background: none; cursor: pointer; color: var(--ink); display: grid; place-items: center; }
   .kp-close :global(svg) { width: 24px; height: 24px; }
   .kp-ctl { display: flex; flex-wrap: wrap; gap: var(--s2); padding: var(--s4) var(--s5); }
-  .kp-ghost { min-height: 44px; padding: 0 var(--s4); border: 1px solid #b9c2cd; border-radius: var(--radius); background: #fff; font: 600 .95rem var(--font-body); color: var(--ink); cursor: pointer; }
+  .kp-ghost { min-height: 44px; padding: 0 var(--s4); border: 2px solid var(--ink); border-radius: var(--radius); background: #fff; font: 700 .9rem var(--font); font-stretch: 85%; text-transform: uppercase; letter-spacing: .05em; color: var(--ink); cursor: pointer; }
   .kp-timeline { position: relative; height: 32px; margin: 0 var(--s5); border-radius: 6px; background: #e9edf3; overflow: hidden; }
   .kp-rec { position: absolute; inset: 0 4% 0 0; background: #a9c9ee; }
   .kp-mv { position: absolute; top: 0; bottom: 0; width: 2%; background: #d97706; }
