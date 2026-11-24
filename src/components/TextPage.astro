@@ -8,7 +8,7 @@ if (!sida) throw new Error(`Saknar sida: ${Astro.props.id}`);
 const { Content } = await render(sida);
 ---
 <Base title={sida.data.title} description={sida.data.description}>
-  <section class="section">
+  <section class="section section--plate">
     <div class="wrap">
       <h1>{sida.data.h1}</h1>
       <article class="prose"><Content /></article>

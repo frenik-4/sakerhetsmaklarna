@@ -9,31 +9,50 @@ const { exclude } = Astro.props;
 const tjanster = (await getCollection('tjanster')).filter((t) => t.id !== exclude).sort((a, b) => a.data.order - b.data.order);
 const namn: Record<string, string> = { bygglarm: 'Bygglarm', stallningslarm: 'Ställningslarm', 'butik-kontor': 'Butik & kontor', kamerabevakning: 'Kamerabevakning', larmvaska: 'Larmväska' };
 ---
-<ul class="cards">
+<!-- Tjänsteindex: skyltrader. Hela raden är klickbar och fylls gul vid hovring/fokus. -->
+<ul class="svc">
   {tjanster.map((t) => (
-    <li class="card">
-      <Image src={TJANST_BILD[t.id].src} alt="" widths={[400, 700]} sizes="(max-width: 700px) 100vw, 360px" class="card__img" />
-      <div class="card__body">
-        <h3><a href={url(`/${t.id}/`)} class="card__link">{namn[t.id] ?? t.data.h1}</a></h3>
-        <p>{t.data.short}</p>
-        <span class="card__more" aria-hidden="true">Läs mer <Icon name="arrow" /></span>
-      </div>
+    <li class="svc__row">
+      <Image src={TJANST_BILD[t.id].src} alt="" widths={[300, 600]} sizes="(max-width: 700px) 96px, 220px" class="svc__img" />
+      <h3 class="svc__name"><a href={url(`/${t.id}/`)} class="svc__link">{namn[t.id] ?? t.data.h1}</a></h3>
+      <p class="svc__short">{t.data.short}</p>
+      <span class="svc__go" aria-hidden="true"><Icon name="arrow" /></span>
     </li>
   ))}
 </ul>
 
 <style>
-  .cards { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--s5); grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); }
-  .card { position: relative; background: #fff; border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: border-color .15s; }
-  .card:hover { border-color: var(--blue); }
-  .card :global(.card__img) { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
-  .card__body { padding: var(--s4) var(--s5) var(--s5); display: flex; flex-direction: column; flex: 1; }
-  .card h3 { margin-bottom: var(--s2); }
-  .card p { color: var(--text); flex: 1; }
-  .card__link { color: var(--ink); text-decoration: none; }
-  .card__link::after { content: ''; position: absolute; inset: 0; }
-  .card__more { display: inline-flex; align-items: center; gap: var(--s2); color: var(--blue); font-weight: 700; }
-  .card__more :global(svg) { width: 18px; height: 18px; }
-  .card:focus-within { outline: 3px solid var(--blue); outline-offset: 2px; }
-  .card__link:focus-visible { outline: none; }
+  .svc { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+  .svc__row {
+    position: relative; display: grid; align-items: center; gap: var(--s5);
+    grid-template-columns: 180px minmax(0, 20rem) minmax(0, 1fr) 56px;
+    padding: var(--s3) var(--s4) var(--s3) var(--s3); border-bottom: 1px solid var(--rule);
+    transition: background-color .2s var(--ease-out);
+  }
+  .svc__row:hover, .svc__row:focus-within { background: var(--yellow); }
+  .svc :global(.svc__img) { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+  .svc__name { margin: 0; font-weight: 800; font-stretch: 72%; font-size: clamp(1.6rem, 2.4vw, 2.2rem); line-height: 1; text-transform: uppercase; }
+  .svc__link { color: var(--ink); text-decoration: none; }
+  .svc__link::after { content: ''; position: absolute; inset: 0; }
+  .svc__link:focus-visible { outline: none; }
+  .svc__row:focus-within { outline: 3px solid var(--blue); outline-offset: -3px; }
+  .svc__short { margin: 0; color: var(--text); }
+  .svc__go { display: grid; place-items: center; width: 52px; height: 52px; border: 2px solid var(--ink); color: var(--ink); transition: background-color .2s, color .2s; }
+  .svc__go :global(svg) { width: 22px; height: 22px; transition: translate .25s var(--ease-out); }
+  .svc__row:hover .svc__go, .svc__row:focus-within .svc__go { background: var(--ink); color: var(--yellow); }
+  .svc__row:hover .svc__go :global(svg) { translate: 3px 0; }
+
+  @media (max-width: 900px) {
+    .svc__name { font-size: clamp(1.1rem, 5vw, 1.7rem); }
+    .svc__row { grid-template-columns: 88px minmax(0, 1fr) 44px; gap: var(--s2) var(--s4); padding: var(--s3) 0; }
+    .svc :global(.svc__img) { grid-row: span 2; aspect-ratio: 1; }
+    .svc__name { align-self: end; }
+    .svc__short { grid-column: 2; font-size: .95rem; align-self: start; }
+    .svc__go { grid-column: 3; grid-row: 1 / span 2; width: 44px; height: 44px; }
+  }
+  @media (max-width: 600px) {
+    .svc__row { grid-template-columns: 72px minmax(0, 1fr); gap: var(--s1) var(--s3); }
+    .svc__go { display: none; }
+    .svc__name { font-size: clamp(1rem, 5.4vw, 1.5rem); }
+  }
 </style>

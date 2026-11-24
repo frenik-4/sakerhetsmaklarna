@@ -1,0 +1,456 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-24T11:37:55+00:00",
+  "title": "Design System: Säkerhetsmäklarna",
+  "extensions": {
+    "colorMeta": {
+      "sign-blue": {
+        "role": "primary",
+        "displayName": "Sign Blue",
+        "canonical": "#005cb9",
+        "tonalRamp": [
+          "#021a36",
+          "#03274f",
+          "#00346b",
+          "#00468f",
+          "#005cb9",
+          "#3d82cf",
+          "#8db5e3",
+          "#eaf2fb"
+        ]
+      },
+      "sign-blue-deep": {
+        "role": "primary",
+        "displayName": "Sign Blue Deep",
+        "canonical": "#00468f",
+        "tonalRamp": [
+          "#021a36",
+          "#03274f",
+          "#00346b",
+          "#00468f",
+          "#1a5fa8",
+          "#4f84c0",
+          "#97b6da",
+          "#e6eef8"
+        ]
+      },
+      "night-blue": {
+        "role": "primary",
+        "displayName": "Night Blue",
+        "canonical": "#062f5c",
+        "tonalRamp": [
+          "#021428",
+          "#041f3f",
+          "#062f5c",
+          "#1b4775",
+          "#3a6390",
+          "#6687ad",
+          "#a2b6ce",
+          "#e5ecf4"
+        ]
+      },
+      "blue-wash": {
+        "role": "primary",
+        "displayName": "Blue Wash",
+        "canonical": "#eaf2fb",
+        "tonalRamp": [
+          "#1c3550",
+          "#33506f",
+          "#4f6e91",
+          "#7090b3",
+          "#97b3d3",
+          "#bed3ea",
+          "#d9e6f5",
+          "#eaf2fb"
+        ]
+      },
+      "signal-yellow": {
+        "role": "secondary",
+        "displayName": "Signal Yellow",
+        "canonical": "#fddd00",
+        "tonalRamp": [
+          "#3b3300",
+          "#5e5200",
+          "#857400",
+          "#b39c00",
+          "#ebc900",
+          "#fddd00",
+          "#feeb66",
+          "#fff8cc"
+        ]
+      },
+      "signal-yellow-pressed": {
+        "role": "secondary",
+        "displayName": "Signal Yellow Pressed",
+        "canonical": "#ebc900",
+        "tonalRamp": [
+          "#3b3300",
+          "#5e5200",
+          "#857400",
+          "#b39c00",
+          "#ebc900",
+          "#f5d81f",
+          "#fbe874",
+          "#fff6c7"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#0f1a26",
+        "tonalRamp": [
+          "#0f1a26",
+          "#1d2a38",
+          "#2e3c4b",
+          "#45535f",
+          "#636f7b",
+          "#8a949e",
+          "#b9c0c7",
+          "#e8ebee"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Body Text",
+        "canonical": "#26323f",
+        "tonalRamp": [
+          "#141c25",
+          "#26323f",
+          "#3a4654",
+          "#535f6c",
+          "#717c88",
+          "#97a0aa",
+          "#c2c8ce",
+          "#eceef1"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted Label",
+        "canonical": "#4f5b69",
+        "tonalRamp": [
+          "#1f2730",
+          "#333e4a",
+          "#4f5b69",
+          "#69747f",
+          "#858f99",
+          "#a6aeb6",
+          "#cbd0d5",
+          "#eef0f2"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Field Rule",
+        "canonical": "#c9d1da",
+        "tonalRamp": [
+          "#38424d",
+          "#55616d",
+          "#75818d",
+          "#97a2ad",
+          "#b1bbc5",
+          "#c9d1da",
+          "#dde2e8",
+          "#f1f4f7"
+        ]
+      },
+      "galvanised-steel": {
+        "role": "neutral",
+        "displayName": "Galvanised Steel",
+        "canonical": "#e4e9ee",
+        "tonalRamp": [
+          "#3c434b",
+          "#5a636c",
+          "#7b848d",
+          "#9ca5ad",
+          "#bdc4cb",
+          "#d3d9df",
+          "#e4e9ee",
+          "#f1f4f7"
+        ]
+      },
+      "plate-white": {
+        "role": "neutral",
+        "displayName": "Plate White",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#2a2f35",
+          "#4a5058",
+          "#6d747c",
+          "#939aa1",
+          "#b9bec3",
+          "#dcdfe2",
+          "#f1f4f7",
+          "#ffffff"
+        ]
+      },
+      "field-border": {
+        "role": "neutral",
+        "displayName": "Field Border",
+        "canonical": "#8794a2",
+        "tonalRamp": [
+          "#2b323a",
+          "#434c56",
+          "#5f6a76",
+          "#8794a2",
+          "#a2adb8",
+          "#bec6cf",
+          "#d9dee4",
+          "#f1f4f7"
+        ]
+      },
+      "ok": {
+        "role": "tertiary",
+        "displayName": "Status OK",
+        "canonical": "#137a43",
+        "tonalRamp": [
+          "#06291a",
+          "#0b4429",
+          "#137a43",
+          "#2e9660",
+          "#5bb183",
+          "#93cda9",
+          "#c7e6d2",
+          "#ecf7f0"
+        ]
+      },
+      "error": {
+        "role": "tertiary",
+        "displayName": "Status Error",
+        "canonical": "#b42318",
+        "tonalRamp": [
+          "#3d0c08",
+          "#661510",
+          "#b42318",
+          "#cc4a3f",
+          "#dd7a71",
+          "#eaa9a3",
+          "#f5d4d0",
+          "#fcefee"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "H1 inside the hero sign; condensed heavy caps."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section H2; condensed heavy caps."
+      },
+      "phone": {
+        "displayName": "Phone",
+        "purpose": "Telephone number in call fields; largest element, tabular figures."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "H3, step, reference and card titles."
+      },
+      "field-value": {
+        "displayName": "Field Value",
+        "purpose": "The answer inside a sign field."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Reading text at normal width; 60-68ch."
+      },
+      "band": {
+        "displayName": "Band",
+        "purpose": "Sign title bands; buttons use the same voice at 1rem."
+      },
+      "label": {
+        "displayName": "Field Label",
+        "purpose": "Muted uppercase key above a field value."
+      }
+    },
+    "shadows": [
+      {
+        "name": "plate",
+        "value": "0 1px 1px rgba(15,26,38,.08), 0 8px 24px -8px rgba(15,26,38,.18)",
+        "purpose": "Lifts every sign plate off the steel ground."
+      },
+      {
+        "name": "callbar",
+        "value": "0 -2px 10px rgba(0,0,0,.15)",
+        "purpose": "Fixed mobile call bar only."
+      },
+      {
+        "name": "input-focus",
+        "value": "0 0 0 3px rgba(0,92,185,.25)",
+        "purpose": "Focus halo on form inputs."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(.16, 1, .3, 1)",
+        "purpose": "Service-row fill, arrow nudges, call-field wipe."
+      },
+      {
+        "name": "state",
+        "value": "150ms",
+        "purpose": "Button, nav underline and input border transitions."
+      },
+      {
+        "name": "row-fill",
+        "value": "200ms",
+        "purpose": "Service row yellow fill on hover/focus."
+      },
+      {
+        "name": "call-field-wipe",
+        "value": "clip-path inset(0 100% 0 0) to inset(0), 700ms, ease-out, 150ms delay",
+        "purpose": "Home hero call field enters once on load; disabled under reduced motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone",
+        "value": "640px"
+      },
+      {
+        "name": "callbar",
+        "value": "768px"
+      },
+      {
+        "name": "stack",
+        "value": "900px"
+      },
+      {
+        "name": "service-aside",
+        "value": "1060px"
+      },
+      {
+        "name": "nav-drawer",
+        "value": "1280px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Yellow signal plate; the main action on white or blue grounds.",
+      "html": "<a class=\"ds-btn ds-btn-primary\" href=\"#\">Begär offert <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></a>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 24px; border-radius: 2px; border: 2px solid transparent; font: 800 1rem/1 'Archivo Variable', 'Archivo', system-ui, sans-serif; font-stretch: 85%; text-transform: uppercase; letter-spacing: .04em; text-decoration: none; cursor: pointer; white-space: nowrap; transition: background-color .15s, color .15s, border-color .15s; } .ds-btn svg { width: 20px; height: 20px; } .ds-btn:focus-visible { outline: 3px solid #005cb9; outline-offset: 3px; } .ds-btn-primary { background: #fddd00; color: #0f1a26; border-color: #fddd00; } .ds-btn-primary:hover { background: #ebc900; border-color: #ebc900; }"
+    },
+    {
+      "name": "Ink Button",
+      "kind": "button",
+      "refersTo": "button-ink",
+      "description": "Ink plate used inside a yellow call field.",
+      "html": "<a class=\"ds-btn-ink\" href=\"#\">Begär offert</a>",
+      "css": ".ds-btn-ink { display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; border-radius: 2px; border: 2px solid #0f1a26; background: #0f1a26; color: #fff; font: 800 1rem/1 'Archivo Variable', 'Archivo', system-ui, sans-serif; font-stretch: 85%; text-transform: uppercase; letter-spacing: .04em; text-decoration: none; transition: background-color .15s, border-color .15s; } .ds-btn-ink:hover { background: #062f5c; border-color: #062f5c; } .ds-btn-ink:focus-visible { outline: 3px solid #005cb9; outline-offset: 3px; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "White plate with ink border; inverts on hover.",
+      "html": "<button class=\"ds-btn-secondary\" type=\"button\">Logga ut</button>",
+      "css": ".ds-btn-secondary { min-height: 52px; padding: 0 24px; border-radius: 2px; border: 2px solid #0f1a26; background: #fff; color: #0f1a26; font: 800 1rem/1 'Archivo Variable', 'Archivo', system-ui, sans-serif; font-stretch: 85%; text-transform: uppercase; letter-spacing: .04em; cursor: pointer; transition: background-color .15s, color .15s; } .ds-btn-secondary:hover { background: #0f1a26; color: #fff; } .ds-btn-secondary:focus-visible { outline: 3px solid #005cb9; outline-offset: 3px; }"
+    },
+    {
+      "name": "Sign",
+      "kind": "custom",
+      "refersTo": "sign-band",
+      "description": "Signature container: blue frame, title band, ruled field grid with one yellow call field.",
+      "html": "<div class=\"ds-sign\"><div class=\"ds-band\"><span>Larmuthyrning · Stockholm</span><span>Sedan 1999</span></div><dl class=\"ds-fields\"><div class=\"ds-field ds-field-yellow\"><dt class=\"ds-k\">I drift</dt><dd class=\"ds-v\">Ofta samma dag</dd></div><div class=\"ds-field\"><dt class=\"ds-k\">Övervakning</dt><dd class=\"ds-v\">Larmcentral dygnet runt</dd></div></dl></div>",
+      "css": ".ds-sign { background: #fff; border: 10px solid #005cb9; box-shadow: 0 1px 1px rgba(15,26,38,.08), 0 8px 24px -8px rgba(15,26,38,.18); font-family: 'Archivo Variable', 'Archivo', system-ui, sans-serif; } .ds-band { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; background: #005cb9; color: #fff; padding: 8px 24px 13px; font: 800 .95rem/1.2 'Archivo Variable', 'Archivo', system-ui, sans-serif; font-stretch: 80%; text-transform: uppercase; letter-spacing: .08em; } .ds-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: #0f1a26; margin: 0; } .ds-field { background: #fff; padding: 16px 24px; margin: 0; } .ds-field-yellow { background: #fddd00; } .ds-k { display: block; margin-bottom: 4px; font: 700 .78rem/1.2 'Archivo Variable', 'Archivo', system-ui, sans-serif; font-stretch: 85%; text-transform: uppercase; letter-spacing: .1em; color: #4f5b69; } .ds-field-yellow .ds-k { color: #0f1a26; } .ds-v { display: block; margin: 0; font: 800 1.45rem/1.1 'Archivo Variable', 'Archivo', system-ui, sans-serif; font-stretch: 75%; text-transform: uppercase; color: #0f1a26; }"
+    },
+    {
+      "name": "Call Field",
+      "kind": "custom",
+      "refersTo": "field-yellow",
+      "description": "Full-width yellow field: label, phone number largest in tabular figures, ink button.",
+      "html": "<div class=\"ds-call\"><div><span class=\"ds-call-k\">Ring oss</span><a class=\"ds-call-tel\" href=\"#\">08-000 00 00</a></div><a class=\"ds-call-btn\" href=\"#\">Begär offert</a></div>",
+      "css": ".ds-call { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px 32px; padding: 16px 32px; background: #fddd00; font-family: 'Archivo Variable', 'Archivo', system-ui, sans-serif; } .ds-call-k { display: block; font: 700 .78rem/1.2 'Archivo Variable', 'Archivo', system-ui, sans-serif; font-stretch: 85%; text-transform: uppercase; letter-spacing: .1em; color: #0f1a26; } .ds-call-tel { display: block; color: #0f1a26; text-decoration: none; font: 800 clamp(2.4rem, 5vw, 3.6rem)/1 'Archivo Variable', 'Archivo', system-ui, sans-serif; font-stretch: 72%; font-variant-numeric: tabular-nums; } .ds-call-tel:hover { text-decoration: underline; text-decoration-thickness: 3px; } .ds-call-btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 24px; border-radius: 2px; background: #0f1a26; color: #fff; font: 800 1rem/1 'Archivo Variable', 'Archivo', system-ui, sans-serif; font-stretch: 85%; text-transform: uppercase; letter-spacing: .04em; text-decoration: none; transition: background-color .15s; } .ds-call-btn:hover { background: #062f5c; } .ds-call a:focus-visible { outline: 3px solid #005cb9; outline-offset: 3px; }"
+    },
+    {
+      "name": "Service Row",
+      "kind": "card",
+      "refersTo": "field",
+      "description": "Ruled service-index row; whole row fills yellow on hover and the arrow tile inverts.",
+      "html": "<ul class=\"ds-svc\"><li class=\"ds-svc-row\"><h3 class=\"ds-svc-name\"><a href=\"#\">Byggarbetsplats</a></h3><p class=\"ds-svc-short\">Larm och kameror för bodar och upplag.</p><span class=\"ds-svc-go\"><svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></span></li></ul>",
+      "css": ".ds-svc { list-style: none; margin: 0; padding: 0; border-top: 2px solid #0f1a26; font-family: 'Archivo Variable', 'Archivo', system-ui, sans-serif; } .ds-svc-row { position: relative; display: grid; grid-template-columns: minmax(0, 16rem) minmax(0, 1fr) 52px; align-items: center; gap: 24px; padding: 12px 16px 12px 12px; border-bottom: 1px solid #c9d1da; transition: background-color .2s cubic-bezier(.16,1,.3,1); } .ds-svc-row:hover, .ds-svc-row:focus-within { background: #fddd00; } .ds-svc-row:focus-within { outline: 3px solid #005cb9; outline-offset: -3px; } .ds-svc-name { margin: 0; font-weight: 800; font-stretch: 72%; font-size: 2rem; line-height: 1; text-transform: uppercase; } .ds-svc-name a { color: #0f1a26; text-decoration: none; } .ds-svc-name a::after { content: ''; position: absolute; inset: 0; } .ds-svc-name a:focus-visible { outline: none; } .ds-svc-short { margin: 0; color: #26323f; } .ds-svc-go { display: grid; place-items: center; width: 52px; height: 52px; border: 2px solid #0f1a26; color: #0f1a26; transition: background-color .2s, color .2s; } .ds-svc-go svg { width: 22px; height: 22px; transition: translate .25s cubic-bezier(.16,1,.3,1); } .ds-svc-row:hover .ds-svc-go, .ds-svc-row:focus-within .ds-svc-go { background: #0f1a26; color: #fddd00; } .ds-svc-row:hover .ds-svc-go svg { translate: 3px 0; }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Square white field with condensed uppercase label; blue border and halo on focus.",
+      "html": "<div class=\"ds-qf\"><label class=\"ds-label\" for=\"ds-namn\">Namn</label><input class=\"ds-input\" id=\"ds-namn\" type=\"text\" placeholder=\"För- och efternamn\"></div>",
+      "css": ".ds-qf { display: grid; gap: 6px; font-family: 'Archivo Variable', 'Archivo', system-ui, sans-serif; } .ds-label { font: 700 .82rem/1.2 'Archivo Variable', 'Archivo', system-ui, sans-serif; font-stretch: 88%; text-transform: uppercase; letter-spacing: .06em; color: #0f1a26; } .ds-input { font: inherit; font-size: 1rem; width: 100%; min-height: 50px; padding: 12px; color: #0f1a26; background: #fff; border: 2px solid #8794a2; border-radius: 2px; transition: border-color .15s, box-shadow .15s; } .ds-input::placeholder { color: #66717e; } .ds-input:hover { border-color: #0f1a26; } .ds-input:focus { outline: none; border-color: #005cb9; box-shadow: 0 0 0 3px rgba(0,92,185,.25); } .ds-input[aria-invalid='true'] { border-color: #b42318; }"
+    },
+    {
+      "name": "Header Band",
+      "kind": "nav",
+      "refersTo": "header",
+      "description": "Sticky blue band: logo on a white plate, condensed nav, phone in a yellow field.",
+      "html": "<header class=\"ds-hdr\"><span class=\"ds-hdr-logo\">SM</span><nav><ul class=\"ds-hdr-nav\"><li><a href=\"#\" aria-current=\"page\">Larm</a></li><li><a href=\"#\">Kameror</a></li><li><a href=\"#\">Referenser</a></li></ul></nav><a class=\"ds-hdr-phone\" href=\"#\"><span class=\"ds-hdr-k\">Ring oss</span><span class=\"ds-hdr-v\">08-000 00 00</span></a></header>",
+      "css": ".ds-hdr { display: flex; align-items: stretch; gap: 16px; min-height: 76px; padding-left: 16px; background: #005cb9; color: #fff; font-family: 'Archivo Variable', 'Archivo', system-ui, sans-serif; } .ds-hdr-logo { display: grid; place-items: center; background: #fff; color: #005cb9; padding: 6px 10px; margin: 8px 0; font-weight: 800; } .ds-hdr nav { flex: 1; display: flex; align-items: center; } .ds-hdr-nav { display: flex; list-style: none; margin: 0; padding: 0; } .ds-hdr-nav a { display: block; padding: 12px 10px; color: #fff; text-decoration: none; font: 700 1rem/1 'Archivo Variable', 'Archivo', system-ui, sans-serif; font-stretch: 76%; text-transform: uppercase; letter-spacing: .025em; box-shadow: inset 0 -3px 0 transparent; transition: box-shadow .15s; } .ds-hdr-nav a:hover { box-shadow: inset 0 -3px 0 rgba(255,255,255,.5); } .ds-hdr-nav a[aria-current='page'] { box-shadow: inset 0 -3px 0 #fddd00; } .ds-hdr a:focus-visible { outline: 3px solid #fff; outline-offset: -3px; } .ds-hdr-phone { display: flex; flex-direction: column; justify-content: center; gap: 2px; background: #fddd00; color: #0f1a26; text-decoration: none; padding: 0 24px; transition: background-color .15s; } .ds-hdr-phone:hover { background: #ebc900; } .ds-hdr-k { font: 700 .72rem/1 'Archivo Variable', 'Archivo', system-ui, sans-serif; font-stretch: 85%; text-transform: uppercase; letter-spacing: .12em; } .ds-hdr-v { font: 800 1.45rem/1 'Archivo Variable', 'Archivo', system-ui, sans-serif; font-stretch: 78%; font-variant-numeric: tabular-nums; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Arbetsplatsskylten",
+    "overview": "The site is the construction-site sign a contractor reads at the gate every morning: white plates framed in thick sign blue, each plate divided into labelled fields that state what, who, since when and which number to call. Every important surface is built as a sign: a blue title band across the top, a grid of fields ruled by 2px ink lines, and one yellow signal field that holds the action. Real company photos are mounted as one field of the sign, never as a dimmed hero behind text.\n\nThe world is dense and declarative rather than airy. Type is Archivo Variable throughout, run on its width axis: condensed heavy capitals for headings, field values, bands and buttons (echoing the van livery), normal width for reading text. Plates sit on a light galvanised-steel ground. Corners are square. Depth is a single soft drop that lifts the plate off the steel; everything inside the plate is flat.\n\nThe world explicitly refuses the security-category default: dark photo hero with overlay, shield iconography as emblem, and a row of three free-floating feature cards. Repeated items live as ruled fields inside one sign instead.",
+    "keyCharacteristics": [
+      "Signs, not cards: blue frame, blue title band, ruled field grid.",
+      "Yellow is a signal, reserved for the primary action, the phone number and the \"in operation\" value.",
+      "One typeface, many widths: condensed caps for signage, full width for prose.",
+      "Square plates (2px) on a steel ground; one plate shadow, no others.",
+      "Telephone numbers set largest, in tabular figures."
+    ],
+    "rules": [
+      {
+        "name": "The Signal Field Rule",
+        "body": "Yellow fills a field, never decorates. It holds the call to action, the phone number, or the one fact that answers \"how fast\": one yellow field per sign. A yellow button sits on blue or white; a yellow call field carries an ink button, never a yellow one.",
+        "section": "colors"
+      },
+      {
+        "name": "The Locked Pair Rule",
+        "body": "Sign Blue and Signal Yellow are brand-locked. Do not shift, tint into gradients, or introduce a third accent hue.",
+        "section": "colors"
+      },
+      {
+        "name": "The Livery Rule",
+        "body": "If a sign would print it, it is condensed heavy caps. If a person reads it as a sentence, it is normal-width sentence case. Never set body copy condensed, never set a heading in sentence-case regular.",
+        "section": "typography"
+      },
+      {
+        "name": "The Number Is Biggest Rule",
+        "body": "In any call field the phone number outranks every other element, set in tabular figures (`.num`).",
+        "section": "typography"
+      },
+      {
+        "name": "The Rule Is The Gap Rule",
+        "body": "Field separators are 2px grid gaps over ink, not borders on each cell.",
+        "section": "layout"
+      },
+      {
+        "name": "The One Plate Rule",
+        "body": "Only the sign plate is lifted. Buttons, fields, rows and tiles are flat; state is shown with fill colour, never with a shadow.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do build every primary surface as a sign: blue frame, blue title band, ruled field grid.",
+      "Do give each sign at most one yellow field, and put the action or phone number in it.",
+      "Do set signage text in Archivo condensed (72-88% width) heavy caps and reading text at 100% width.",
+      "Do separate fields with 2px ink grid gaps and list rows with 1px rule lines under a 2px ink top rule.",
+      "Do mount real company photos as a field of the sign, full bleed within the field.",
+      "Do set phone numbers in tabular figures and make them the largest element in their field.",
+      "Do keep corners square: 2px on controls, 0 on plates.",
+      "Do use the inline line icons (2px stroke, round caps) at 16-22px, only beside text."
+    ],
+    "donts": [
+      "Don't use a dark photo hero with a text overlay.",
+      "Don't use shield icons as decorative emblems, or lay out free-floating rounded feature cards; repeated items (steps, references) are fields ruled inside one sign.",
+      "Don't add a third accent hue or alter the locked blue and yellow.",
+      "Don't cast shadows on anything inside a sign or on buttons.",
+      "Don't round plates or cards, or use pill buttons.",
+      "Don't put a yellow button inside a yellow field; use the ink button there."
+    ]
+  }
+}

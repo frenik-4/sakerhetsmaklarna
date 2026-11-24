@@ -58,11 +58,11 @@ const schema = {
           ))}
         </ul>
       </nav>
-      <div class="hdr__cta">
-        <a class="hdr__login" href={url('/kameror/')} aria-current={path === url('/kameror/') ? 'page' : undefined}><Icon name="lock" /><span>Logga in</span></a>
-        <a class="hdr__phone" href={SITE.telefonHref}><Icon name="phone" /><span>{SITE.telefon}</span></a>
-        <a class="btn btn--primary hdr__offert" href={url('/kontakt/')}>Begär offert</a>
-      </div>
+      <a class="hdr__login" href={url('/kameror/')} aria-label="Logga in – Mina kameror" aria-current={path === url('/kameror/') ? 'page' : undefined}><Icon name="lock" /><span>Logga in</span></a>
+      <a class="hdr__phone" href={SITE.telefonHref}>
+        <span class="hdr__phone-k">Ring oss</span>
+        <span class="hdr__phone-v num"><Icon name="phone" />{SITE.telefon}</span>
+      </a>
       <button class="hdr__menu" type="button" aria-label="Meny" aria-expanded="false" aria-controls="mobilmeny">
         <Icon name="menu" />
       </button>
@@ -72,7 +72,7 @@ const schema = {
         {NAV.map((n) => <li><a href={url(n.href)}>{n.label}</a></li>)}
         <li><a href={url('/om-oss/')}>Om oss</a></li>
         <li><a href={url('/fragor-och-svar/')}>Frågor och svar</a></li>
-        <li><a href={url('/kontakt/')}>Kontakt</a></li>
+        <li><a href={url('/kontakt/')}>Kontakt och offert</a></li>
         <li><a href={url('/kameror/')}>Mina kameror (logga in)</a></li>
       </ul>
     </div>
@@ -83,37 +83,37 @@ const schema = {
   </main>
 
   <footer class="ftr">
-    <div class="wrap ftr__grid">
-      <div>
-        <Image src={logo} alt="Säkerhetsmäklarna" width={220} height={176} class="ftr__logo" loading="eager" />
-        <p class="ftr__tag">Larmuthyrning för tillfälliga och akuta behov sedan {SITE.grundat}.</p>
+    <div class="wrap">
+      <div class="ftr__sign">
+        <div class="ftr__id">
+          <span class="ftr__plate"><Image src={logo} alt="Säkerhetsmäklarna" width={220} height={176} class="ftr__logo" loading="eager" /></span>
+          <p class="ftr__tag">Larmuthyrning för tillfälliga och akuta behov sedan {SITE.grundat}.</p>
+        </div>
+        <div class="ftr__f">
+          <h2 class="ftr__k">Kontakt</h2>
+          <a class="ftr__tel num" href={SITE.telefonHref}>{SITE.telefon}</a>
+          <p><a href={`mailto:${SITE.epost}`}>{SITE.epost}</a><br />{SITE.gata}, {SITE.postnr} {SITE.ort}</p>
+        </div>
+        <div class="ftr__f">
+          <h2 class="ftr__k">Tjänster</h2>
+          <ul class="ftr__links">
+            {NAV.slice(0, 5).map((n) => <li><a href={url(n.href)}>{n.label}</a></li>)}
+          </ul>
+        </div>
+        <div class="ftr__f">
+          <h2 class="ftr__k">Företaget</h2>
+          <ul class="ftr__links">
+            <li><a href={url('/referenser/')}>Referenser</a></li>
+            <li><a href={url('/om-oss/')}>Om oss</a></li>
+            <li><a href={url('/fragor-och-svar/')}>Frågor och svar</a></li>
+            <li><a href={url('/kontakt/')}>Kontakt</a></li>
+            <li><a href={url('/kameror/')}>Mina kameror</a></li>
+            <li><a href={url('/integritetspolicy/')}>Integritetspolicy</a></li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <h2 class="ftr__h">Kontakt</h2>
-        <p>
-          <a href={SITE.telefonHref}>{SITE.telefon}</a><br />
-          <a href={`mailto:${SITE.epost}`}>{SITE.epost}</a><br />
-          {SITE.gata}, {SITE.postnr} {SITE.ort}
-        </p>
-      </div>
-      <div>
-        <h2 class="ftr__h">Tjänster</h2>
-        <ul class="ftr__links">
-          {NAV.slice(0, 5).map((n) => <li><a href={url(n.href)}>{n.label}</a></li>)}
-        </ul>
-      </div>
-      <div>
-        <h2 class="ftr__h">Företaget</h2>
-        <ul class="ftr__links">
-          <li><a href={url('/referenser/')}>Referenser</a></li>
-          <li><a href={url('/om-oss/')}>Om oss</a></li>
-          <li><a href={url('/fragor-och-svar/')}>Frågor och svar</a></li>
-          <li><a href={url('/kontakt/')}>Kontakt</a></li>
-          <li><a href={url('/integritetspolicy/')}>Integritetspolicy</a></li>
-        </ul>
-      </div>
+      <div class="ftr__legal">© {new Date().getFullYear()} {SITE.juridisktNamn}. Vi använder inga spårningskakor.</div>
     </div>
-    <div class="wrap ftr__legal">© {new Date().getFullYear()} {SITE.juridisktNamn}. Vi använder inga spårningskakor.</div>
   </footer>
 
   <!-- Mobil: alltid nåbar ring-knapp -->
@@ -135,49 +135,75 @@ const schema = {
 </html>
 
 <style>
-  .hdr { position: sticky; top: 0; z-index: 50; background: #fff; border-top: 6px solid var(--blue); border-bottom: 1px solid var(--line); }
-  .hdr__in { display: flex; align-items: center; gap: var(--s4); min-height: 76px; }
-  .hdr__logo { flex: none; }
-  .hdr__logo img { width: 80px; height: auto; }
-  .hdr__cta { flex: none; }
-  .hdr__nav { flex: 1; }
-  .hdr__nav ul { display: flex; gap: 0; list-style: none; margin: 0; padding: 0; flex-wrap: nowrap; }
-  .hdr__nav a { display: block; padding: var(--s2) var(--s2); color: var(--ink); text-decoration: none; font-weight: 600; font-size: .92rem; border-radius: 6px; white-space: nowrap; }
-  .hdr__nav a:hover { background: var(--bg-soft); }
-  .hdr__nav a[aria-current='page'] { color: var(--blue); box-shadow: inset 0 -3px 0 var(--blue); border-radius: 0; }
-  .hdr__cta { display: flex; align-items: center; gap: var(--s4); }
-  .hdr__phone { display: inline-flex; align-items: center; gap: var(--s2); font-weight: 700; color: var(--blue); text-decoration: none; white-space: nowrap; }
-  .hdr__phone :global(svg), .hdr__login :global(svg) { width: 18px; height: 18px; }
-  .hdr__login { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; font-weight: 600; font-size: .92rem; color: var(--ink); text-decoration: none; white-space: nowrap; }
-  .hdr__login:hover, .hdr__login[aria-current='page'] { color: var(--blue); }
-  .hdr__menu { display: none; margin-left: auto; width: 48px; height: 48px; border: 0; background: none; color: var(--ink); cursor: pointer; }
+  /* Sidhuvud: skyltens blå toppband */
+  .hdr { position: sticky; top: 0; z-index: 50; background: var(--blue); color: #fff; }
+  .hdr__in { display: flex; align-items: stretch; gap: var(--s4); min-height: 76px; }
+  .hdr__logo { flex: none; display: grid; place-items: center; background: #fff; padding: 6px 10px; margin: 8px 0; }
+  .hdr__logo img { width: 74px; height: auto; }
+  .hdr__nav { flex: 1; display: flex; align-items: center; min-width: 0; }
+  .hdr__nav ul { display: flex; list-style: none; margin: 0; padding: 0; flex-wrap: nowrap; }
+  .hdr__nav a {
+    display: block; padding: var(--s3) 10px; color: #fff; text-decoration: none; white-space: nowrap;
+    font: 700 1rem/1 var(--font); font-stretch: 76%; text-transform: uppercase; letter-spacing: .025em;
+    box-shadow: inset 0 -3px 0 transparent; transition: box-shadow .15s;
+  }
+  .hdr__nav a:hover { box-shadow: inset 0 -3px 0 rgba(255, 255, 255, .5); color: #fff; }
+  .hdr__nav a[aria-current='page'] { box-shadow: inset 0 -3px 0 var(--yellow); }
+  .hdr__login {
+    flex: none; display: inline-flex; align-items: center; gap: 6px; color: #fff; text-decoration: none; white-space: nowrap;
+    font: 700 .95rem/1 var(--font); font-stretch: 82%; text-transform: uppercase; letter-spacing: .05em;
+  }
+  .hdr__login:hover, .hdr__login[aria-current='page'] { color: var(--yellow); }
+  .hdr__login :global(svg) { width: 18px; height: 18px; }
+  /* Telefonen sitter i skyltens gula fält */
+  .hdr__phone {
+    flex: none; display: flex; flex-direction: column; justify-content: center; gap: 2px;
+    background: var(--yellow); color: var(--ink); text-decoration: none; padding: 0 var(--s5);
+    transition: background-color .15s;
+  }
+  .hdr__phone:hover { background: var(--yellow-600); color: var(--ink); }
+  .hdr__phone-k { font: 700 .72rem/1 var(--font); font-stretch: 85%; text-transform: uppercase; letter-spacing: .12em; }
+  .hdr__phone-v { display: inline-flex; align-items: center; gap: var(--s2); font: 800 1.45rem/1 var(--font); font-stretch: 78%; white-space: nowrap; }
+  .hdr__phone-v :global(svg) { width: 18px; height: 18px; }
+  .hdr__menu { display: none; flex: none; width: 52px; border: 0; background: none; color: #fff; cursor: pointer; }
   .hdr__menu :global(svg) { width: 28px; height: 28px; }
-  .mnav { border-top: 1px solid var(--line); background: #fff; }
-  .mnav ul { list-style: none; margin: 0; padding-top: var(--s2); padding-bottom: var(--s4); }
-  .mnav a { display: block; padding: var(--s3) 0; font-weight: 600; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
+  .mnav { background: var(--blue-700); }
+  .mnav ul { list-style: none; margin: 0; padding-top: var(--s2); padding-bottom: var(--s5); }
+  .mnav a {
+    display: block; padding: var(--s4) 0; color: #fff; text-decoration: none; border-bottom: 1px solid rgba(255, 255, 255, .22);
+    font: 800 1.35rem/1 var(--font); font-stretch: 78%; text-transform: uppercase; letter-spacing: .02em;
+  }
 
-  @media (max-width: 1339px) {
-    .hdr__nav, .hdr__offert { display: none; }
+  @media (max-width: 1280px) {
+    .hdr__nav { display: none; }
+    .hdr__login { margin-left: auto; }
     .hdr__menu { display: grid; place-items: center; }
-    .hdr__cta { margin-left: auto; }
   }
-  @media (max-width: 600px) {
-    .hdr__phone, .hdr__login { display: none; }
-    .hdr__in { min-height: 64px; }
-    .hdr__logo img { width: 64px; }
+  @media (max-width: 640px) {
+    .hdr__in { gap: var(--s3); min-height: 64px; }
+    .hdr__logo { margin: 6px 0; padding: 4px 8px; }
+    .hdr__logo img { width: 60px; }
+    .hdr__login span { display: none; }
+    .hdr__phone { display: none; }
   }
 
-  .ftr { background: var(--ink); color: #d5dbe2; padding: var(--s8) 0 var(--s9); margin-top: 0; }
+  /* Sidfot: en stor blå skylt */
+  .ftr { background: var(--blue); color: #e3eefa; padding: var(--s8) 0 var(--s9); }
   .ftr a { color: #fff; }
-  .ftr__grid { display: grid; gap: var(--s6); grid-template-columns: 1.4fr 1fr 1fr 1fr; }
-  .ftr__logo { background: #fff; padding: var(--s2); border-radius: var(--radius); width: 110px; margin-bottom: var(--s4); }
-  .ftr__tag { max-width: 30ch; }
-  .ftr__h { font-size: 1.1rem; color: #fff; margin-bottom: var(--s3); }
+  .ftr a:hover { color: var(--yellow); }
+  .ftr__sign { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 2px; background: rgba(255, 255, 255, .25); border: 2px solid rgba(255, 255, 255, .25); }
+  .ftr__sign > * { background: var(--blue); padding: var(--s5); }
+  .ftr__plate { display: inline-block; background: #fff; padding: var(--s2) var(--s3); margin-bottom: var(--s4); }
+  .ftr__logo { width: 110px; }
+  .ftr__tag { max-width: 30ch; margin: 0; }
+  .ftr__k { font: 700 .78rem/1.2 var(--font); font-stretch: 85%; text-transform: uppercase; letter-spacing: .12em; color: var(--yellow); margin-bottom: var(--s3); }
+  .ftr__tel { display: block; font: 800 2rem/1 var(--font); font-stretch: 75%; text-decoration: none; margin-bottom: var(--s3); }
+  .ftr__f p { margin: 0; }
   .ftr__links { list-style: none; margin: 0; padding: 0; }
   .ftr__links li { margin-bottom: var(--s2); }
-  .ftr__legal { margin-top: var(--s7); padding-top: var(--s5); border-top: 1px solid #3a4552; font-size: .9rem; }
-  @media (max-width: 900px) { .ftr__grid { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 520px) { .ftr__grid { grid-template-columns: 1fr; } }
+  .ftr__legal { margin-top: var(--s5); font-size: .9rem; color: #d3e3f5; }
+  @media (max-width: 960px) { .ftr__sign { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 540px) { .ftr__sign { grid-template-columns: 1fr; } }
 
   .callbar { display: none; }
   @media (max-width: 768px) {

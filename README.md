@@ -46,4 +46,8 @@ Texterna innehåller `<!-- TODO Tobbe: ... -->` och `todo`-fält i `src/data/faq
 - Kamerabevakning: tillstånd, skyltning, lagringstid
 - Om oss: får grundarna nämnas, siffror
 - Integritetspolicy: org.nr, lagringstider, biträden (utkast, granskas)
-- Bekräfta kundlistan (`src/data/kunder.json`)
+- Bekräfta kundlistan (`src/data/kunder.json`). Den visas i testmiljön men döljs i produktion tills bygget körs med `PUBLIC_KUNDER_BEKRAFTADE=true`.
+
+## Design
+
+Visuell riktning "Arbetsplatsskylten": vita skyltplåtar med blå ram, gult signalfält, typsnitt Archivo (variabel bredd). Se `DESIGN.md` och `PRODUCT.md`.

@@ -17,76 +17,97 @@ import { SITE, url } from '../lib/site';
   title="Larmuthyrning i Stockholm – hyrlarm i drift samma dag | Säkerhetsmäklarna"
   description="Hyr larm för bygge, ställning, butik, kontor och evenemang. Vi installerar, kopplar till larmcentral och tar ner igen – oftast i drift samma dag.">
 
+  <!-- Första vyn: arbetsplatsskylten -->
   <section class="hero">
-    <div class="wrap hero__in">
-      <div class="hero__copy">
-        <h1>{start.heroH1}</h1>
-        <p class="lead">{start.heroLead}</p>
-        <div class="hero__btns">
-          <a class="btn btn--primary" href={SITE.telefonHref}><Icon name="phone" />Ring {SITE.telefon}</a>
-          <a class="btn btn--secondary" href={url('/kontakt/')}>Begär offert</a>
-        </div>
-        <ul class="hero__proof">
-          <li><Icon name="check" />Larmuthyrning sedan {SITE.grundat}</li>
-          <li><Icon name="check" />Kopplat till larmcentral dygnet runt</li>
-        </ul>
-      </div>
-      <Image src={hero} alt="Säkerhetsmäklarnas servicebil framför en tegelbyggnad" widths={[600, 900, 1300]} sizes="(max-width: 900px) 100vw, 560px" loading="eager" fetchpriority="high" class="hero__img" />
-    </div>
-  </section>
-
-  <section class="section usps" aria-label="Därför Säkerhetsmäklarna">
-    <div class="wrap usps__grid">
-      {start.usps.map((u) => (
-        <div class="usp">
-          <h2 class="usp__h">{u.titel}</h2>
-          <p>{u.text}</p>
-        </div>
-      ))}
-    </div>
-  </section>
-
-  <section class="section section--soft">
     <div class="wrap">
-      <div class="section__head">
-        <h2>Vad behöver du larma?</h2>
-        <p>Vi hyr ut larm för tillfälliga och akuta behov. Välj det som liknar ditt uppdrag.</p>
+      <div class="sign hsign">
+        <div class="sign__band">
+          <span>Larmuthyrning · Stockholm</span>
+          <span>Sedan {SITE.grundat}</span>
+        </div>
+        <div class="fields hsign__grid">
+          <div class="field hsign__main">
+            <h1>{start.heroH1}</h1>
+            <p class="lead">{start.heroLead}</p>
+          </div>
+          <div class="hsign__photo">
+            <Image src={hero} alt="Säkerhetsmäklarnas servicebil med telefonnumret på bakdörren" widths={[600, 900, 1300]} sizes="(max-width: 900px) 100vw, 540px" loading="eager" fetchpriority="high" />
+          </div>
+          <dl class="hsign__facts">
+            <div class="field field--yellow"><dt class="field__k">I drift</dt><dd class="field__v">Ofta samma dag</dd></div>
+            <div class="field"><dt class="field__k">Övervakning</dt><dd class="field__v">Larmcentral dygnet runt</dd></div>
+            <div class="field"><dt class="field__k">Vid larm</dt><dd class="field__v">Bildverifiering</dd></div>
+            <div class="field"><dt class="field__k">Hyrtid</dt><dd class="field__v">Så länge du behöver</dd></div>
+          </dl>
+          <div class="field field--yellow hsign__call">
+            <div>
+              <span class="field__k">Ring oss</span>
+              <a class="hsign__tel num" href={SITE.telefonHref}>{SITE.telefon}</a>
+            </div>
+            <a class="btn btn--ink" href={url('/kontakt/')}>Begär offert <Icon name="arrow" /></a>
+          </div>
+        </div>
       </div>
-      <ServiceCards />
+
+      {SITE.visaKunder && kunder.length > 0 && (
+        <div class="kundrad">
+          <span class="field__k">Bland våra kunder</span>
+          <ul>{kunder.map((k) => <li>{k}</li>)}</ul>
+        </div>
+      )}
     </div>
   </section>
 
-  <section class="section">
+  <section class="section svc-sec" aria-labelledby="tjanster-rubrik">
+    <div class="wrap">
+      <div class="sign">
+        <div class="sign__band"><h2 id="tjanster-rubrik">Vad behöver du larma?</h2></div>
+        <div class="svc-sec__in">
+          <p class="svc-sec__lead">Vi hyr ut larm för tillfälliga och akuta behov. Välj det som liknar ditt uppdrag.</p>
+          <ServiceCards />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="steg-rubrik">
     <div class="wrap steps">
-      <div>
-        <h2>Så går det till</h2>
-        <ol class="steps__list">
+      <div class="sign">
+        <div class="sign__band"><h2 id="steg-rubrik">Så går det till</h2></div>
+        <ol class="fields steps__list">
           {start.steg.map((s, i) => (
-            <li>
-              <span class="steps__n" aria-hidden="true">{i + 1}</span>
-              <div><h3>{s.titel}</h3><p>{s.text}</p></div>
+            <li class="field">
+              <h3><span class="steps__n num" aria-hidden="true">{i + 1}</span>{s.titel}</h3>
+              <p>{s.text}</p>
             </li>
           ))}
         </ol>
       </div>
-      <Image src={montor} alt="Montör från Säkerhetsmäklarna sätter upp en detektor på en byggställning" widths={[500, 900]} sizes="(max-width: 900px) 100vw, 500px" class="steps__img" />
+      <Image src={montor} alt="Montör från Säkerhetsmäklarna sätter upp en detektor på en byggställning" widths={[500, 900]} sizes="(max-width: 900px) 100vw, 480px" class="steps__img" />
     </div>
   </section>
 
-  <section class="section section--soft">
-    <div class="wrap">
-      <div class="section__head">
-        <h2>Uppdrag vi har gjort</h2>
-      </div>
-      <ul class="refs">
-        {referenser.slice(0, 3).map((r) => (
-          <li class="ref"><h3>{r.titel}</h3><p>{r.text}</p></li>
+  <section class="section" aria-labelledby="varfor-rubrik">
+    <div class="wrap why">
+      <h2 id="varfor-rubrik">Därför Säkerhetsmäklarna</h2>
+      <dl class="why__list">
+        {start.usps.map((u) => (
+          <div><dt>{u.titel}</dt><dd>{u.text}</dd></div>
         ))}
-      </ul>
-      {kunder.length > 0 && (
-        <p class="kunder"><strong>Bland våra kunder:</strong> {kunder.join(' · ')}</p>
-      )}
-      <a href={url('/referenser/')} class="more">Fler uppdrag <Icon name="arrow" /></a>
+      </dl>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="ref-rubrik">
+    <div class="wrap">
+      <div class="sign">
+        <div class="sign__band"><h2 id="ref-rubrik">Uppdrag vi har gjort</h2><a href={url('/referenser/')} class="band-link">Fler uppdrag <Icon name="arrow" /></a></div>
+        <ul class="fields refs">
+          {referenser.slice(0, 3).map((r) => (
+            <li class="field"><h3>{r.titel}</h3><p>{r.text}</p></li>
+          ))}
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -101,38 +122,74 @@ import { SITE, url } from '../lib/site';
 </Base>
 
 <style>
-  .hero { padding: var(--s7) 0 var(--s8); }
-  .hero__in { display: grid; grid-template-columns: 1.05fr 1fr; gap: var(--s7); align-items: center; }
-  .hero__btns { display: flex; gap: var(--s3); flex-wrap: wrap; margin: var(--s5) 0; }
-  .hero__proof { list-style: none; padding: 0; margin: 0; display: flex; gap: var(--s5); flex-wrap: wrap; color: var(--text); font-weight: 600; font-size: .95rem; }
-  .hero__proof li { display: flex; align-items: center; gap: var(--s2); }
-  .hero__proof :global(svg) { width: 18px; height: 18px; color: var(--ok); }
-  .hero :global(.hero__img) { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
+  .hero { padding: var(--s6) 0 var(--s7); }
+  .svc-sec { padding-top: 0; }
+  .svc-sec__in { padding: var(--s5) var(--s6) var(--s6); }
+  .svc-sec__lead { margin-bottom: var(--s5); }
+  @media (max-width: 640px) { .svc-sec__in { padding: var(--s5) var(--s4); } }
+  .hsign__grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
+  .hsign__main { padding: var(--s6) var(--s6) var(--s5); }
+  .hsign__main h1 { margin-bottom: var(--s5); }
+  .hsign__main .lead { margin: 0; }
+  .hsign__photo { position: relative; min-height: 320px; }
+  .hsign__photo :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 60%; }
+  .hsign__facts { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin: 0; background: var(--rule-strong); }
+  .hsign__facts > div { background: var(--plate); }
+  .hsign__facts dd { margin: 0; }
+  .hsign__call {
+    grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: var(--s4) var(--s6); flex-wrap: wrap;
+    padding: var(--s4) var(--s6);
+    animation: fram .7s var(--ease-out) .15s both;
+  }
+  .hsign__tel { display: block; color: var(--ink); text-decoration: none; font: 800 clamp(2.4rem, 5vw, 3.6rem)/1 var(--font); font-stretch: 72%; letter-spacing: -.01em; }
+  .hsign__tel:hover { color: var(--ink); text-decoration: underline; text-decoration-thickness: 3px; }
+  @keyframes fram { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+
   @media (max-width: 900px) {
-    .hero { padding-top: var(--s5); }
-    .hero__in { grid-template-columns: 1fr; gap: var(--s5); }
+    .hero { padding-top: var(--s4); }
+    .hsign__grid { grid-template-columns: 1fr; }
+    .hsign__main { padding: var(--s5) var(--s4); }
+    .hsign__photo { min-height: 220px; order: 2; }
+    .hsign__facts { grid-template-columns: 1fr 1fr; order: 3; }
+    .hsign__call { order: 1; padding: var(--s4); }
+    .hsign__call .btn { width: 100%; }
+  }
+  @media (max-width: 640px) { :root { --frame: 6px; } }
+
+  .kundrad { display: flex; align-items: baseline; gap: var(--s3) var(--s5); flex-wrap: wrap; margin-top: var(--s5); }
+  .kundrad .field__k { margin: 0; }
+  .kundrad ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); }
+  .kundrad li { font: 800 1.2rem/1.2 var(--font); font-stretch: 75%; text-transform: uppercase; letter-spacing: .03em; color: var(--ink); }
+
+  .steps { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--s6); align-items: stretch; }
+  .steps__list { list-style: none; margin: 0; padding: 0; grid-template-columns: repeat(3, 1fr); }
+  .steps__list .field { padding: var(--s5); }
+  .steps__list h3 { display: flex; align-items: center; gap: var(--s3); font-size: 1.5rem; margin: 0 0 var(--s3); }
+  .steps__n { display: grid; place-items: center; flex: none; width: 32px; height: 32px; background: var(--ink); color: #fff; font: 800 1.2rem/1 var(--font); font-stretch: 75%; }
+  .steps__list p { margin: 0; }
+  .steps :global(.steps__img) { width: 100%; height: 100%; min-height: 300px; object-fit: cover; }
+  @media (max-width: 1000px) {
+    .steps { grid-template-columns: 1fr; }
+    .steps__list { grid-template-columns: 1fr; }
+    .steps :global(.steps__img) { max-height: 340px; }
   }
 
-  .usps { padding: var(--s7) 0; border-bottom: 1px solid var(--line); }
-  .usps__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s6); }
-  .usp__h { font-size: 1.35rem; color: var(--blue); }
-  .usp p { margin: 0; }
-  @media (max-width: 800px) { .usps__grid { grid-template-columns: 1fr; gap: var(--s5); } }
+  .why { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.6fr); gap: var(--s7); align-items: start; }
+  .why h2 { font-size: clamp(1.9rem, 3vw, 2.5rem); }
+  .why__list { margin: 0; border-top: 2px solid var(--ink); }
+  .why__list > div { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); gap: var(--s5); padding: var(--s5) 0; border-bottom: 1px solid var(--rule); }
+  .why__list dt { font: 800 1.4rem/1.1 var(--font); font-stretch: 75%; text-transform: uppercase; color: var(--blue); }
+  .why__list dd { margin: 0; }
+  @media (max-width: 900px) {
+    .why { grid-template-columns: 1fr; gap: var(--s4); }
+    .why__list > div { grid-template-columns: 1fr; gap: var(--s2); }
+  }
 
-  .steps { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s7); align-items: center; }
-  .steps__list { list-style: none; padding: 0; margin: var(--s5) 0 0; display: grid; gap: var(--s5); }
-  .steps__list li { display: flex; gap: var(--s4); }
-  .steps__list h3 { margin-bottom: var(--s1); }
-  .steps__list p { margin: 0; }
-  .steps__n { flex: none; width: 44px; height: 44px; border-radius: 50%; background: var(--yellow); color: #1a1a1a; display: grid; place-items: center; font: 400 1.35rem var(--font-head); }
-  .steps :global(.steps__img) { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--radius); }
-  @media (max-width: 900px) { .steps { grid-template-columns: 1fr; } }
-
-  .refs { list-style: none; padding: 0; margin: 0 0 var(--s5); display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s5); }
-  .ref { background: #fff; border: 1px solid var(--line); border-radius: var(--radius); padding: var(--s5); }
-  .ref p { margin: 0; }
+  .band-link { display: inline-flex; align-items: center; gap: var(--s2); color: #fff; text-decoration: none; }
+  .band-link:hover { color: var(--yellow); }
+  .band-link :global(svg) { width: 16px; height: 16px; }
+  .refs { list-style: none; margin: 0; padding: 0; grid-template-columns: repeat(3, 1fr); }
+  .refs .field { padding: var(--s5); }
+  .refs p { margin: 0; }
   @media (max-width: 900px) { .refs { grid-template-columns: 1fr; } }
-  .kunder { color: var(--text); }
-  .more { display: inline-flex; align-items: center; gap: var(--s2); font-weight: 700; margin-top: var(--s4); }
-  .more :global(svg) { width: 18px; height: 18px; }
 </style>

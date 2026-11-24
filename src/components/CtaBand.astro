@@ -6,13 +6,14 @@ const { rubrik = 'Behöver du larm redan i dag?', text = 'Ring oss så berättar
 ---
 <section class="cta">
   <div class="wrap cta__in">
-    <div>
+    <div class="cta__copy">
       <h2>{rubrik}</h2>
       <p>{text}</p>
     </div>
-    <div class="cta__btns">
-      <a class="btn btn--primary" href={SITE.telefonHref}><Icon name="phone" />Ring {SITE.telefon}</a>
-      <a class="btn btn--on-blue" href={url('/kontakt/')}>Begär offert</a>
+    <div class="cta__call">
+      <span class="field__k">Ring oss</span>
+      <a class="cta__tel num" href={SITE.telefonHref}>{SITE.telefon}</a>
+      <a class="btn btn--ink" href={url('/kontakt/')}>Begär offert <Icon name="arrow" /></a>
     </div>
   </div>
 </section>
@@ -20,7 +21,11 @@ const { rubrik = 'Behöver du larm redan i dag?', text = 'Ring oss så berättar
 <style>
   .cta { background: var(--blue); color: #fff; padding: var(--s8) 0; }
   .cta h2 { color: #fff; }
-  .cta p { max-width: 52ch; margin: 0; }
-  .cta__in { display: flex; gap: var(--s6); align-items: center; justify-content: space-between; flex-wrap: wrap; }
-  .cta__btns { display: flex; gap: var(--s3); flex-wrap: wrap; }
+  .cta p { max-width: 48ch; margin: 0; font-size: 1.125rem; }
+  .cta__in { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: var(--s6); align-items: center; }
+  .cta__call { background: var(--yellow); color: var(--ink); padding: var(--s5) var(--s6); display: grid; justify-items: start; gap: var(--s2); }
+  .cta__call .field__k { color: var(--ink); margin: 0; }
+  .cta__tel { color: var(--ink); text-decoration: none; font: 800 clamp(2.4rem, 5vw, 3.6rem)/1 var(--font); font-stretch: 72%; margin-bottom: var(--s3); }
+  .cta__tel:hover { color: var(--ink); text-decoration: underline; text-decoration-thickness: 3px; }
+  @media (max-width: 860px) { .cta__in { grid-template-columns: 1fr; } .cta__call { padding: var(--s5); } .cta__call .btn { width: 100%; } }
 </style>
