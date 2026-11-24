@@ -1,78 +1,76 @@
 ---
 name: Säkerhetsmäklarna
-description: Temporary alarm and camera rental for Stockholm contractors, presented as a construction-site sign.
+description: Temporary alarm and camera rental for Stockholm contractors, shown as a monitored system at work.
 colors:
-  sign-blue: "#005cb9"
-  sign-blue-deep: "#00468f"
-  night-blue: "#062f5c"
-  blue-wash: "#eaf2fb"
+  brand-blue: "#005cb9"
+  brand-blue-deep: "#00468f"
+  blue-wash: "#ebf3fc"
+  blue-on-dark: "#8cc2ff"
   signal-yellow: "#fddd00"
   signal-yellow-pressed: "#ebc900"
-  ink: "#0f1a26"
-  text: "#26323f"
-  muted: "#4f5b69"
-  rule: "#c9d1da"
-  galvanised-steel: "#e4e9ee"
-  plate-white: "#ffffff"
-  field-border: "#8794a2"
-  ok: "#137a43"
+  control-navy: "#071a33"
+  panel-navy: "#0c2546"
+  navy-raised: "#13325a"
+  on-navy: "#e8eef6"
+  on-navy-muted: "#a9b8cb"
+  ink: "#0b1726"
+  text: "#2b3a4b"
+  muted: "#55657a"
+  rule: "#dfe5ec"
+  cool-ground: "#f5f7fa"
+  ground-soft: "#eef2f6"
+  plate: "#ffffff"
+  status-ok: "#12804a"
+  status-ok-on-dark: "#4fd18b"
   error: "#b42318"
 typography:
   display:
-    fontFamily: "'Archivo Variable', 'Archivo', system-ui, sans-serif"
-    fontSize: "clamp(2.2rem, 6.2vw, 5.4rem)"
-    fontWeight: 800
-    lineHeight: 0.95
-    letterSpacing: "-0.005em"
-    fontVariation: "'wdth' 72"
-  headline:
-    fontFamily: "'Archivo Variable', 'Archivo', system-ui, sans-serif"
-    fontSize: "clamp(1.9rem, 3.6vw, 3rem)"
-    fontWeight: 800
-    lineHeight: 0.95
-    letterSpacing: "-0.005em"
-    fontVariation: "'wdth' 72"
-  phone:
-    fontFamily: "'Archivo Variable', 'Archivo', system-ui, sans-serif"
-    fontSize: "clamp(2.4rem, 5vw, 3.6rem)"
-    fontWeight: 800
-    lineHeight: 1
-    fontFeature: "'tnum'"
-    fontVariation: "'wdth' 72"
-  title:
-    fontFamily: "'Archivo Variable', 'Archivo', system-ui, sans-serif"
-    fontSize: "1.35rem"
+    fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
+    fontSize: "clamp(2.3rem, 5vw, 4.25rem)"
     fontWeight: 700
-    lineHeight: 1.15
-    fontVariation: "'wdth' 88"
-  field-value:
-    fontFamily: "'Archivo Variable', 'Archivo', system-ui, sans-serif"
-    fontSize: "1.45rem"
-    fontWeight: 800
-    lineHeight: 1.1
-    fontVariation: "'wdth' 75"
+    lineHeight: 1.02
+    letterSpacing: "-0.03em"
+    fontVariation: "'wdth' 96"
+  headline:
+    fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
+    fontSize: "clamp(1.8rem, 3.2vw, 2.75rem)"
+    fontWeight: 700
+    lineHeight: 1.08
+    letterSpacing: "-0.025em"
+    fontVariation: "'wdth' 96"
+  title:
+    fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
+    fontSize: "1.25rem"
+    fontWeight: 650
+    lineHeight: 1.25
+    letterSpacing: "-0.01em"
   body:
-    fontFamily: "'Archivo Variable', 'Archivo', system-ui, sans-serif"
+    fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
     fontSize: "1.0625rem"
     fontWeight: 400
     lineHeight: 1.6
-    fontVariation: "'wdth' 100"
-  band:
-    fontFamily: "'Archivo Variable', 'Archivo', system-ui, sans-serif"
-    fontSize: "0.95rem"
-    fontWeight: 800
-    lineHeight: 1.2
-    letterSpacing: "0.08em"
-    fontVariation: "'wdth' 80"
+  lead:
+    fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
+    fontSize: "clamp(1.1rem, 1.4vw, 1.25rem)"
+    fontWeight: 400
+    lineHeight: 1.6
   label:
-    fontFamily: "'Archivo Variable', 'Archivo', system-ui, sans-serif"
-    fontSize: "0.78rem"
-    fontWeight: 700
-    lineHeight: 1.2
+    fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
+    fontSize: "0.75rem"
+    fontWeight: 600
+    lineHeight: 1.3
     letterSpacing: "0.1em"
-    fontVariation: "'wdth' 85"
+  data:
+    fontFamily: "Archivo Variable, Archivo, system-ui, sans-serif"
+    fontSize: "1.15rem"
+    fontWeight: 650
+    lineHeight: 1.3
+    fontFeature: "'tnum'"
 rounded:
-  plate: "2px"
+  control: "8px"
+  md: "10px"
+  lg: "16px"
+  pill: "999px"
 spacing:
   s1: "4px"
   s2: "8px"
@@ -82,218 +80,212 @@ spacing:
   s6: "32px"
   s7: "48px"
   s8: "72px"
-  s9: "104px"
-  frame: "10px"
-  rule-gap: "2px"
+  s9: "112px"
 components:
   button-primary:
     backgroundColor: "{colors.signal-yellow}"
     textColor: "{colors.ink}"
-    typography: "{typography.band}"
-    rounded: "{rounded.plate}"
+    rounded: "{rounded.md}"
     padding: "0 24px"
-    height: "52px"
+    height: "50px"
   button-primary-hover:
     backgroundColor: "{colors.signal-yellow-pressed}"
     textColor: "{colors.ink}"
+  button-secondary:
+    backgroundColor: "{colors.plate}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.md}"
+    padding: "0 24px"
+    height: "50px"
+  button-ghost:
+    textColor: "{colors.plate}"
+    rounded: "{rounded.md}"
+    padding: "0 24px"
+    height: "50px"
   button-ink:
     backgroundColor: "{colors.ink}"
-    textColor: "{colors.plate-white}"
-    rounded: "{rounded.plate}"
+    textColor: "{colors.plate}"
+    rounded: "{rounded.md}"
     padding: "0 24px"
-    height: "52px"
-  button-ink-hover:
-    backgroundColor: "{colors.night-blue}"
-  button-secondary:
-    backgroundColor: "{colors.plate-white}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.plate}"
-    padding: "0 24px"
-    height: "52px"
-  button-secondary-hover:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.plate-white}"
-  button-on-blue:
-    backgroundColor: "{colors.plate-white}"
-    textColor: "{colors.sign-blue}"
-    rounded: "{rounded.plate}"
-    height: "52px"
-  button-on-blue-hover:
-    backgroundColor: "{colors.blue-wash}"
-    textColor: "{colors.sign-blue-deep}"
-  sign-band:
-    backgroundColor: "{colors.sign-blue}"
-    textColor: "{colors.plate-white}"
-    typography: "{typography.band}"
-    padding: "8px 24px 13px"
-  field:
-    backgroundColor: "{colors.plate-white}"
-    textColor: "{colors.ink}"
-    padding: "16px 24px"
-  field-yellow:
-    backgroundColor: "{colors.signal-yellow}"
-    textColor: "{colors.ink}"
-    padding: "16px 24px"
-  input:
-    backgroundColor: "{colors.plate-white}"
-    textColor: "{colors.ink}"
-    rounded: "{rounded.plate}"
-    padding: "12px"
     height: "50px"
-  header:
-    backgroundColor: "{colors.sign-blue}"
-    textColor: "{colors.plate-white}"
-    height: "76px"
+  button-ink-hover:
+    backgroundColor: "{colors.navy-raised}"
+  input:
+    backgroundColor: "{colors.plate}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.md}"
+    padding: "10px 12px"
+    height: "48px"
+  card:
+    backgroundColor: "{colors.plate}"
+    rounded: "{rounded.lg}"
+    padding: "24px"
+  nav-link:
+    textColor: "{colors.text}"
+    rounded: "{rounded.control}"
+    padding: "8px 12px"
+  nav-link-active:
+    backgroundColor: "{colors.blue-wash}"
+    textColor: "{colors.brand-blue}"
+  system-panel:
+    backgroundColor: "{colors.panel-navy}"
+    textColor: "{colors.on-navy}"
+    rounded: "18px"
+  status-tag:
+    backgroundColor: "{colors.on-navy}"
+    textColor: "{colors.control-navy}"
+    rounded: "{rounded.pill}"
+    padding: "5px 8px"
 ---
 
 # Design System: Säkerhetsmäklarna
 
 ## Overview
 
-**Creative North Star: "Arbetsplatsskylten"**
+**Creative North Star: "The Operator's Console"**
 
-The site is the construction-site sign a contractor reads at the gate every morning: white plates framed in thick sign blue, each plate divided into labelled fields that state what, who, since when and which number to call. Every important surface is built as a sign: a blue title band across the top, a grid of fields ruled by 2px ink lines, and one yellow signal field that holds the action. Real company photos are mounted as one field of the sign, never as a dimmed hero behind text.
+The site shows the alarm system at work rather than describing it. Its surfaces are what an operator would see: deep navy control panels with a faint measuring grid, hairline-divided panes, detectors listed with status dots, timestamps in tabular figures, a log that ends in a decision. Around those control surfaces sits a cool, near-white ground where the reading happens, with brand blue as the working colour for links, active states and small markers.
 
-The world is dense and declarative rather than airy. Type is Archivo Variable throughout, run on its width axis: condensed heavy capitals for headings, field values, bands and buttons (echoing the van livery), normal width for reading text. Plates sit on a light galvanised-steel ground. Corners are square. Depth is a single soft drop that lifts the plate off the steel; everything inside the plate is flat.
+The mood is technical and exact, calm rather than alarmed. Type is Archivo at near-normal width in sentence case, tight-tracked in headings, with small uppercase micro-labels reserved for data keys and pane titles. Depth is quiet: 1px hairlines, soft layered shadows, rounded but not soft corners (8 to 18px). Brand yellow is a signal, never a surface: it marks the one primary action and the one live or decided thing in a view.
 
-The world explicitly refuses the security-category default: dark photo hero with overlay, shield iconography as emblem, and a row of three free-floating feature cards. Repeated items live as ruled fields inside one sign instead.
+Imagery is real company photography (detectors, sites, scaffolding). Inside the system panel a photo is treated as a verification still: greyscale, raised contrast, with a thin yellow detection box and dark overlay captions.
 
 **Key Characteristics:**
-- Signs, not cards: blue frame, blue title band, ruled field grid.
-- Yellow is a signal, reserved for the primary action, the phone number and the "in operation" value.
-- One typeface, many widths: condensed caps for signage, full width for prose.
-- Square plates (2px) on a steel ground; one plate shadow, no others.
-- Telephone numbers set largest, in tabular figures.
+- Navy control surfaces (hero, flow section, CTA band, footer, mobile callbar) alternating with cool-white and white reading surfaces.
+- Brand blue as the working accent; yellow only for primary action and live/decision marks.
+- Hairline grids (1px gaps over the rule colour) to divide data into fields and panes.
+- Uppercase micro-labels plus tabular figures for anything that is data: IDs, times, phone numbers.
+- Motion that resolves a state once (event arrives, log lines appear, timeline draws) and then rests.
 
 ## Colors
 
-A locked two-colour brand (sign blue and signal yellow) on white plates and a cool steel ground, with near-black ink for rules and type.
+A cool navy-and-white system with brand blue doing the work and brand yellow held back as a signal.
 
 ### Primary
-- **Sign Blue** (`sign-blue`): the brand blue. Sign frames, title bands, the sticky header, the footer sign, the CTA band, the mobile call bar, links, focus rings, list markers. White on it passes 6.2:1. Locked brand colour.
-- **Sign Blue Deep** (`sign-blue-deep`): link hover and the mobile nav drawer behind the header.
-- **Night Blue** (`night-blue`): hover state of the ink button only.
-- **Blue Wash** (`blue-wash`): hover fill of the white-on-blue button.
+- **Brand Blue** (brand-blue): the locked brand colour and the working accent on light ground: links, active nav item, focus rings, form focus, list markers, step numbers, the service-row arrow on hover. White text on it passes 6.2:1. Its deeper hover is **Brand Blue Deep**; its pale tint **Blue Wash** backs active nav and hovered rows.
+- **Blue on Dark** (blue-on-dark): the blue's role on navy: links, icons in hero facts, timeline times and timeline dots.
 
 ### Secondary
-- **Signal Yellow** (`signal-yellow`): the signal field. Phone field in the header, the call field at the foot of every hero sign, the "I drift" fact, the CTA call plate, the primary button, step numerals, benefit-check tiles, the active-nav underline, text selection, and the whole service row on hover. Ink on it passes 13:1. Locked brand colour.
-- **Signal Yellow Pressed** (`signal-yellow-pressed`): hover state for yellow buttons and the header phone field.
+- **Signal Yellow** (signal-yellow): the locked brand yellow. Fills the primary button ("Ring", "Begär offert"), the skip link and text selection; marks the live detector, the detection box in the event photo, and the decision line/dot in logs and the flow timeline. Pressed state is **Signal Yellow Pressed**.
 
 ### Neutral
-- **Ink** (`ink`): headings, field values, the 2px rules between fields and above lists, secondary-button borders, the ink button.
-- **Text** (`text`): body copy (12:1 on white).
-- **Muted** (`muted`): field labels and secondary copy (7:1 on white, 6:1 on steel).
-- **Rule** (`rule`): 1px separators between list rows, FAQ items and service rows.
-- **Galvanised Steel** (`galvanised-steel`): the page ground behind the plates.
-- **Plate White** (`plate-white`): sign plates, fields, inputs, `section--plate` bands.
-- **Field Border** (`field-border`): resting 2px border of form inputs.
-- **OK / Error** (`ok`, `error`): form status text and invalid-field borders only.
+- **Control Navy** (control-navy): dark section background (hero, flow, CTA, footer), the base of the technical grid.
+- **Panel Navy** (panel-navy): raised surfaces on navy: the system panel, the CTA call card. **Navy Raised** is the ink button's hover.
+- **On Navy / On Navy Muted** (on-navy, on-navy-muted): primary and secondary text on navy; muted passes 8:1.
+- **Ink** (ink): headings and text on yellow.
+- **Text** (text): body copy, 11:1 on white.
+- **Muted** (muted): supporting copy, labels, captions, 5.6:1 on ground.
+- **Rule** (rule): every hairline on light ground, and the gap colour of field grids.
+- **Cool Ground / Ground Soft / Plate** (cool-ground, ground-soft, plate): page background, alternate section band, and white cards/sections.
+
+### Status
+- **Status OK** (status-ok, status-ok-on-dark): "in service" dots and form success. **Error** (error): invalid fields and form errors.
 
 ### Named Rules
-**The Signal Field Rule.** Yellow fills a field, never decorates. It holds the call to action, the phone number, or the one fact that answers "how fast": one yellow field per sign. A yellow button sits on blue or white; a yellow call field carries an ink button, never a yellow one.
+**The Signal Rule.** Yellow is a mark, not a field. At most one yellow action per view region plus live/decision marks; never a section background, card fill, or heading colour on light ground.
 
-**The Locked Pair Rule.** Sign Blue and Signal Yellow are brand-locked. Do not shift, tint into gradients, or introduce a third accent hue.
+**The Working Blue Rule.** Interactive state on light ground is always brand blue (active, focus, hover affordances). Do not introduce a second accent hue.
 
 ## Typography
 
-**Display Font:** Archivo Variable (with Archivo, system-ui fallback), self-hosted via `@fontsource-variable/archivo` with the width axis.
-**Body Font:** the same family at normal width.
+**Display Font:** Archivo Variable (self-hosted via @fontsource-variable/archivo, width axis), falling back to Archivo, system-ui
+**Body Font:** Archivo Variable, same family
+**Label/Data:** Archivo Variable with tabular figures (`font-variant-numeric: tabular-nums`)
 
-**Character:** One grotesque stretched to two voices. Condensed (72-88% width), weight 800, uppercase for everything a sign would say; 100% width, weight 400 for everything a person would read.
+**Character:** One grotesque throughout. Headings sit at a near-normal width (96%) with tight negative tracking and bold weights; body runs at full width (100%) for calm reading.
 
 ### Hierarchy
-- **Display** (800, `clamp(2.2rem, 6.2vw, 5.4rem)`, 0.95, 72% width, uppercase): H1 inside the hero sign. Service pages scale it to `clamp(2.3rem, 5vw, 4.4rem)`.
-- **Headline** (800, `clamp(1.9rem, 3.6vw, 3rem)`, 0.95, 72% width, uppercase): section H2. Inside prose it drops to `clamp(1.6rem, 2.6vw, 2.2rem)`.
-- **Phone** (800, `clamp(2.4rem, 5vw, 3.6rem)`, 1, 72% width, tabular figures): the telephone number in call fields; the largest thing in its field.
-- **Field Value** (800, 1.45rem, 1.1, 75% width, uppercase; 1.2rem under 640px): the answer inside a sign field. Service names and USP terms use the same voice at larger sizes.
-- **Title** (700, 1.35rem, 1.15, 88% width): H3, card and reference titles.
-- **Body** (400, 1.0625rem, 1.6, 100% width): reading text; lead paragraphs to 60ch, prose to 68ch.
-- **Band** (800, 0.95rem, 0.08em tracking, 80% width, uppercase): sign title bands. Buttons use the same voice at 1rem, 85% width, 0.04em.
-- **Label** (700, 0.78rem, 0.1em tracking, 85% width, uppercase, muted): the field key above a value. Form labels use 0.82rem, 88% width, ink.
+- **Display** (700, clamp 2.3 to 4.25rem, 1.02): page H1s; hero H1 limited to about 13ch. Service-page H1 drops to clamp 2.1 to 3.5rem.
+- **Headline** (700, clamp 1.8 to 2.75rem, 1.08): section H2s. In prose, H2 steps down to clamp 1.5 to 2rem.
+- **Title** (650, 1.25rem, 1.25): H3s, card and timeline step titles; service row names scale to 1.5rem.
+- **Body** (400, 1.0625rem, 1.6): running text; prose capped at 68ch, section intros at 60ch, lead at 58ch.
+- **Lead** (400, clamp 1.1 to 1.25rem): the paragraph under an H1.
+- **Label** (600, 0.7 to 0.8rem, 0.08 to 0.1em tracking, uppercase): data keys, pane titles, footer column heads, card bands, status tags.
+- **Data** (650, 1.15rem, tabular): field values; large phone numbers reach 700 at clamp 2.2 to 3.2rem with -0.03em tracking.
 
 ### Named Rules
-**The Livery Rule.** If a sign would print it, it is condensed heavy caps. If a person reads it as a sentence, it is normal-width sentence case. Never set body copy condensed, never set a heading in sentence-case regular.
+**The Sentence Case Rule.** Headings, buttons and nav are sentence case. Uppercase exists only at label size for data keys and pane titles, never on headings or buttons.
 
-**The Number Is Biggest Rule.** In any call field the phone number outranks every other element, set in tabular figures (`.num`).
+**The Tabular Rule.** Times, IDs, phone numbers and counts use tabular figures so columns of data align.
 
 ## Layout
 
-Content sits in a 1280px wrap with 16px gutters (32px from 768px). Sections are spaced on a 72px rhythm (`s8`), with a 4/8/12/16/24/32/48/72/104 scale. Each major section is either a full sign or an open band on steel or white.
+Content sits in a 1240px wrap with 16px gutters on mobile and 32px from 768px. Spacing follows a nine-step scale (4, 8, 12, 16, 24, 32, 48, 72, 112px); sections breathe at 112px vertical padding, 72px below 768px. Section heads hold 60ch and sit 48px above their content.
 
-Signs are CSS grids whose 2px gaps reveal an ink background: the gap is the rule. The hero sign is a two-column grid (text field 1.25fr, photo field 1fr), a four-up fact row, and a full-width yellow call field. Under 900px it collapses to one column with the call field moved directly under the title, then photo, then a 2-up fact grid. The service index is a ruled list of rows (thumbnail, name, short text, arrow tile) that collapses to thumbnail plus text, losing the arrow under 600px. The service page pairs prose with a 420px sticky quote sign, stacking under 1060px.
+Pages alternate background bands: cool ground, white plate, and navy. The home hero is a full-bleed navy band with the technical grid (48px squares of 1px white-at-12% lines, masked by a radial fade toward the upper right). The system panel spans the wrap width and overlaps the lower edge of the hero into the light ground below; on mobile the overlap is dropped and the panel stacks after a short lead.
 
-The header is a sticky 76px blue band (64px on phones); nav collapses into a drawer at 1280px, and the phone field hides at 640px where a fixed blue call bar at the bottom carries the call and quote buttons. The footer is one large blue sign with a four-column field grid (2 columns at 960px, 1 at 540px).
-
-**The Rule Is The Gap Rule.** Field separators are 2px grid gaps over ink, not borders on each cell.
+Two-column splits are the default composition (copy plus media, timeline head plus list, body plus a 400px sticky quote card on service pages). They collapse to one column between 860 and 1060px. The header collapses its nav into a menu at 1220px; below 768px a fixed navy callbar (call button plus "Offert") stays at the bottom of the viewport.
 
 ## Elevation & Depth
 
-Flat inside, lifted outside. A sign plate casts one soft compound shadow onto the steel ground; nothing inside a sign casts a shadow. Depth between fields comes only from ink rules and the blue frame. The service page's sticky quote sign drops even this shadow.
+Depth is layered and soft, carried mostly by tone (navy over navy, white over cool ground) and 1px hairlines; shadows only lift the surfaces that matter.
 
 ### Shadow Vocabulary
-- **Plate** (`box-shadow: 0 1px 1px rgba(15,26,38,.08), 0 8px 24px -8px rgba(15,26,38,.18)`): every `.sign` plate.
-- **Call bar** (`box-shadow: 0 -2px 10px rgba(0,0,0,.15)`): the fixed mobile call bar only.
-- **Input focus** (`box-shadow: 0 0 0 3px rgba(0,92,185,.25)`): a halo, not elevation.
+- **Rest** (`0 1px 2px rgba(11,23,38,.05), 0 4px 16px -4px rgba(11,23,38,.08)`): cards, the service list, the primary button.
+- **Lifted** (`0 2px 4px rgba(7,26,51,.08), 0 24px 48px -16px rgba(7,26,51,.28)`): the system panel, the sticky quote card, the CTA call card, feature photos.
+- **Panel inner light** (`inset 0 1px 0 rgba(255,255,255,.06)`): the top edge of navy panels.
 
 ### Named Rules
-**The One Plate Rule.** Only the sign plate is lifted. Buttons, fields, rows and tiles are flat; state is shown with fill colour, never with a shadow.
+**The Hairline Rule.** Data is divided by 1px lines, not by gaps or colour blocks: field grids use a 1px gap over the rule colour; panes on navy use white at 12%.
+
+**The Glass Header Rule.** Only fixed chrome is translucent: the white header (92% white, 12px blur) and the navy callbar (94% navy, 10px blur), plus the facts strip over service-page photos.
 
 ## Shapes
 
-Square. The only radius is 2px (`plate`) on buttons and inputs; sign plates, fields, tiles and photos have hard corners. The sign frame is a 10px solid blue border (6px under 640px). Small square tiles recur: the 40px yellow step numeral, the 52px ink-bordered arrow tile on service rows, the 36px FAQ toggle, the yellow check tile in benefit lists. Lists open with a 2px ink rule and separate with 1px rule lines.
+Precise, moderately rounded corners: 8px for small controls and inner items (nav links, list rows, thumbnails), 10px for buttons and inputs, 12px for service rows and overlay strips, 16px for cards and photos, 18px for the system panel. Fully round only for status dots, circular icon buttons (44px and 34px), and the pill-shaped status tag. Borders are 1px throughout; the detection box is 1.5px yellow.
 
 ## Components
 
-### Sign (signature)
-The core container. White plate, 10px blue frame, plate shadow. A blue **title band** runs across the top in band type, often with a left label and a right detail ("LARMUTHYRNING · STOCKHOLM" / "SEDAN 1999"), or an H2 plus a white band link. Below it, a **field grid**: white fields with a muted label (`field__k`) over a condensed value (`field__v`), ruled by 2px ink gaps. One field may be yellow. Photos fill a field edge to edge with `object-fit: cover`.
-
-### Call Field
-A yellow field spanning the sign's full width: "RING OSS" label, phone number in phone type, and an ink "Begär offert" button with an arrow. On the home hero it wipes in once from the left (`clip-path` inset, 0.7s, `cubic-bezier(.16,1,.3,1)`, 0.15s delay); reduced motion disables it. The CTA band repeats it as a yellow plate on a blue band.
-
 ### Buttons
-- **Shape:** rectangular plate, 2px radius, 52px tall, 24px side padding, 2px border.
-- **Type:** 800, 1rem, 85% width, uppercase, 0.04em tracking; optional 20px line icon.
-- **Primary (yellow):** yellow fill and border, ink text; hover to pressed yellow. Used on blue or white grounds.
-- **Ink:** ink fill, white text; hover to night blue. Used inside yellow fields.
-- **Secondary:** white with 2px ink border; hover inverts to ink.
-- **On blue:** white with blue text, for the mobile call bar; hover to blue wash.
-- **Transitions:** 0.15s on background, colour and border only.
-- **Arrow link (`more`):** button type without a box, arrow nudges 4px right on hover.
+Solid and quiet: a 50px target, 10px radius, 650 weight, 1rem, sentence case, optional 18px line icon leading or trailing.
+- **Primary:** Signal Yellow with Ink text and the rest shadow; hover to the pressed yellow. One per view region (header, hero, callbar, form submit).
+- **Secondary:** white with Ink text and a 1px #c6d0dc border; hover darkens the border to Ink.
+- **Ghost (on navy):** white text, 4% white fill, 28% white border; hover to 10% fill and 50% border.
+- **Ink / On-blue:** ink fill with white text (hover Navy Raised); white on blue for blue fields.
+- **Press:** all buttons nudge down 1px on active. Focus is the global 2px blue outline at 3px offset.
+- **More link:** blue text link with an arrow that slides 4px on hover.
 
-### Service Row
-A ruled list row, the whole row is the link (stretched `::after`). On hover or focus-within the entire row fills yellow, its arrow tile inverts to ink with a yellow arrow and nudges 3px; focus shows a 3px inset blue outline.
+### Cards / Containers
+- **Corner Style:** 16px.
+- **Background:** white on cool ground; Panel Navy at 85% with a 14% white border on navy.
+- **Shadow Strategy:** rest shadow by default, lifted for sticky or featured cards.
+- **Border:** 1px rule.
+- **Field grid:** a card can carry an uppercase band (label type, rule border below) and a grid of fields separated by 1px hairlines; each field is a label key over a data value.
 
 ### Inputs / Fields
-- **Style:** white, 2px field-border stroke, 2px radius, 50px min height, 12px padding.
-- **Label:** condensed uppercase ink, 0.82rem; optional marker in muted sentence case.
-- **Hover:** border to ink. **Focus:** border to sign blue plus 3px blue halo.
-- **Error:** border to error red; status line in bold ok/error text.
+- **Style:** 48px high, white, 1px #b9c4d1 border, 10px radius, labels above at 600 0.9rem in Ink, optional markers in muted 400.
+- **Focus:** border turns brand blue with a 4px blue-at-15% ring.
+- **Error:** border in Error red; status messages in Status OK or Error at 600.
 
 ### Navigation
-Sticky blue header band. Logo sits on its own small white plate. Nav items are white condensed caps (700, 1rem, 76% width); hover shows a 3px translucent white underline, the current page a 3px yellow underline (inset shadow). The phone sits in a yellow field flush to the right edge of the band. Under 1280px a menu button opens a deep-blue drawer with 1.35rem condensed caps rows separated by translucent white lines.
+Sticky white header, 72px (64px mobile), translucent with blur and a rule border. Logo at 64px, nav links in 550 0.95rem Text with 8px-radius hover in Ground Soft; current page in Brand Blue on Blue Wash. On the right: "Logga in" and the phone number (tabular, 650, Ink) with 17px line icons, then a compact primary button. The mobile menu is a stacked list of 1.15rem 600 links divided by rules. The footer is Control Navy with the logo on a white plate, a large tabular phone number, and label-styled column heads.
+
+### Service List
+A single white rounded container holding rows: 150px photo, name, short description, 44px circular arrow button. Rows are divided by inset hairlines; hover fills the row with Blue Wash, scales the photo 3%, and turns the arrow button solid blue. Collapses to thumbnail plus text on mobile.
 
 ### FAQ
-Native `details` list under a 2px ink rule, 1px rule separators. Question in 700, 1.15rem, 92% width ink. A 36px square ink-bordered toggle on the right turns yellow on hover and ink with a yellow minus when open.
+Native disclosure rows divided by rules; 600 1.1rem questions with a 34px circular plus/minus control at the right that fills blue when open.
 
-### Footer
-One large blue sign: field grid with translucent white gaps, logo on a white plate, yellow field labels, phone in 2rem condensed figures.
+### System Panel (signature)
+The navy console on the home hero, always labelled with an "Exempel" pill tag. A top bar shows the object and an OK dot; below, three hairline-divided panes, each titled with an uppercase label and a 15px line icon: a detector list (ID, name, status dot), an event pane with a greyscale verification photo, a yellow detection box and dark overlay captions, and an alarm-centre log drawn as a vertical hairline with hollow dots, ending in a yellow-dotted decision line in white 600. The live detector row gets a 10% yellow fill and a 35% yellow inner border. On load the photo resolves from blur, the box scales in, and log lines appear one by one at 0.45s intervals. Reduced motion shows the settled state.
+
+### Event Timeline
+The same log grammar at section scale on navy: right-aligned times in Blue on Dark, 13px hollow dots on a 1px line that draws downward on scroll, a yellow dot and yellow time for the decision step.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** build every primary surface as a sign: blue frame, blue title band, ruled field grid.
-- **Do** give each sign at most one yellow field, and put the action or phone number in it.
-- **Do** set signage text in Archivo condensed (72-88% width) heavy caps and reading text at 100% width.
-- **Do** separate fields with 2px ink grid gaps and list rows with 1px rule lines under a 2px ink top rule.
-- **Do** mount real company photos as a field of the sign, full bleed within the field.
-- **Do** set phone numbers in tabular figures and make them the largest element in their field.
-- **Do** keep corners square: 2px on controls, 0 on plates.
-- **Do** use the inline line icons (2px stroke, round caps) at 16-22px, only beside text.
+- **Do** keep yellow to the primary action and to live or decided states (live detector, detection box, decision dot).
+- **Do** use brand blue for every interactive state on light ground, and Blue on Dark on navy.
+- **Do** divide data with 1px hairlines and label keys with uppercase micro-labels over tabular values.
+- **Do** place a system or data surface on navy with the technical grid when a page needs a hero moment.
+- **Do** label any illustrative system data as "Exempel".
+- **Do** let motion resolve a state once and rest; always provide the settled state under reduced motion.
+- **Do** use real company photographs; inside a system pane, treat them as greyscale verification stills.
 
 ### Don't:
-- **Don't** use a dark photo hero with a text overlay.
-- **Don't** use shield icons as decorative emblems, or lay out free-floating rounded feature cards; repeated items (steps, references) are fields ruled inside one sign.
-- **Don't** add a third accent hue or alter the locked blue and yellow.
-- **Don't** cast shadows on anything inside a sign or on buttons.
-- **Don't** round plates or cards, or use pill buttons.
-- **Don't** put a yellow button inside a yellow field; use the ink button there.
+- **Don't** fill sections, cards or headings with yellow.
+- **Don't** set headings or buttons in uppercase or a condensed width; uppercase stays at label size.
+- **Don't** add a second accent hue beyond brand blue and the locked yellow.
+- **Don't** use heavy or hard offset shadows; depth is the two soft shadows plus tone.
+- **Don't** alter the logo or recolour it; on navy it sits on a white plate.

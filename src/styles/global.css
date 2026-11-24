@@ -1,136 +1,161 @@
 @import '@fontsource-variable/archivo/wdth.css';
 
-/* ---------- Tokens: arbetsplatsskylten ----------
-   Vita skyltplåtar med tjocka blå band, gult som signalfält, galvat stål som mark.
-   Blått och gult är låsta varumärkesfärger. */
+/* ---------- Tokens: teknisk och exakt ----------
+   Djup marinblå kontrollyta, varumärkesblått som arbetsfärg, kall vit mark.
+   Gult (låst varumärkesfärg) bara som primär handling och små statusmarkeringar. */
 :root {
   --blue: #005cb9;      /* vit text: 6.2:1 */
   --blue-700: #00468f;
-  --blue-900: #062f5c;
-  --blue-50: #eaf2fb;
+  --blue-50: #ebf3fc;
+  --blue-on-dark: #8cc2ff; /* länkar/accent på marinblått: 8.9:1 */
   --yellow: #fddd00;    /* mot ink: 13:1 */
   --yellow-600: #ebc900;
-  --ink: #0f1a26;
-  --text: #26323f;      /* 12:1 mot vitt */
-  --muted: #4f5b69;     /* 7:1 mot vitt, 6:1 mot stål */
-  --rule: #c9d1da;      /* tunna fältlinjer */
-  --rule-strong: #0f1a26;
-  --steel: #e4e9ee;     /* marken bakom skyltarna */
+  --navy: #071a33;
+  --navy-800: #0c2546;
+  --navy-700: #13325a;
+  --on-navy: #e8eef6;
+  --on-navy-muted: #a9b8cb; /* 8:1 mot navy */
+  --line-dark: rgba(255, 255, 255, .12);
+  --ink: #0b1726;
+  --text: #2b3a4b;      /* 11:1 mot vitt */
+  --muted: #55657a;     /* 5.6:1 mot mark */
+  --rule: #dfe5ec;
+  --ground: #f5f7fa;
   --plate: #ffffff;
-  --bg: var(--steel);
-  --bg-soft: #f1f4f7;
+  --bg: var(--ground);
+  --bg-soft: #eef2f6;
   --line: var(--rule);
-  --ok: #137a43;
+  --rule-strong: var(--rule);
+  --steel: var(--ground);
+  --ok: #12804a;
+  --ok-on-dark: #4fd18b;
+  --warn: #b45309;
   --error: #b42318;
 
   --font: 'Archivo Variable', 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-head: var(--font);
   --font-body: var(--font);
 
-  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 72px; --s9: 104px;
-  --radius: 2px;
-  --frame: 10px;        /* skyltens blå ram */
-  --wrap: 1280px;
-  --shadow: 0 1px 1px rgba(15, 26, 38, .08), 0 8px 24px -8px rgba(15, 26, 38, .18);
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px; --s6: 32px; --s7: 48px; --s8: 72px; --s9: 112px;
+  --radius: 10px;
+  --radius-lg: 16px;
+  --frame: 0px;
+  --wrap: 1240px;
+  --shadow: 0 1px 2px rgba(11, 23, 38, .05), 0 4px 16px -4px rgba(11, 23, 38, .08);
+  --shadow-lg: 0 2px 4px rgba(7, 26, 51, .08), 0 24px 48px -16px rgba(7, 26, 51, .28);
   --ease-out: cubic-bezier(.16, 1, .3, 1);
   color-scheme: light;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-padding-top: 96px; scrollbar-color: var(--blue) var(--steel); }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 96px; scrollbar-color: #b6c2d0 var(--ground); }
 body {
   margin: 0; background: var(--bg); color: var(--text);
   font: 400 1.0625rem/1.6 var(--font-body); font-stretch: 100%;
-  font-feature-settings: 'kern';
+  -webkit-font-smoothing: antialiased;
 }
 ::selection { background: var(--yellow); color: var(--ink); }
 input, textarea { caret-color: var(--blue); }
 img { max-width: 100%; height: auto; display: block; }
-a { color: var(--blue); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+a { color: var(--blue); text-decoration-thickness: 1px; text-underline-offset: 3px; }
 a:hover { color: var(--blue-700); }
-:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; border-radius: 4px; }
 
-/* Rubriker: smal, tung versal, som bilens dekor och skyltens text */
-h1, h2, h3 { font-family: var(--font-head); color: var(--ink); margin: 0 0 var(--s4); text-wrap: balance; }
-h1, h2 { font-weight: 800; font-stretch: 72%; text-transform: uppercase; line-height: .95; letter-spacing: -.005em; overflow-wrap: break-word; }
-h1 { font-size: clamp(2.2rem, 6.2vw, 5.4rem); }
-h2 { font-size: clamp(1.9rem, 3.6vw, 3rem); }
-h3 { font-weight: 700; font-stretch: 88%; font-size: 1.35rem; line-height: 1.15; }
+h1, h2, h3 { font-family: var(--font-head); color: var(--ink); margin: 0 0 var(--s4); text-wrap: balance; font-stretch: 96%; overflow-wrap: break-word; }
+h1 { font-weight: 700; font-size: clamp(2.3rem, 5vw, 4.25rem); line-height: 1.02; letter-spacing: -.03em; }
+h2 { font-weight: 700; font-size: clamp(1.8rem, 3.2vw, 2.75rem); line-height: 1.08; letter-spacing: -.025em; }
+h3 { font-weight: 650; font-size: 1.25rem; line-height: 1.25; letter-spacing: -.01em; }
 p { margin: 0 0 var(--s4); }
-.lead { font-size: clamp(1.1rem, 1.4vw, 1.25rem); color: var(--text); max-width: 60ch; }
+.lead { font-size: clamp(1.1rem, 1.4vw, 1.25rem); color: var(--text); max-width: 58ch; }
 .num { font-variant-numeric: tabular-nums; }
 
 .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--s4); }
 @media (min-width: 768px) { .wrap { padding: 0 var(--s6); } }
-.section { padding: var(--s8) 0; }
+.section { padding: var(--s9) 0; }
+@media (max-width: 768px) { .section { padding: var(--s8) 0; } }
 .section--soft { background: var(--bg-soft); }
 .section--plate { background: var(--plate); }
-.section__head { max-width: 60ch; margin-bottom: var(--s6); }
+.section--dark { background: var(--navy); color: var(--on-navy); }
+.section--dark h2, .section--dark h3 { color: #fff; }
+.section--dark a:not(.btn) { color: var(--blue-on-dark); }
+.section__head { max-width: 60ch; margin-bottom: var(--s7); }
+.section__head p { color: var(--muted); font-size: 1.125rem; margin: 0; }
+.section--dark .section__head p { color: var(--on-navy-muted); }
 
-/* ---------- Skylten ---------- */
-.sign { background: var(--plate); border: var(--frame) solid var(--blue); box-shadow: var(--shadow); }
+/* Mätrutnät bakom systempanelen i första vyn, tonar ut nedåt */
+.grid-bg { position: relative; isolation: isolate; background-color: var(--navy); }
+.grid-bg::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background-image:
+    linear-gradient(var(--line-dark) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-dark) 1px, transparent 1px);
+  background-size: 48px 48px; background-position: -1px -1px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 70% 30%, #000 30%, transparent 80%);
+  mask-image: radial-gradient(ellipse 80% 70% at 70% 30%, #000 30%, transparent 80%);
+}
+
+/* ---------- Kort / paneler (klassnamnen från tidigare system behålls) ---------- */
+.sign { background: var(--plate); border: 1px solid var(--rule); border-radius: var(--radius-lg); box-shadow: var(--shadow); overflow: hidden; }
 .sign__band {
   display: flex; justify-content: space-between; align-items: center; gap: var(--s4); flex-wrap: wrap;
-  background: var(--blue); color: #fff; padding: var(--s2) var(--s5) calc(var(--s2) + var(--frame) * .5);
-  font: 800 .95rem/1.2 var(--font); font-stretch: 80%; text-transform: uppercase; letter-spacing: .08em;
+  padding: var(--s4) var(--s5); border-bottom: 1px solid var(--rule);
+  font: 600 .8rem/1.3 var(--font); text-transform: uppercase; letter-spacing: .08em; color: var(--muted);
 }
-.sign__band h2, .sign__band h1 { color: #fff; margin: 0; font-size: inherit; line-height: inherit; letter-spacing: inherit; }
-/* Fält: linjerade rutor. Mellanrummet är linjen. */
-.fields { display: grid; gap: 2px; background: var(--rule-strong); }
+.sign__band h2, .sign__band h1 { margin: 0; font: inherit; letter-spacing: inherit; color: var(--ink); }
+.fields { display: grid; gap: 1px; background: var(--rule); }
 .fields > * { background: var(--plate); }
-.field { padding: var(--s4) var(--s5); min-width: 0; }
-.field__k {
-  display: block; margin-bottom: var(--s1);
-  font: 700 .78rem/1.2 var(--font); font-stretch: 85%; text-transform: uppercase; letter-spacing: .1em; color: var(--muted);
-}
-.field__v { display: block; font: 800 1.45rem/1.1 var(--font); font-stretch: 75%; text-transform: uppercase; color: var(--ink); }
-.field__v { overflow-wrap: anywhere; hyphens: auto; }
-@media (max-width: 640px) {
-  .field { padding: var(--s3) var(--s4); }
-  .field__v { font-size: 1.2rem; }
-}
-.field--yellow { background: var(--yellow) !important; }
-.field--yellow .field__k { color: var(--ink); }
-.field--blue { background: var(--blue) !important; color: #fff; }
-.field--blue .field__k { color: #cfe0f4; }
-.field--blue .field__v { color: #fff; }
+.field { padding: var(--s5); min-width: 0; }
+.field__k { display: block; margin-bottom: var(--s1); font: 600 .75rem/1.3 var(--font); text-transform: uppercase; letter-spacing: .09em; color: var(--muted); }
+.field__v { display: block; font: 650 1.15rem/1.3 var(--font); color: var(--ink); }
 
-/* ---------- Knappar: rektangulära skyltplåtar ---------- */
+/* Statusmarkering */
+.dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); flex: none; }
+.dot--live { background: var(--yellow); box-shadow: 0 0 0 0 rgba(253, 221, 0, .6); animation: puls 2s var(--ease-out) infinite; }
+@keyframes puls { 70% { box-shadow: 0 0 0 8px rgba(253, 221, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(253, 221, 0, 0); } }
+
+/* ---------- Knappar ---------- */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: var(--s2);
-  min-height: 52px; padding: 0 var(--s5); border-radius: var(--radius); border: 2px solid transparent;
-  font: 800 1rem/1 var(--font); font-stretch: 85%; text-transform: uppercase; letter-spacing: .04em;
+  min-height: 50px; padding: 0 var(--s5); border-radius: var(--radius); border: 1px solid transparent;
+  font: 650 1rem/1 var(--font); letter-spacing: -.005em;
   text-decoration: none; cursor: pointer; white-space: nowrap;
-  transition: background-color .15s, color .15s, border-color .15s;
+  transition: background-color .15s, color .15s, border-color .15s, box-shadow .15s, translate .15s;
 }
-.btn--primary { background: var(--yellow); color: var(--ink); border-color: var(--yellow); }
-.btn--primary:hover { background: var(--yellow-600); border-color: var(--yellow-600); color: var(--ink); }
-.btn--secondary { background: var(--plate); color: var(--ink); border-color: var(--ink); }
-.btn--secondary:hover { background: var(--ink); color: #fff; }
-.btn--ink { background: var(--ink); color: #fff; border-color: var(--ink); }
-.btn--ink:hover { background: var(--blue-900); border-color: var(--blue-900); color: #fff; }
-.btn--on-blue { background: var(--plate); color: var(--blue); border-color: var(--plate); }
+.btn:active { translate: 0 1px; }
+.btn--primary { background: var(--yellow); color: var(--ink); box-shadow: var(--shadow); }
+.btn--primary:hover { background: var(--yellow-600); color: var(--ink); }
+.btn--secondary { background: var(--plate); color: var(--ink); border-color: #c6d0dc; }
+.btn--secondary:hover { border-color: var(--ink); color: var(--ink); }
+.btn--ghost { background: rgba(255, 255, 255, .04); color: #fff; border-color: rgba(255, 255, 255, .28); }
+.btn--ghost:hover { background: rgba(255, 255, 255, .1); border-color: rgba(255, 255, 255, .5); color: #fff; }
+.btn--ink { background: var(--ink); color: #fff; }
+.btn--ink:hover { background: var(--navy-700); color: #fff; }
+.btn--on-blue { background: var(--plate); color: var(--blue); }
 .btn--on-blue:hover { background: var(--blue-50); color: var(--blue-700); }
-.btn svg { width: 20px; height: 20px; flex: none; }
+.btn svg { width: 18px; height: 18px; flex: none; }
 .btn:disabled { opacity: .6; cursor: progress; }
 
-/* Pil-länk */
-.more { display: inline-flex; align-items: center; gap: var(--s2); font: 800 1rem/1 var(--font); font-stretch: 85%; text-transform: uppercase; letter-spacing: .04em; text-decoration: none; margin-top: var(--s5); }
+.more { display: inline-flex; align-items: center; gap: var(--s2); font: 650 1rem/1 var(--font); text-decoration: none; margin-top: var(--s5); }
 .more svg { width: 18px; height: 18px; transition: translate .2s var(--ease-out); }
 .more:hover svg { translate: 4px 0; }
 
 /* ---------- Prosa (markdown) ---------- */
 .prose { max-width: 68ch; }
-.prose h2 { margin-top: var(--s7); font-size: clamp(1.6rem, 2.6vw, 2.2rem); }
+.prose h2 { margin-top: var(--s7); font-size: clamp(1.5rem, 2.4vw, 2rem); }
 .prose h3 { margin-top: var(--s6); }
 .prose ul, .prose ol { padding-left: 1.25em; margin: 0 0 var(--s4); }
 .prose li { margin-bottom: var(--s2); }
 .prose li::marker { color: var(--blue); }
 
+/* Ingång med scroll (bara när JS och rörelse är tillåtet) */
+.js .reveal { opacity: 0; translate: 0 16px; transition: opacity .7s var(--ease-out), translate .7s var(--ease-out); }
+.js .reveal.is-in { opacity: 1; translate: 0 0; }
+
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-.skip { position: absolute; left: var(--s4); top: -100px; background: var(--yellow); color: var(--ink); padding: var(--s2) var(--s4); z-index: 100; font-weight: 700; }
+.skip { position: absolute; left: var(--s4); top: -100px; background: var(--yellow); color: var(--ink); padding: var(--s2) var(--s4); z-index: 100; font-weight: 700; border-radius: var(--radius); }
 .skip:focus { top: var(--s2); }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .js .reveal { opacity: 1; translate: none; }
 }
