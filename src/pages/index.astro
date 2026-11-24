@@ -3,116 +3,125 @@ import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import ServiceCards from '../components/ServiceCards.astro';
+import SystemPanel from '../components/SystemPanel.astro';
 import Faq from '../components/Faq.astro';
 import CtaBand from '../components/CtaBand.astro';
 import start from '../data/start.json';
 import faq from '../data/faq.json';
 import referenser from '../data/referenser.json';
 import kunder from '../data/kunder.json';
-import hero from '../assets/img/hero-skapbil.jpg';
 import montor from '../assets/img/montor.jpg';
 import { SITE, url } from '../lib/site';
+
+const namn: Record<string, string> = { bygglarm: 'Bygglarm', stallningslarm: 'Ställningslarm', 'butik-kontor': 'Butik & kontor', kamerabevakning: 'Kamerabevakning', larmvaska: 'Larmväska' };
+const flode = [
+  { t: '+0 s', titel: 'Detektorn reagerar', text: 'D3 på ställningen känner av rörelse. Trådlös, ingen kabel i vägen.' },
+  { t: '+2 s', titel: 'Bilder skickas', text: 'Detektorns kamera tar tre bilder och skickar dem direkt till larmcentralen.' },
+  { t: '+24 s', titel: 'Operatören granskar', text: 'Larmcentralen ser vad som faktiskt händer, dygnet runt.' },
+  { t: '+45 s', titel: 'Beslut', text: 'Väktare skickas när det behövs, inte vid varje larm.', beslut: true },
+];
 ---
 <Base
   title="Larmuthyrning i Stockholm – hyrlarm i drift samma dag | Säkerhetsmäklarna"
   description="Hyr larm för bygge, ställning, butik, kontor och evenemang. Vi installerar, kopplar till larmcentral och tar ner igen – oftast i drift samma dag.">
 
-  <!-- Första vyn: arbetsplatsskylten -->
-  <section class="hero">
+  <section class="hero grid-bg">
     <div class="wrap">
-      <div class="sign hsign">
-        <div class="sign__band">
-          <span>Larmuthyrning · Stockholm</span>
-          <span>Sedan {SITE.grundat}</span>
-        </div>
-        <div class="fields hsign__grid">
-          <div class="field hsign__main">
-            <h1>{start.heroH1}</h1>
-            <p class="lead">{start.heroLead}</p>
-          </div>
-          <div class="hsign__photo">
-            <Image src={hero} alt="Säkerhetsmäklarnas servicebil med telefonnumret på bakdörren" widths={[600, 900, 1300]} sizes="(max-width: 900px) 100vw, 540px" loading="eager" fetchpriority="high" />
-          </div>
-          <dl class="hsign__facts">
-            <div class="field field--yellow"><dt class="field__k">I drift</dt><dd class="field__v">Ofta samma dag</dd></div>
-            <div class="field"><dt class="field__k">Övervakning</dt><dd class="field__v">Larmcentral dygnet runt</dd></div>
-            <div class="field"><dt class="field__k">Vid larm</dt><dd class="field__v">Bildverifiering</dd></div>
-            <div class="field"><dt class="field__k">Hyrtid</dt><dd class="field__v">Så länge du behöver</dd></div>
-          </dl>
-          <div class="field field--yellow hsign__call">
-            <div>
-              <span class="field__k">Ring oss</span>
-              <a class="hsign__tel num" href={SITE.telefonHref}>{SITE.telefon}</a>
-            </div>
-            <a class="btn btn--ink" href={url('/kontakt/')}>Begär offert <Icon name="arrow" /></a>
+      <div class="hero__copy">
+        <h1>{start.heroH1}</h1>
+        <div class="hero__side">
+          <p class="lead hero__lead">{start.heroLead}</p>
+          <p class="lead hero__lead--kort">{start.heroLeadKort}</p>
+          <div class="hero__btns">
+            <a class="btn btn--primary" href={SITE.telefonHref}><Icon name="phone" />Ring {SITE.telefon}</a>
+            <a class="btn btn--ghost" href={url('/kontakt/')}>Begär offert <Icon name="arrow" /></a>
           </div>
         </div>
       </div>
-
-      {SITE.visaKunder && kunder.length > 0 && (
-        <div class="kundrad">
-          <span class="field__k">Bland våra kunder</span>
-          <ul>{kunder.map((k) => <li>{k}</li>)}</ul>
-        </div>
-      )}
+      <ul class="hero__facts">
+        <li><Icon name="clock" />Ofta i drift samma dag</li>
+        <li><Icon name="headset" />Larmcentral dygnet runt</li>
+        <li><Icon name="image" />Bildverifiering vid larm</li>
+        <li><Icon name="check" />Larmuthyrning sedan {SITE.grundat}</li>
+      </ul>
+      <div class="hero__panel"><SystemPanel /></div>
     </div>
   </section>
 
-  <section class="section svc-sec" aria-labelledby="tjanster-rubrik">
-    <div class="wrap">
-      <div class="sign">
-        <div class="sign__band"><h2 id="tjanster-rubrik">Vad behöver du larma?</h2></div>
-        <div class="svc-sec__in">
-          <p class="svc-sec__lead">Vi hyr ut larm för tillfälliga och akuta behov. Välj det som liknar ditt uppdrag.</p>
-          <ServiceCards />
-        </div>
+  {SITE.visaKunder && kunder.length > 0 && (
+    <section class="kunder" aria-labelledby="kunder-rubrik">
+      <div class="wrap kunder__in">
+        <h2 id="kunder-rubrik" class="kunder__k">Bland våra kunder</h2>
+        <ul>{kunder.map((k) => <li>{k}</li>)}</ul>
       </div>
+    </section>
+  )}
+
+  <section class="section" aria-labelledby="tjanster-rubrik">
+    <div class="wrap">
+      <div class="section__head reveal">
+        <h2 id="tjanster-rubrik">Vad behöver du larma?</h2>
+        <p>Vi hyr ut larm för tillfälliga och akuta behov. Välj det som liknar ditt uppdrag.</p>
+      </div>
+      <ServiceCards />
     </div>
   </section>
 
-  <section class="section" aria-labelledby="steg-rubrik">
+  <section class="section section--dark flow" aria-labelledby="flode-rubrik">
+    <div class="wrap flow__in">
+      <div class="flow__head reveal">
+        <h2 id="flode-rubrik">Så fungerar larmet</h2>
+        <p>Från rörelse på bygget till beslut i larmcentralen. Tiderna kommer från exemplet ovan.</p>
+      </div>
+      <ol class="flow__list reveal">
+        {flode.map((f) => (
+          <li class:list={{ 'is-beslut': f.beslut }}>
+            <span class="flow__t num">{f.t}</span>
+            <span class="flow__dot" aria-hidden="true"></span>
+            <div><h3>{f.titel}</h3><p>{f.text}</p></div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section section--plate" aria-labelledby="steg-rubrik">
     <div class="wrap steps">
-      <div class="sign">
-        <div class="sign__band"><h2 id="steg-rubrik">Så går det till</h2></div>
-        <ol class="fields steps__list">
+      <div class="reveal">
+        <h2 id="steg-rubrik">Så går det till</h2>
+        <ol class="steps__list">
           {start.steg.map((s, i) => (
-            <li class="field">
-              <h3><span class="steps__n num" aria-hidden="true">{i + 1}</span>{s.titel}</h3>
-              <p>{s.text}</p>
+            <li>
+              <span class="steps__n num" aria-hidden="true">{i + 1}</span>
+              <div><h3>{s.titel}</h3><p>{s.text}</p></div>
             </li>
           ))}
         </ol>
       </div>
-      <Image src={montor} alt="Montör från Säkerhetsmäklarna sätter upp en detektor på en byggställning" widths={[500, 900]} sizes="(max-width: 900px) 100vw, 480px" class="steps__img" />
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="varfor-rubrik">
-    <div class="wrap why">
-      <h2 id="varfor-rubrik">Därför Säkerhetsmäklarna</h2>
-      <dl class="why__list">
-        {start.usps.map((u) => (
-          <div><dt>{u.titel}</dt><dd>{u.text}</dd></div>
-        ))}
-      </dl>
+      <Image src={montor} alt="Montör från Säkerhetsmäklarna sätter upp en detektor på en byggställning" widths={[500, 900]} sizes="(max-width: 900px) 100vw, 520px" class="steps__img" />
     </div>
   </section>
 
   <section class="section" aria-labelledby="ref-rubrik">
     <div class="wrap">
-      <div class="sign">
-        <div class="sign__band"><h2 id="ref-rubrik">Uppdrag vi har gjort</h2><a href={url('/referenser/')} class="band-link">Fler uppdrag <Icon name="arrow" /></a></div>
-        <ul class="fields refs">
-          {referenser.slice(0, 3).map((r) => (
-            <li class="field"><h3>{r.titel}</h3><p>{r.text}</p></li>
-          ))}
-        </ul>
+      <div class="ref__head reveal">
+        <h2 id="ref-rubrik">Uppdrag vi har gjort</h2>
+        <a href={url('/referenser/')} class="more">Fler uppdrag <Icon name="arrow" /></a>
       </div>
+      <ul class="refs">
+        {referenser.slice(0, 3).map((r) => (
+          <li class="ref reveal">
+            <h3>{r.titel}</h3>
+            <p>{r.text}</p>
+            <a class="ref__link" href={url(`/${r.kategori}/`)}>{namn[r.kategori] ?? r.kategori} <Icon name="arrow" /></a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap">
+  <section class="section section--plate">
+    <div class="wrap faqwrap">
       <Faq items={faq.slice(0, 5)} />
       <a href={url('/fragor-och-svar/')} class="more">Alla frågor och svar <Icon name="arrow" /></a>
     </div>
@@ -122,74 +131,88 @@ import { SITE, url } from '../lib/site';
 </Base>
 
 <style>
-  .hero { padding: var(--s6) 0 var(--s7); }
-  .svc-sec { padding-top: 0; }
-  .svc-sec__in { padding: var(--s5) var(--s6) var(--s6); }
-  .svc-sec__lead { margin-bottom: var(--s5); }
-  @media (max-width: 640px) { .svc-sec__in { padding: var(--s5) var(--s4); } }
-  .hsign__grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); }
-  .hsign__main { padding: var(--s6) var(--s6) var(--s5); }
-  .hsign__main h1 { margin-bottom: var(--s5); }
-  .hsign__main .lead { margin: 0; }
-  .hsign__photo { position: relative; min-height: 320px; }
-  .hsign__photo :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 60%; }
-  .hsign__facts { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin: 0; background: var(--rule-strong); }
-  .hsign__facts > div { background: var(--plate); }
-  .hsign__facts dd { margin: 0; }
-  .hsign__call {
-    grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: var(--s4) var(--s6); flex-wrap: wrap;
-    padding: var(--s4) var(--s6);
-    animation: fram .7s var(--ease-out) .15s both;
+  /* Första vyn */
+  .hero { color: var(--on-navy); padding: var(--s8) 0 0; }
+  .hero::after { content: ''; position: absolute; inset: auto 0 0 0; height: 140px; background: var(--ground); z-index: -1; }
+  .hero__copy { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: var(--s5) var(--s8); align-items: end; }
+  .hero h1 { color: #fff; margin: 0; max-width: 13ch; }
+  .hero .lead { color: var(--on-navy-muted); margin-bottom: var(--s5); }
+  .hero__btns { display: flex; gap: var(--s3); flex-wrap: wrap; }
+  .hero__facts { list-style: none; padding: 0; margin: var(--s6) 0 var(--s6); display: flex; flex-wrap: wrap; gap: var(--s3) var(--s6); font-size: .925rem; color: var(--on-navy); }
+  .hero__facts li { display: inline-flex; align-items: center; gap: var(--s2); }
+  .hero__facts :global(svg) { width: 17px; height: 17px; color: var(--blue-on-dark); }
+  .hero__panel { position: relative; z-index: 1; }
+  @media (max-width: 960px) {
+    .hero { padding-top: var(--s6); }
+    .hero__copy { grid-template-columns: 1fr; }
+    .hero__facts { gap: var(--s2) var(--s5); }
+    .hero::after { height: 80px; }
   }
-  .hsign__tel { display: block; color: var(--ink); text-decoration: none; font: 800 clamp(2.4rem, 5vw, 3.6rem)/1 var(--font); font-stretch: 72%; letter-spacing: -.01em; }
-  .hsign__tel:hover { color: var(--ink); text-decoration: underline; text-decoration-thickness: 3px; }
-  @keyframes fram { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+  .hero__lead--kort { display: none; }
+  @media (max-width: 640px) {
+    .hero { padding-top: var(--s5); }
+    .hero h1 { font-size: 2.1rem; }
+    .hero__lead { display: none; }
+    .hero__lead--kort { display: block; margin-bottom: var(--s4); }
+    .hero__btns { display: none; }
+    .hero .wrap { display: flex; flex-direction: column; }
+    .hero__panel { order: 2; }
+    .hero__facts { order: 3; display: grid; grid-template-columns: 1fr 1fr; font-size: .85rem; margin: var(--s5) 0 var(--s4); }
+    .hero::after { display: none; }
+  }
 
+  .kunder { padding: var(--s6) 0 0; }
+  .kunder__in { display: flex; align-items: baseline; gap: var(--s3) var(--s6); flex-wrap: wrap; }
+  .kunder__k { margin: 0; font: 600 .75rem/1.3 var(--font); text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+  .kunder ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s2) var(--s6); }
+  .kunder li { font: 700 1.1rem/1.3 var(--font); letter-spacing: -.01em; color: var(--muted); }
+
+  /* Larmflödet: en tidslinje med exemplets tider */
+  .flow__in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: var(--s8); align-items: start; }
+  .flow__head p { color: var(--on-navy-muted); font-size: 1.125rem; max-width: 40ch; }
+  .flow__list { list-style: none; margin: 0; padding: 0; position: relative; }
+  .flow__list::before {
+    content: ''; position: absolute; left: calc(5.5rem + var(--s5) + 6px); top: 10px; bottom: 10px; width: 1px; background: rgba(140, 194, 255, .3);
+    transform-origin: top; scale: 1 0; transition: scale 1.4s var(--ease-out) .15s;
+  }
+  .flow__list.is-in::before, :global(html:not(.js)) .flow__list::before { scale: 1 1; }
+  .flow__list li { display: grid; grid-template-columns: 5.5rem 13px 1fr; gap: 0 var(--s5); padding-bottom: var(--s6); position: relative; }
+  .flow__list li:last-child { padding-bottom: 0; }
+  .flow__t { font: 700 1.25rem/1.4 var(--font); color: var(--blue-on-dark); text-align: right; letter-spacing: -.01em; }
+  .flow__dot { width: 13px; height: 13px; margin-top: 7px; border-radius: 50%; background: var(--navy); border: 2px solid var(--blue-on-dark); position: relative; z-index: 1; }
+  .flow__list .is-beslut .flow__dot { background: var(--yellow); border-color: var(--yellow); }
+  .flow__list .is-beslut .flow__t { color: var(--yellow); }
+  .flow h3 { margin-bottom: var(--s1); }
+  .flow p { color: var(--on-navy-muted); margin: 0; }
   @media (max-width: 900px) {
-    .hero { padding-top: var(--s4); }
-    .hsign__grid { grid-template-columns: 1fr; }
-    .hsign__main { padding: var(--s5) var(--s4); }
-    .hsign__photo { min-height: 220px; order: 2; }
-    .hsign__facts { grid-template-columns: 1fr 1fr; order: 3; }
-    .hsign__call { order: 1; padding: var(--s4); }
-    .hsign__call .btn { width: 100%; }
-  }
-  @media (max-width: 640px) { :root { --frame: 6px; } }
-
-  .kundrad { display: flex; align-items: baseline; gap: var(--s3) var(--s5); flex-wrap: wrap; margin-top: var(--s5); }
-  .kundrad .field__k { margin: 0; }
-  .kundrad ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--s2) var(--s5); }
-  .kundrad li { font: 800 1.2rem/1.2 var(--font); font-stretch: 75%; text-transform: uppercase; letter-spacing: .03em; color: var(--ink); }
-
-  .steps { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--s6); align-items: stretch; }
-  .steps__list { list-style: none; margin: 0; padding: 0; grid-template-columns: repeat(3, 1fr); }
-  .steps__list .field { padding: var(--s5); }
-  .steps__list h3 { display: flex; align-items: center; gap: var(--s3); font-size: 1.5rem; margin: 0 0 var(--s3); }
-  .steps__n { display: grid; place-items: center; flex: none; width: 32px; height: 32px; background: var(--ink); color: #fff; font: 800 1.2rem/1 var(--font); font-stretch: 75%; }
-  .steps__list p { margin: 0; }
-  .steps :global(.steps__img) { width: 100%; height: 100%; min-height: 300px; object-fit: cover; }
-  @media (max-width: 1000px) {
-    .steps { grid-template-columns: 1fr; }
-    .steps__list { grid-template-columns: 1fr; }
-    .steps :global(.steps__img) { max-height: 340px; }
+    .flow__in { grid-template-columns: 1fr; gap: var(--s6); }
+    .flow__list li { grid-template-columns: 3.6rem 13px 1fr; gap: 0 var(--s3); }
+    .flow__list::before { left: calc(3.6rem + var(--s3) + 6px); }
+    .flow__t { font-size: 1rem; }
   }
 
-  .why { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1.6fr); gap: var(--s7); align-items: start; }
-  .why h2 { font-size: clamp(1.9rem, 3vw, 2.5rem); }
-  .why__list { margin: 0; border-top: 2px solid var(--ink); }
-  .why__list > div { display: grid; grid-template-columns: minmax(0, 14rem) minmax(0, 1fr); gap: var(--s5); padding: var(--s5) 0; border-bottom: 1px solid var(--rule); }
-  .why__list dt { font: 800 1.4rem/1.1 var(--font); font-stretch: 75%; text-transform: uppercase; color: var(--blue); }
-  .why__list dd { margin: 0; }
-  @media (max-width: 900px) {
-    .why { grid-template-columns: 1fr; gap: var(--s4); }
-    .why__list > div { grid-template-columns: 1fr; gap: var(--s2); }
-  }
+  /* Steg */
+  .steps { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--s8); align-items: center; }
+  .steps__list { list-style: none; padding: 0; margin: var(--s6) 0 0; display: grid; gap: var(--s5); }
+  .steps__list li { display: grid; grid-template-columns: 40px 1fr; gap: var(--s4); padding-bottom: var(--s5); border-bottom: 1px solid var(--rule); }
+  .steps__list li:last-child { border-bottom: 0; padding-bottom: 0; }
+  .steps__list h3 { margin-bottom: var(--s1); }
+  .steps__list p { margin: 0; color: var(--text); }
+  .steps__n { width: 40px; height: 40px; border-radius: 10px; display: grid; place-items: center; background: var(--blue-50); color: var(--blue); font: 700 1.05rem/1 var(--font); }
+  .steps :global(.steps__img) { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
+  @media (max-width: 900px) { .steps { grid-template-columns: 1fr; gap: var(--s6); } .steps :global(.steps__img) { aspect-ratio: 4 / 3; } }
 
-  .band-link { display: inline-flex; align-items: center; gap: var(--s2); color: #fff; text-decoration: none; }
-  .band-link:hover { color: var(--yellow); }
-  .band-link :global(svg) { width: 16px; height: 16px; }
-  .refs { list-style: none; margin: 0; padding: 0; grid-template-columns: repeat(3, 1fr); }
-  .refs .field { padding: var(--s5); }
-  .refs p { margin: 0; }
+  /* Referenser */
+  .ref__head { display: flex; justify-content: space-between; align-items: end; gap: var(--s4); flex-wrap: wrap; margin-bottom: var(--s6); }
+  .ref__head h2, .ref__head .more { margin: 0; }
+  .refs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s4); }
+  .ref { background: var(--plate); border: 1px solid var(--rule); border-radius: var(--radius-lg); padding: var(--s5) var(--s5) var(--s6); }
+  .ref h3 { margin: 0 0 var(--s2); }
+  .ref p { margin: 0; font-size: .975rem; }
+  .ref { display: flex; flex-direction: column; }
+  .ref p { flex: 1; }
+  .ref__link { display: inline-flex; align-items: center; gap: 6px; margin-top: var(--s4); font-weight: 600; text-decoration: none; }
+  .ref__link :global(svg) { width: 16px; height: 16px; }
   @media (max-width: 900px) { .refs { grid-template-columns: 1fr; } }
+
 </style>

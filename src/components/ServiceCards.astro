@@ -9,7 +9,7 @@ const { exclude } = Astro.props;
 const tjanster = (await getCollection('tjanster')).filter((t) => t.id !== exclude).sort((a, b) => a.data.order - b.data.order);
 const namn: Record<string, string> = { bygglarm: 'Bygglarm', stallningslarm: 'Ställningslarm', 'butik-kontor': 'Butik & kontor', kamerabevakning: 'Kamerabevakning', larmvaska: 'Larmväska' };
 ---
-<!-- Tjänsteindex: skyltrader. Hela raden är klickbar och fylls gul vid hovring/fokus. -->
+<!-- Tjänsteindex: hela raden är klickbar. -->
 <ul class="svc">
   {tjanster.map((t) => (
     <li class="svc__row">
@@ -22,37 +22,40 @@ const namn: Record<string, string> = { bygglarm: 'Bygglarm', stallningslarm: 'St
 </ul>
 
 <style>
-  .svc { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+  .svc { list-style: none; margin: 0; padding: var(--s2); background: var(--plate); border: 1px solid var(--rule); border-radius: var(--radius-lg); box-shadow: var(--shadow); }
   .svc__row {
     position: relative; display: grid; align-items: center; gap: var(--s5);
-    grid-template-columns: 180px minmax(0, 20rem) minmax(0, 1fr) 56px;
-    padding: var(--s3) var(--s4) var(--s3) var(--s3); border-bottom: 1px solid var(--rule);
+    grid-template-columns: 150px minmax(0, 17rem) minmax(0, 1fr) 44px;
+    padding: var(--s3); border-radius: 12px;
     transition: background-color .2s var(--ease-out);
   }
-  .svc__row:hover, .svc__row:focus-within { background: var(--yellow); }
-  .svc :global(.svc__img) { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
-  .svc__name { margin: 0; font-weight: 800; font-stretch: 72%; font-size: clamp(1.6rem, 2.4vw, 2.2rem); line-height: 1; text-transform: uppercase; }
+  .svc__row + .svc__row::before { content: ''; position: absolute; top: -1px; left: var(--s3); right: var(--s3); height: 1px; background: var(--rule); }
+  .svc__row:hover, .svc__row:focus-within { background: var(--blue-50); }
+  .svc__row:hover::before, .svc__row:hover + .svc__row::before { opacity: 0; }
+  .svc :global(.svc__img) { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 8px; transition: scale .5s var(--ease-out); }
+  .svc__row:hover :global(.svc__img) { scale: 1.03; }
+  .svc__name { margin: 0; font-size: clamp(1.25rem, 2vw, 1.5rem); letter-spacing: -.02em; }
   .svc__link { color: var(--ink); text-decoration: none; }
-  .svc__link::after { content: ''; position: absolute; inset: 0; }
+  .svc__link::after { content: ''; position: absolute; inset: 0; border-radius: 12px; }
   .svc__link:focus-visible { outline: none; }
-  .svc__row:focus-within { outline: 3px solid var(--blue); outline-offset: -3px; }
-  .svc__short { margin: 0; color: var(--text); }
-  .svc__go { display: grid; place-items: center; width: 52px; height: 52px; border: 2px solid var(--ink); color: var(--ink); transition: background-color .2s, color .2s; }
-  .svc__go :global(svg) { width: 22px; height: 22px; transition: translate .25s var(--ease-out); }
-  .svc__row:hover .svc__go, .svc__row:focus-within .svc__go { background: var(--ink); color: var(--yellow); }
-  .svc__row:hover .svc__go :global(svg) { translate: 3px 0; }
+  .svc__row:focus-within { outline: 2px solid var(--blue); outline-offset: -2px; }
+  .svc__short { margin: 0; color: var(--muted); }
+  .svc__go { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid #c6d0dc; color: var(--ink); transition: background-color .2s, color .2s, border-color .2s; }
+  .svc__go :global(svg) { width: 18px; height: 18px; transition: translate .25s var(--ease-out); }
+  .svc__row:hover .svc__go, .svc__row:focus-within .svc__go { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .svc__row:hover .svc__go :global(svg) { translate: 2px 0; }
 
   @media (max-width: 900px) {
-    .svc__name { font-size: clamp(1.1rem, 5vw, 1.7rem); }
-    .svc__row { grid-template-columns: 88px minmax(0, 1fr) 44px; gap: var(--s2) var(--s4); padding: var(--s3) 0; }
+    .svc__row { grid-template-columns: 96px minmax(0, 1fr) 40px; gap: var(--s1) var(--s4); }
     .svc :global(.svc__img) { grid-row: span 2; aspect-ratio: 1; }
     .svc__name { align-self: end; }
     .svc__short { grid-column: 2; font-size: .95rem; align-self: start; }
-    .svc__go { grid-column: 3; grid-row: 1 / span 2; width: 44px; height: 44px; }
+    .svc__go { grid-column: 3; grid-row: 1 / span 2; width: 40px; height: 40px; }
   }
   @media (max-width: 600px) {
-    .svc__row { grid-template-columns: 72px minmax(0, 1fr); gap: var(--s1) var(--s3); }
+    .svc { padding: var(--s1); }
+    .svc__row { grid-template-columns: 72px minmax(0, 1fr); gap: var(--s1) var(--s3); padding: var(--s3) var(--s2); }
     .svc__go { display: none; }
-    .svc__name { font-size: clamp(1rem, 5.4vw, 1.5rem); }
+    .svc__name { font-size: 1.2rem; }
   }
 </style>

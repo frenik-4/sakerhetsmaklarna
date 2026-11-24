@@ -26,22 +26,23 @@ const schema = {
   .faq { max-width: 76ch; }
   .faq h2 { margin-bottom: var(--s5); }
   details { border-bottom: 1px solid var(--rule); }
-  details:first-of-type { border-top: 2px solid var(--ink); }
+  details:first-of-type { border-top: 1px solid var(--rule); }
   summary {
-    cursor: pointer; list-style: none; padding: var(--s4) var(--s8) var(--s4) 0; position: relative;
-    font: 700 1.15rem/1.35 var(--font); font-stretch: 92%; color: var(--ink);
+    cursor: pointer; list-style: none; padding: var(--s5) var(--s8) var(--s5) 0; position: relative;
+    font: 600 1.1rem/1.4 var(--font); color: var(--ink); transition: color .15s;
   }
+  summary:hover { color: var(--blue); }
   summary::-webkit-details-marker { display: none; }
   .faq__ic {
     position: absolute; right: 0; top: 50%; translate: 0 -50%;
-    width: 36px; height: 36px; display: grid; place-items: center;
-    border: 2px solid var(--ink); color: var(--ink); transition: background-color .15s;
+    width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%;
+    border: 1px solid #c6d0dc; color: var(--ink); transition: background-color .15s, border-color .15s, color .15s;
   }
-  .faq__ic :global(svg) { width: 20px; height: 20px; display: block; }
+  .faq__ic :global(svg) { width: 16px; height: 16px; display: block; }
   .faq__minus { display: none; }
-  summary:hover .faq__ic { background: var(--yellow); }
-  details[open] .faq__ic { background: var(--ink); color: var(--yellow); }
+  summary:hover .faq__ic { border-color: var(--blue); color: var(--blue); }
+  details[open] .faq__ic { background: var(--blue); border-color: var(--blue); color: #fff; }
   details[open] .faq__plus { display: none; }
   details[open] .faq__minus { display: block; }
-  details p { padding-bottom: var(--s5); max-width: 68ch; }
+  details p { padding-bottom: var(--s5); max-width: 68ch; color: var(--text); }
 </style>
