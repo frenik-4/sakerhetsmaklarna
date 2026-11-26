@@ -1,9 +1,9 @@
 ---
 import Icon from './Icon.astro';
-interface Props { items: { q: string; a: string; todo?: string }[]; rubrik?: string; }
-const { items, rubrik = 'Vanliga frågor' } = Astro.props;
+interface Props { items: { q: string; a: string; todo?: string }[]; rubrik?: string; limit?: number; }
+const { items, rubrik = 'Vanliga frågor', limit } = Astro.props;
 // Dölj frågor där svaret är ett TODO eller bygger på ett antagande som Tobbe inte bekräftat
-const synliga = items.filter((i) => !/TODO/i.test(i.a) && !(i.todo && /antag/i.test(i.todo)));
+const synliga = items.filter((i) => !/TODO/i.test(i.a) && !(i.todo && /antag/i.test(i.todo))).slice(0, limit);
 const schema = {
   '@context': 'https://schema.org', '@type': 'FAQPage',
   mainEntity: synliga.map((i) => ({ '@type': 'Question', name: i.q, acceptedAnswer: { '@type': 'Answer', text: i.a } })),
@@ -24,25 +24,21 @@ const schema = {
 
 <style>
   .faq { max-width: 76ch; }
-  .faq h2 { margin-bottom: var(--s5); }
-  details { border-bottom: 1px solid var(--rule); }
-  details:first-of-type { border-top: 1px solid var(--rule); }
+  details { border-bottom: 1px solid var(--line); }
+  details:first-of-type { border-top: 1px solid var(--line); }
   summary {
-    cursor: pointer; list-style: none; padding: var(--s5) var(--s8) var(--s5) 0; position: relative;
-    font: 600 1.1rem/1.4 var(--font); color: var(--ink); transition: color .15s;
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center;
+    padding-block: 14px; cursor: pointer; list-style: none; font-weight: 700;
   }
-  summary:hover { color: var(--blue); }
+  summary:hover, details[open] summary { color: var(--blue); }
   summary::-webkit-details-marker { display: none; }
   .faq__ic {
-    position: absolute; right: 0; top: 50%; translate: 0 -50%;
-    width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%;
-    border: 1px solid #c6d0dc; color: var(--ink); transition: background-color .15s, border-color .15s, color .15s;
+    display: grid; place-items: center; width: 34px; height: 34px;
+    border: 1px solid var(--blue); border-radius: var(--radius); color: var(--blue);
   }
-  .faq__ic :global(svg) { width: 16px; height: 16px; display: block; }
-  .faq__minus { display: none; }
-  summary:hover .faq__ic { border-color: var(--blue); color: var(--blue); }
-  details[open] .faq__ic { background: var(--blue); border-color: var(--blue); color: #fff; }
-  details[open] .faq__plus { display: none; }
+  .faq__ic :global(svg) { display: block; width: 16px; height: 16px; }
+  .faq__minus, details[open] .faq__plus { display: none; }
   details[open] .faq__minus { display: block; }
-  details p { padding-bottom: var(--s5); max-width: 68ch; color: var(--text); }
+  details[open] .faq__ic { background: var(--blue); color: var(--white); }
+  details p { max-width: 68ch; margin: 0 0 20px; }
 </style>

@@ -1,0 +1,51 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+// Replace both AI sketches with real photographs before launch.
+import detector from '../assets/img/a-detektor-stallning.png';
+import operator from '../assets/img/a-operator.png';
+
+interface Props { compact?: boolean }
+const { compact = false } = Astro.props;
+---
+<figure class="detector-card">
+  <div class="signal-image detector-image">
+    <Image src={detector} alt="Detektor monterad på en byggställning" widths={[128, 224, 420]} sizes={compact ? '64px' : '206px'} format="webp" />
+    <span class="ai">AI-skiss</span>
+  </div>
+  <figcaption class="detector-status">
+    <span class:list={['detector-event', { 'visually-hidden': compact }]}>
+      <Icon name="camera" /><strong>Rörelse upptäckt</strong>
+    </span>
+    <small class="example">Exempel</small>
+    <span class:list={['detector-detail', { 'visually-hidden': compact }]}>Detektor D3 · ställning</span>
+  </figcaption>
+</figure>
+
+<div class="signal-rail" aria-hidden="true">
+  <span class="signal-trace"></span>
+  <span class="signal-pulse"></span>
+</div>
+
+<figure class="signal-receiver">
+  <div class="signal-shell">
+    <div class="signal-image signal-operator">
+      <Image src={operator} alt="Larmoperatör med headset framför flera kameraskärmar" widths={[112, 320, 640]} sizes={compact ? '56px' : '320px'} format="webp" />
+      <span class="signal-shade" aria-hidden="true"></span>
+      <span class="ai">AI-skiss</span>
+    </div>
+    <div class="signal-status">
+      <Icon name="camera" />
+      <span class="signal-status-line">
+        <span class="visually-hidden">Exemplet visar hur larmcentralen tar emot en larmbild.</span>
+        <span class="signal-waiting" aria-hidden="true">Väntar på signal</span>
+        <strong class="signal-received" aria-hidden="true">Bild mottagen</strong>
+      </span>
+      <span class="signal-status-detail">Larmcentralen bedömer</span>
+      <small class="example">Exempel<span class="signal-dot" aria-hidden="true"></span></small>
+    </div>
+  </div>
+  <figcaption class:list={['receiver-caption', { 'visually-hidden': compact }]}>
+    Larmcentralen tar emot bilden och bedömer om väktare ska åka ut.
+  </figcaption>
+</figure>

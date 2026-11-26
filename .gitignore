@@ -8,3 +8,4 @@ src/assets/img/original/*
 !src/assets/img/original/INDEX.md
 # Hemligheter för formuläret
 public/api/config.php
+public/api/ms-config.php

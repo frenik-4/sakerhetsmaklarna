@@ -7,7 +7,7 @@ import Faq from '../components/Faq.astro';
 import QuoteForm from '../components/QuoteForm.astro';
 import ServiceCards from '../components/ServiceCards.astro';
 import { TJANST_BILD } from '../lib/bilder';
-import { SITE, url } from '../lib/site';
+import { SITE } from '../lib/site';
 
 export async function getStaticPaths() {
   const tjanster = await getCollection('tjanster');
@@ -16,94 +16,77 @@ export async function getStaticPaths() {
 const { t } = Astro.props;
 const { Content } = await render(t);
 const bild = TJANST_BILD[t.id];
-const NAMN: Record<string, string> = { bygglarm: 'Bygglarm', stallningslarm: 'Ställningslarm', 'butik-kontor': 'Butik & kontor', kamerabevakning: 'Kamerabevakning', larmvaska: 'Larmväska' };
-const namn = NAMN[t.id] ?? t.data.h1;
 ---
 <Base title={t.data.title} description={t.data.description}>
-  <section class="thero">
-    <div class="wrap thero__in">
+  <section class="thero blue-field" aria-labelledby="tjanst-rubrik">
+    <div class="wrap">
       <div class="thero__copy">
-        <p class="thero__crumb"><a href={url('/')}>Larmuthyrning</a> <span aria-hidden="true">/</span> {namn}</p>
-        <h1>{t.data.h1}</h1>
-        <ul class="benefits">
+        <h1 id="tjanst-rubrik">{t.data.h1}</h1>
+        <ul class="benefits" role="list">
           {t.data.benefits.map((b) => <li><Icon name="check" />{b}</li>)}
         </ul>
-        <div class="thero__btns">
+        <div class="actions">
           <a class="btn btn--primary" href={SITE.telefonHref}><Icon name="phone" />Ring {SITE.telefon}</a>
-          <a class="btn btn--secondary" href="#offert">Begär offert</a>
+          <a class="btn btn--outline" href="#offert">Begär offert</a>
         </div>
       </div>
-      <div class="thero__media">
-        <Image src={bild.src} alt={bild.alt} widths={[600, 900, 1200]} sizes="(max-width: 900px) 100vw, 560px" loading="eager" fetchpriority="high" />
-        <dl class="thero__facts">
-          <div><dt>I drift</dt><dd>Ofta samma dag</dd></div>
-          <div><dt>Övervakning</dt><dd>Larmcentral dygnet runt</dd></div>
-          <div><dt>Hyrtid</dt><dd>Så länge du behöver</dd></div>
-        </dl>
-      </div>
+    </div>
+    <div class="thero__media">
+      <Image src={bild.src} alt={bild.alt} widths={[600, 900, 1200]} sizes="(max-width: 1100px) 100vw, 61vw" format="webp" priority />
     </div>
   </section>
 
-  <section class="section section--plate">
+  <div class="section">
     <div class="wrap tbody">
       <article class="prose"><Content /></article>
-      <aside class="tside" id="offert" aria-labelledby="offert-rubrik">
+      <aside class="form-card tside" id="offert" tabindex="-1" aria-labelledby="offert-rubrik">
         <h2 id="offert-rubrik">Begär offert</h2>
         <p>Fyll i det du vet. Vi ringer upp, oftast samma dag.</p>
         <QuoteForm />
       </aside>
     </div>
-  </section>
+  </div>
 
   {t.data.faq.length > 0 && (
-    <section class="section">
+    <div class="section section--soft">
       <div class="wrap"><Faq items={t.data.faq} /></div>
-    </section>
+    </div>
   )}
 
-  <section class="section section--plate">
+  <section class="section" aria-labelledby="andralarm-rubrik">
     <div class="wrap">
-      <div class="section__head"><h2>Andra larmlösningar</h2></div>
+      <h2 id="andralarm-rubrik">Andra larmlösningar</h2>
       <ServiceCards exclude={t.id} />
     </div>
   </section>
 </Base>
 
 <style>
-  .thero { padding: var(--s7) 0 var(--s8); }
-  .thero__in { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: var(--s8); align-items: center; }
-  .thero__crumb { font-size: .9rem; color: var(--muted); margin-bottom: var(--s4); }
-  .thero__crumb a { color: var(--muted); }
-  .thero h1 { font-size: clamp(2.1rem, 4.2vw, 3.5rem); margin-bottom: var(--s5); }
-  .benefits { list-style: none; padding: 0; margin: 0 0 var(--s6); display: grid; gap: var(--s3); }
-  .benefits li { display: flex; gap: var(--s3); align-items: flex-start; color: var(--ink); font-weight: 500; }
-  .benefits :global(svg) { width: 22px; height: 22px; flex: none; color: var(--blue); background: var(--blue-50); border-radius: 50%; padding: 4px; }
-  .thero__btns { display: flex; gap: var(--s3); flex-wrap: wrap; }
-  .thero__media { position: relative; }
-  .thero__media :global(img) { width: 100%; aspect-ratio: 4 / 3.4; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
-  .thero__facts {
-    position: absolute; left: var(--s4); right: var(--s4); bottom: var(--s4); margin: 0;
-    display: grid; grid-template-columns: repeat(3, 1fr); background: rgba(7, 26, 51, .86); backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, .14); border-radius: 12px; color: #fff;
+  .thero { position: relative; isolation: isolate; container-type: inline-size; }
+  .thero__copy { max-width: min(48cqw, calc(64cqw - var(--page-edge) - 188px), 600px); padding-block: clamp(36px, 4.3vw, 72px); }
+  .thero h1 { font-size: clamp(3rem, 5vw, 4.625rem); overflow-wrap: anywhere; }
+  .benefits { list-style: none; padding: 0; margin: 0 0 26px; display: grid; gap: 8px; }
+  .benefits li { display: flex; gap: 10px; align-items: flex-start; }
+  .benefits :global(svg) { width: 19px; height: 19px; margin-top: .2em; flex: none; }
+  .thero__media { position: absolute; z-index: -1; inset: 0 0 0 39%; container-type: size; }
+  .thero__media img {
+    width: 100%; height: 100%; object-fit: cover;
+    clip-path: polygon(calc(41% - 100cqh * var(--slope)) 0, 100% 0, 100% 100%, 41% 100%);
   }
-  .thero__facts div { padding: var(--s3) var(--s4); }
-  .thero__facts div + div { border-left: 1px solid var(--line-dark); }
-  .thero__facts dt { font: 600 .7rem/1.3 var(--font); text-transform: uppercase; letter-spacing: .1em; color: var(--on-navy-muted); }
-  .thero__facts dd { margin: 2px 0 0; font-weight: 600; font-size: .95rem; line-height: 1.3; }
-  @media (max-width: 900px) {
-    .thero { padding: var(--s5) 0 var(--s7); }
-    .thero__in { grid-template-columns: 1fr; gap: var(--s6); }
-  }
-  @media (max-width: 520px) {
-    .thero__btns .btn { flex: 1 1 100%; }
-    .thero__facts { position: static; margin-top: var(--s3); grid-template-columns: 1fr; }
-    .thero__facts div + div { border-left: 0; border-top: 1px solid var(--line-dark); }
-  }
+  .tbody { display: grid; grid-template-columns: minmax(0, 1fr) minmax(360px, 420px); gap: clamp(32px, 5vw, 72px); align-items: start; }
+  .tside { position: sticky; top: 84px; }
 
-  .tbody { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: var(--s8); align-items: start; }
-  .tside { position: sticky; top: 96px; background: var(--plate); border: 1px solid var(--rule); border-radius: var(--radius-lg); padding: var(--s6); box-shadow: var(--shadow-lg); }
-  .tside h2 { font-size: 1.6rem; margin-bottom: var(--s1); }
-  .tside > p { color: var(--muted); }
-  @media (max-width: 1060px) { .tbody { grid-template-columns: 1fr; gap: var(--s6); } .tside { position: static; } }
-  @media (max-width: 640px) { .tside { padding: var(--s5) var(--s4); } }
+  @media (max-width: 1100px) {
+    .thero__copy { max-width: 640px; padding-block: 34px 24px; }
+    .thero__media { position: relative; inset: auto; aspect-ratio: 2; }
+    .thero__media img { clip-path: polygon(0 calc(100cqw * var(--slope)), 100% 0, 100% 100%, 0 100%); }
+  }
+  @media (max-width: 900px) {
+    .tbody { grid-template-columns: minmax(0, 1fr); }
+    .tside { position: static; }
+  }
+  @media (max-width: 640px) {
+    .thero h1 { font-size: clamp(2.8125rem, 10.6vw, 4.125rem); }
+    .thero__media { aspect-ratio: 1.65; }
+  }
 </style>

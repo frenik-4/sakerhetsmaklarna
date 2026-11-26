@@ -39,11 +39,11 @@ jobs:
           mkdir -p ~/.ssh && chmod 700 ~/.ssh
           printf '%s\n' "$SFTP_KNOWN_HOSTS" > ~/.ssh/known_hosts
           # Speglar bara dist/ till sakerhetsmaklarna-mappen. --delete tar bort gamla
-          # filer där, men formulärets config.php på servern lämnas orörd.
+          # filer där, men config.php och ms-config.php på servern lämnas orörda.
           lftp -u "$SFTP_USERNAME" --env-password -p "$SFTP_PORT" "sftp://$SFTP_HOST" -e "
             set sftp:auto-confirm no;
             set net:max-retries 2;
             set net:timeout 30;
             mkdir -p -f $SFTP_DIR;
-            mirror --reverse --delete --parallel=4 --exclude-glob api/config.php dist/ $SFTP_DIR;
+            mirror --reverse --delete --parallel=4 --exclude-glob api/config.php --exclude-glob api/ms-config.php dist/ $SFTP_DIR;
             quit"

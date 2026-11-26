@@ -4,30 +4,36 @@ import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
 import referenser from '../data/referenser.json';
 import kunder from '../data/kunder.json';
-import { SITE, url } from '../lib/site';
-const namn: Record<string, string> = { bygglarm: 'Bygglarm', stallningslarm: 'Ställningslarm', 'butik-kontor': 'Butik & kontor', kamerabevakning: 'Kamerabevakning', larmvaska: 'Larmväska' };
+import { NAV, SITE, url } from '../lib/site';
 ---
 <Base title="Referenser och uppdrag – larmuthyrning | Säkerhetsmäklarna" description="Exempel på uppdrag: bygglarm för hela kvarter, stormarknad larmad samma dag, containerlarm och ställningslarm. Se några av våra kunder.">
-  <section class="section">
+  <div class="page-top blue-field">
     <div class="wrap">
       <h1>Referenser</h1>
       <p class="lead">Några exempel på uppdrag där vi har hyrt ut och installerat larm.</p>
-      <ul class="refs">
-        {referenser.map((r) => (
-          <li class="ref">
-            <h2>{r.titel}</h2>
-            <p>{r.text}</p>
-            <a class="ref__link" href={url(`/${r.kategori}/`)}>{namn[r.kategori] ?? r.kategori} <Icon name="arrow" /></a>
-          </li>
-        ))}
+    </div>
+  </div>
+  <div class="section">
+    <div class="wrap">
+      <ul class="refs" role="list">
+        {referenser.map((r) => {
+          const href = `/${r.kategori}/`;
+          return (
+            <li class="ref">
+              <h2>{r.titel}</h2>
+              <p>{r.text}</p>
+              <a class="text-link" href={url(href)}>{NAV.find((item) => item.href === href)?.label ?? r.kategori} <Icon name="arrow" /></a>
+            </li>
+          );
+        })}
       </ul>
     </div>
-  </section>
+  </div>
   {SITE.visaKunder && kunder.length > 0 && (
-    <section class="section section--plate">
+    <section class="section section--soft" aria-labelledby="kunder-rubrik">
       <div class="wrap">
-        <h2>Några av våra kunder</h2>
-        <ul class="kunder">{kunder.map((k) => <li>{k}</li>)}</ul>
+        <h2 id="kunder-rubrik">Några av våra kunder</h2>
+        <ul class="kunder" role="list">{kunder.map((k) => <li>{k}</li>)}</ul>
       </div>
     </section>
   )}
@@ -35,13 +41,11 @@ const namn: Record<string, string> = { bygglarm: 'Bygglarm', stallningslarm: 'St
 </Base>
 
 <style>
-  .refs { list-style: none; padding: 0; margin: var(--s6) 0 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s4); }
-  .ref { background: var(--plate); border: 1px solid var(--rule); border-radius: var(--radius-lg); padding: var(--s5) var(--s6) var(--s6); }
-  .ref h2 { font-size: clamp(1.4rem, 2.2vw, 1.75rem); margin: 0 0 var(--s2); }
-  .ref p { margin: 0; }
-  .ref__link { display: inline-flex; align-items: center; gap: 6px; margin-top: var(--s4); font-weight: 600; text-decoration: none; }
-  .ref__link :global(svg) { width: 16px; height: 16px; }
-  @media (max-width: 800px) { .refs { grid-template-columns: 1fr; } .ref { padding: var(--s5) var(--s4); } }
-  .kunder { list-style: none; padding: var(--s5) 0 0; margin: 0; display: flex; flex-wrap: wrap; gap: var(--s3) var(--s6); border-top: 1px solid var(--rule); }
-  .kunder li { font: 700 1.3rem/1.2 var(--font); letter-spacing: -.01em; color: var(--muted); }
+  .refs, .kunder { list-style: none; margin: 0; padding: 0; }
+  .refs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .ref { display: flex; flex-direction: column; padding: clamp(16px, 2.5vw, 28px); border: 1px solid var(--line); border-radius: var(--radius); }
+  .ref h2 { font-size: 1.875rem; margin-bottom: 8px; }
+  .ref p { flex: 1; }
+  .kunder { display: flex; flex-wrap: wrap; gap: 8px 24px; border-top: 1px solid var(--line); padding-top: 16px; font-weight: 700; }
+  @media (max-width: 800px) { .refs { grid-template-columns: minmax(0, 1fr); } }
 </style>

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Mina kameror | Säkerhetsmäklarna</title>
+  <link rel="icon" href="logo.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&amp;family=Chivo:wght@400;600&amp;display=swap">
+  <link rel="stylesheet" href="portal.css">
+  <script src="portal.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="../">
+        <img src="logo.png" width="250" height="200" alt="Säkerhetsmäklarna">
+      </a>
+      <span id="header-title" class="header-title" hidden>Mina kameror</span>
+      <a id="header-phone" class="header-phone" href="tel:+4687529800" hidden>08-752 98 00</a>
+      <button id="logout" class="button button-outline" type="button" hidden>Logga ut</button>
+    </div>
+  </header>
+
+  <main id="login-view" class="sign-in">
+    <section class="login-side" aria-labelledby="login-heading">
+      <div class="login-card">
+        <h2 id="login-heading">Logga in</h2>
+        <p id="login-notice" class="message" role="status"></p>
+        <p id="login-error" class="message message-error" role="alert"></p>
+        <form id="login-form">
+          <fieldset id="login-fields">
+            <label for="username">Användarnamn</label>
+            <input id="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+            <label for="password">Lösenord</label>
+            <input id="password" type="password" autocomplete="current-password" required>
+            <details class="advanced">
+              <summary>Avancerade inställningar</summary>
+              <label class="check-label"><input id="basic-login" type="checkbox"> Använd Basic-inloggning</label>
+            </details>
+            <button id="login-button" class="button button-primary" type="submit">Logga in</button>
+          </fieldset>
+        </form>
+        <p class="login-help">Har du inget konto? Ring <a href="tel:+4687529800">08-752 98 00</a> (dygnet runt)</p>
+      </div>
+    </section>
+    <section class="login-intro">
+      <div>
+        <h1>Mina kameror</h1>
+        <p>Se dina kameror live och spola tillbaka i inspelningen.</p>
+      </div>
+    </section>
+  </main>
+
+  <main id="portal-view" class="wrap portal" hidden>
+    <section aria-labelledby="camera-heading">
+      <div class="section-heading">
+        <h1 id="camera-heading" tabindex="-1">Kameror</h1>
+        <p id="camera-count" class="camera-count" hidden></p>
+      </div>
+      <p id="camera-status" class="visually-hidden" role="status"></p>
+      <div id="camera-grid" class="camera-grid"></div>
+      <div id="camera-empty" class="empty-state" hidden>
+        <p>Inga kameror är kopplade till ditt konto. Ring <a href="tel:+4687529800">08-752 98 00</a>.</p>
+      </div>
+      <div id="camera-error" class="empty-state" hidden>
+        <p role="alert">Kamerorna kunde inte hämtas.</p>
+        <button id="reload-cameras" class="button button-outline" type="button">Försök igen</button>
+      </div>
+    </section>
+    <aside class="help-card" aria-labelledby="help-heading">
+      <div>
+        <h2 id="help-heading">Behöver du hjälp?</h2>
+        <p>Vi flyttar, kompletterar eller avslutar larmet åt dig.</p>
+      </div>
+      <a class="button button-call" href="tel:+4687529800">Ring 08-752 98 00</a>
+    </aside>
+  </main>
+
+  <dialog id="viewer" aria-labelledby="viewer-title">
+    <div class="viewer-header">
+      <h2 id="viewer-title"></h2>
+      <form method="dialog">
+        <button class="button button-outline" type="submit" autofocus>Stäng</button>
+      </form>
+    </div>
+    <div id="viewer-media"></div>
+    <div class="viewer-controls">
+      <form id="recording-form" class="recording-form">
+        <div>
+          <label for="recording-time">Visa bild från tidpunkt</label>
+          <input id="recording-time" type="datetime-local" required>
+        </div>
+        <button id="recording-button" class="button button-primary" type="submit">Visa</button>
+      </form>
+      <button id="back-to-live" class="button button-outline" type="button" disabled>Tillbaka till live</button>
+      <p id="recording-error" class="message message-error" role="alert"></p>
+    </div>
+  </dialog>
+
+  <template id="camera-template">
+    <article class="camera-card">
+      <div class="camera-media"></div>
+      <div class="camera-copy">
+        <h2><button class="open-camera" type="button"></button></h2>
+        <p class="view-name"></p>
+      </div>
+    </article>
+  </template>
+
+  <template id="media-template">
+    <div class="media-stage">
+      <img class="camera-image" alt="" hidden>
+      <div class="media-meta" hidden>
+        <span class="media-badge"></span>
+        <time></time>
+      </div>
+      <p class="media-loading">Hämtar livebild…</p>
+      <div class="media-error" hidden>
+        <p>Ingen bild just nu</p>
+        <button class="button button-light" type="button">Försök igen</button>
+      </div>
+    </div>
+  </template>
+
+  <noscript><p class="wrap">JavaScript behöver vara aktiverat för att visa dina kameror.</p></noscript>
+</body>
+</html>
