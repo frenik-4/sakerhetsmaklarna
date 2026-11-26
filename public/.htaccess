@@ -15,3 +15,11 @@ ErrorDocument 404 /sakerhetsmaklarna/404.html
 <Files "config.php">
   Require all denied
 </Files>
+
+# Kameraportalens proxy och serverkonfiguration
+RewriteEngine On
+RewriteRule ^ms/(.*)$ api/ms-proxy.php?p=$1 [B,QSA,L]
+
+<Files "ms-config.php">
+  Require all denied
+</Files>
