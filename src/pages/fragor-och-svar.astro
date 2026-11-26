@@ -5,11 +5,11 @@ import CtaBand from '../components/CtaBand.astro';
 import faq from '../data/faq.json';
 ---
 <Base title="Frågor och svar om att hyra larm | Säkerhetsmäklarna" description="Svar på vanliga frågor om larmuthyrning: hur snabbt larmet är i drift, hur länge du kan hyra, vad som ingår och hur larmcentralen fungerar.">
-  <section class="section section--plate">
-    <div class="wrap">
-      <h1>Frågor och svar</h1>
-      <Faq items={faq} rubrik="Om att hyra larm" />
-    </div>
-  </section>
+  <div class="page-top blue-field">
+    <div class="wrap"><h1>Frågor och svar</h1></div>
+  </div>
+  <div class="section">
+    <div class="wrap"><Faq items={faq} rubrik="Om att hyra larm" /></div>
+  </div>
   <CtaBand rubrik="Hittade du inte svaret?" text="Ring oss så svarar vi direkt, eller skicka en förfrågan så hör vi av oss." />
 </Base>

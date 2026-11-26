@@ -4,11 +4,15 @@ import ServiceCards from '../components/ServiceCards.astro';
 import { SITE, url } from '../lib/site';
 ---
 <Base title="Sidan finns inte | Säkerhetsmäklarna" description="Sidan du letade efter finns inte.">
-  <section class="section section--plate">
+  <div class="page-top blue-field">
     <div class="wrap">
       <h1>Sidan finns inte</h1>
       <p class="lead">Den kan ha flyttats när vi byggde om webbplatsen. Gå till <a href={url('/')}>startsidan</a> eller ring <a href={SITE.telefonHref}>{SITE.telefon}</a>.</p>
-      <h2>Våra larmlösningar</h2>
+    </div>
+  </div>
+  <section class="section" aria-labelledby="larmlosningar-rubrik">
+    <div class="wrap">
+      <h2 id="larmlosningar-rubrik">Våra larmlösningar</h2>
       <ServiceCards />
     </div>
   </section>

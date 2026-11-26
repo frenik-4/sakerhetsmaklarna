@@ -1,0 +1,295 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import HeroSignal from './HeroSignal.astro';
+import car from '../assets/img/hero-skapbil.jpg';
+import start from '../data/start.json';
+import { SITE, url } from '../lib/site';
+---
+<section class="intro" aria-labelledby="hero-title">
+  <div class="hero">
+    <div class="wrap hero-content">
+      <div class="hero-copy blue-field">
+        <h1 id="hero-title">{start.heroH1}</h1>
+        <p>{start.heroLead}</p>
+        <div class="actions">
+          <a class="btn btn--primary" href={SITE.telefonHref}><Icon name="phone" />Ring {SITE.telefon}</a>
+          <a class="btn btn--outline" href={url('/kontakt/')}>Begär offert</a>
+        </div>
+        <div class="mobile-signal" role="group" aria-label="Bild från detektor till larmcentral">
+          <HeroSignal compact />
+        </div>
+      </div>
+    </div>
+    <div class="hero-photo-frame">
+      <Image class="hero-photo" src={car} alt="Säkerhetsmäklarnas servicebil med blå och gul dekor" widths={[640, 960, 1280, 1600]} sizes="(max-width: 1100px) 100vw, 61vw" format="webp" priority />
+    </div>
+    <div class="hero-cut">
+      <div class="hero-wedge" aria-hidden="true"></div>
+      <HeroSignal />
+    </div>
+  </div>
+</section>
+
+<script>
+  const intro = document.querySelector<HTMLElement>('.intro');
+
+  if (intro) {
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    const nativeTimeline = CSS.supports('animation-timeline: scroll(root block)') &&
+      CSS.supports('animation-range: 0px 180px');
+    let scrollEnd = 0;
+    let frame = 0;
+
+    function updateProgress() {
+      if (!intro || !scrollEnd || reducedMotion.matches) return;
+      const progress = Math.max(0, Math.min(1, window.scrollY / scrollEnd));
+      if (!nativeTimeline) intro.style.setProperty('--progress', String(progress));
+      intro.classList.toggle('signal-arrived', progress === 1);
+    }
+
+    function refresh() {
+      if (!intro) return;
+      scrollEnd = parseFloat(getComputedStyle(intro).getPropertyValue('--scroll-end'));
+      updateProgress();
+      intro.classList.toggle('has-scroll-motion', !reducedMotion.matches);
+    }
+
+    function onScroll() {
+      if (frame || reducedMotion.matches) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        updateProgress();
+      });
+    }
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          refresh();
+          window.addEventListener('scroll', onScroll, { passive: true });
+        } else {
+          window.removeEventListener('scroll', onScroll);
+          if (frame) cancelAnimationFrame(frame);
+          frame = 0;
+        }
+      });
+      observer.observe(intro);
+    } else {
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+    window.addEventListener('resize', refresh);
+    reducedMotion.addEventListener('change', refresh);
+    refresh();
+  }
+</script>
+
+<style is:global>
+
+  .intro {
+    --wedge-travel: 40px;
+    --photo-travel: 24px;
+    --scroll-end: 180px;
+    --progress: 1;
+    position: relative;
+    overflow: clip;
+    padding-bottom: 220px;
+  }
+  .hero {
+    --detector-width: clamp(184px, 14.3vw, 206px);
+    --hero-height: 480px;
+    position: relative; isolation: isolate; container-type: inline-size; display: grid; align-items: center;
+    min-height: var(--hero-height);
+  }
+  .hero-copy.blue-field {
+    max-width: min(39cqw, 625px, calc(65cqw - var(--detector-width) - 157px - var(--page-edge)));
+    padding-block: 42px 60px;
+    background: transparent;
+  }
+  .hero-copy h1 { margin: 0; }
+  .hero-copy p { max-width: 500px; margin: 24px 0 26px; font-size: 1.0625rem; }
+  .hero-photo-frame { position: absolute; z-index: -2; inset: 0 0 0 39%; overflow: clip; }
+  .hero-photo {
+    position: absolute; inset: 0; width: 100%; height: calc(100% + var(--photo-travel));
+    object-fit: cover; object-position: 58% 48%; transform: translateY(calc(-1 * var(--photo-travel)));
+  }
+  .hero-cut {
+    --stripe-width: 9px;
+    --detector-top: calc(100cqh - 250px);
+    --signal-top: calc(var(--detector-top) + 24px);
+    --edge-x: 65cqw;
+    --stripe-center-x: calc(var(--edge-x) - var(--stripe-width) / 2);
+    --receiver-overlap: 45px;
+    --detector-right: calc(var(--edge-x) - (100cqh - var(--detector-top)) * var(--slope) - var(--stripe-width) - 6px);
+    --signal-start-x: calc(var(--stripe-center-x) - (100cqh - var(--signal-top)) * var(--slope));
+    --signal-end-x: calc(var(--stripe-center-x) - var(--receiver-overlap) * var(--slope));
+    --rail-length: calc((100cqh - var(--signal-top) - var(--receiver-overlap)) / cos(var(--diagonal)));
+    --rail-angle: calc(90deg - var(--diagonal));
+    position: absolute; z-index: -1; inset: 0; container-type: size;
+    transform: translateX(calc(-1 * var(--wedge-travel)));
+  }
+  .hero-wedge, .hero-wedge::before, .hero-wedge::after { position: absolute; }
+  .hero-wedge { inset: 0; }
+  .hero-wedge::before, .hero-wedge::after {
+    --stripe-offset: 0px;
+    content: ''; inset: 0 calc(-1 * var(--wedge-travel));
+    background: var(--yellow);
+    clip-path: polygon(0 0, calc(var(--wedge-travel) + var(--edge-x) - 100cqh * var(--slope) - var(--stripe-offset)) 0,
+      calc(var(--wedge-travel) + var(--edge-x) - var(--stripe-offset)) 100%, 0 100%);
+  }
+  .hero-wedge::after { --stripe-offset: var(--stripe-width); background: var(--blue); }
+  .signal-rail {
+    position: absolute; z-index: 1; left: var(--signal-start-x); top: var(--signal-top);
+    width: var(--rail-length); height: 0;
+    transform: rotate(var(--rail-angle)); transform-origin: left center;
+  }
+  .signal-trace { position: absolute; inset: -1.5px 0 auto; height: 3px; background: var(--blue); }
+  .signal-pulse { display: none; position: absolute; inset: 0 0 auto; height: 0; }
+  .signal-pulse::before {
+    content: ''; position: absolute; inset: -6px auto auto -6px; width: 12px; height: 12px;
+    background: var(--white); border: 2px solid var(--blue);
+  }
+  .detector-card {
+    position: absolute; top: var(--detector-top); right: calc(100cqw - var(--detector-right));
+    width: var(--detector-width); background: var(--white); border: 1px solid var(--blue); border-radius: var(--radius);
+  }
+  .signal-image { position: relative; aspect-ratio: 3 / 2; background: var(--blue-light); }
+  .signal-image img { width: 100%; height: 100%; object-fit: cover; }
+  .ai {
+    position: absolute; right: 5px; bottom: 5px; padding: 4px 7px;
+    background: rgb(0 0 0 / .78); color: var(--white); font-size: .6875rem; line-height: 1.2;
+  }
+  .detector-status {
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 8px;
+    padding: 7px 8px; line-height: 1.2; white-space: nowrap;
+  }
+  .detector-event { display: flex; align-items: center; gap: 6px; font-size: .6875rem; }
+  .detector-event strong { font-weight: 600; }
+  .detector-event svg { width: 13px; height: 13px; flex: none; color: var(--blue); }
+  .detector-detail { grid-column: 1 / -1; padding-inline-start: 19px; color: var(--muted); font-size: .625rem; }
+  .example { display: inline-flex; align-items: center; gap: 4px; padding: 2px 4px; background: var(--blue-light); color: var(--ink); font-size: .625rem; line-height: 1.15; }
+  .signal-receiver {
+    position: absolute; top: calc(100% - var(--receiver-overlap)); left: calc(var(--signal-end-x) - 160px);
+    width: min(605px, calc(35cqw + 100px)); display: flex; align-items: center; gap: 16px;
+  }
+  .signal-shell {
+    position: relative; flex: 0 0 320px; min-width: 0; background: var(--white); color: var(--ink);
+    border: 1px solid var(--control-line); border-radius: var(--radius);
+  }
+  .signal-shell::after {
+    content: ''; position: absolute; inset: -1px; outline: 2px solid var(--blue);
+    border: 1px solid var(--blue); border-radius: inherit; pointer-events: none;
+  }
+  .signal-shade { position: absolute; inset: 0; background: rgb(0 0 0 / .55); opacity: 0; }
+  .signal-status {
+    display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 2px 7px; align-items: center;
+    min-height: 46px; padding: 6px 8px; font-size: .8125rem; line-height: 1.25;
+  }
+  .signal-status svg { grid-row: span 2; width: 20px; height: 20px; color: var(--blue); }
+  .signal-status-line { grid-column: 2; grid-row: 1; }
+  .signal-waiting { display: none; color: var(--muted); }
+  .signal-status-detail { grid-column: 2 / -1; grid-row: 2; font-size: .6875rem; }
+  .signal-status .example { grid-column: 3; grid-row: 1; justify-self: start; }
+  .signal-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--blue); }
+  .receiver-caption {
+    display: flex; align-items: center; gap: 12px; max-width: 270px;
+    font-size: .875rem; line-height: 1.45;
+  }
+  .receiver-caption::before { content: ''; flex: 0 0 28px; height: 1px; background: var(--blue); }
+  .mobile-signal { display: none; }
+
+  @media (max-width: 1100px) {
+    .intro { --wedge-travel: 16px; --photo-travel: 12px; --scroll-end: 140px; padding-bottom: 0; }
+    .hero { --photo-ratio: 2; display: block; min-height: 0; }
+    .hero-copy.blue-field { max-width: 600px; padding-block: 34px 24px; }
+    .hero-photo-frame { position: relative; inset: auto; aspect-ratio: var(--photo-ratio); }
+    .hero-photo { object-position: 56% 61%; }
+    .hero-cut {
+      --stripe-width: 6px;
+      --photo-top: calc(100cqh - 100cqw / var(--photo-ratio));
+      --cut-y: calc(var(--photo-top) + 100cqw * var(--slope));
+    }
+    .hero-wedge::before, .hero-wedge::after {
+      inset: 0 calc(-1 * var(--wedge-travel)) 0 0;
+      clip-path: polygon(0 0, 100% 0,
+        100% calc(var(--cut-y) - (100cqw + var(--wedge-travel)) * var(--slope) - var(--stripe-offset)),
+        0 calc(var(--cut-y) - var(--stripe-offset)));
+    }
+    .hero-cut > :is(.signal-rail, .detector-card, .signal-receiver) { display: none; }
+    .mobile-signal {
+      display: grid; grid-template-columns: 64px minmax(12px, 1fr) minmax(0, 200px);
+      align-items: center; gap: 8px; margin-top: 20px;
+    }
+    .mobile-signal .detector-card, .mobile-signal .signal-receiver {
+      position: relative; inset: auto; width: auto;
+    }
+    .mobile-signal .detector-card { border-color: var(--white); }
+    .mobile-signal .detector-image { aspect-ratio: 1; }
+    .mobile-signal .detector-status { grid-template-columns: 1fr; justify-items: center; padding: 2px; }
+    .mobile-signal .ai { inset: auto 2px 2px; padding: 2px; text-align: center; font-size: .625rem; white-space: nowrap; }
+    .mobile-signal .signal-rail {
+      position: relative; inset: auto; width: auto; height: 3px; transform: none; background: var(--yellow);
+    }
+    .mobile-signal .signal-trace { inset: 1px 0; height: 1px; }
+    .mobile-signal .signal-pulse { top: 1.5px; }
+    .mobile-signal .signal-receiver { display: block; }
+    .mobile-signal .signal-shell { display: grid; grid-template-columns: 56px minmax(0, 1fr); align-items: center; }
+    .mobile-signal .signal-operator { width: 56px; height: 56px; }
+    .mobile-signal .signal-status {
+      grid-template-columns: auto minmax(0, 1fr); gap: 2px 5px; padding: 6px;
+      font-size: .75rem;
+    }
+    .mobile-signal .signal-status svg { width: 16px; height: 16px; }
+    .mobile-signal .signal-status .example { grid-column: 2; grid-row: 3; }
+  }
+  @media (max-width: 640px) {
+    .hero { --photo-ratio: 1.65; }
+    .hero-copy.blue-field { padding-block: 27px 24px; }
+    .hero-copy p { margin-block: 16px 20px; font-size: .9375rem; line-height: 1.5; }
+  }
+
+  @keyframes photo-drift {
+    from { transform: translateY(0) scale(1.08); }
+    to { transform: translateY(calc(-1 * var(--photo-travel))) scale(1); }
+  }
+  @keyframes cut-drift {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-1 * var(--wedge-travel))); }
+  }
+  @keyframes signal-travel {
+    from { transform: translateX(0); }
+    to { transform: translateX(100%); }
+  }
+  @keyframes signal-draw {
+    from { clip-path: inset(0 100% 0 0); }
+    to { clip-path: inset(0); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .has-scroll-motion .signal-pulse { display: block; }
+    .has-scroll-motion.signal-arrived .signal-pulse { visibility: hidden; }
+    .has-scroll-motion .signal-shade, .has-scroll-motion .signal-shell::after { transition: opacity 250ms ease-out; }
+    .has-scroll-motion:not(.signal-arrived) .signal-shade { opacity: 1; }
+    .has-scroll-motion:not(.signal-arrived) .signal-shell::after,
+    .has-scroll-motion:not(.signal-arrived) .signal-dot { opacity: 0; }
+    .has-scroll-motion:not(.signal-arrived) .signal-waiting { display: inline; }
+    .has-scroll-motion:not(.signal-arrived) .signal-received { display: none; }
+    .has-scroll-motion:not(.signal-arrived) .signal-status svg { color: var(--muted); }
+
+    @supports (animation-timeline: scroll(root block)) and (animation-range: 0px 180px) {
+      .has-scroll-motion :is(.hero-photo, .hero-cut, .signal-pulse, .signal-trace) {
+        animation-duration: 1ms; animation-fill-mode: both; animation-timing-function: linear;
+        animation-timeline: scroll(root block); animation-range: 0px var(--scroll-end);
+      }
+      .has-scroll-motion .hero-photo { animation-name: photo-drift; }
+      .has-scroll-motion .hero-cut { animation-name: cut-drift; }
+      .has-scroll-motion .signal-trace { animation-name: signal-draw; }
+      .has-scroll-motion .signal-pulse { animation-name: signal-travel; }
+    }
+    @supports not ((animation-timeline: scroll(root block)) and (animation-range: 0px 180px)) {
+      .has-scroll-motion .hero-photo { transform: translateY(calc(-1 * var(--photo-travel) * var(--progress))) scale(calc(1.08 - .08 * var(--progress))); }
+      .has-scroll-motion .hero-cut { transform: translateX(calc(-1 * var(--wedge-travel) * var(--progress))); }
+      .has-scroll-motion .signal-trace { clip-path: inset(0 calc((1 - var(--progress)) * 100%) 0 0); }
+      .has-scroll-motion .signal-pulse { transform: translateX(calc(var(--progress) * 100%)); }
+    }
+  }
+</style>
