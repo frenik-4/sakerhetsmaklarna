@@ -38,9 +38,10 @@ if (preg_match('/\Ap=([^&]*)/', $_SERVER['QUERY_STRING'] ?? '', $match)
 
 if (preg_match('~\AXPMobileSDK/[A-Za-z0-9_./-]+\.js\z~', $path)) {
     $method = 'GET';
-} elseif ($path === 'XProtectMobile/Communication'
-    || preg_match('~\AXProtectMobile/Video/[0-9A-Fa-f-]{36}/?\z~', $path)) {
+    $maxResponseBytes = 2 * 1024 * 1024;
+} elseif ($path === 'XProtectMobile/Communication' || $path === 'XProtectMobile/Video') {
     $method = 'POST';
+    $maxResponseBytes = 4 * 1024 * 1024;
 } else {
     proxyError(404, 'not found');
 }
@@ -48,6 +49,14 @@ if (preg_match('~\AXPMobileSDK/[A-Za-z0-9_./-]+\.js\z~', $path)) {
 if ($_SERVER['REQUEST_METHOD'] !== $method) {
     header('Allow: ' . $method);
     proxyError(405, 'method not allowed');
+}
+
+if ($path === 'XProtectMobile/Video') {
+    $videoId = $_SERVER['HTTP_X_MS_VIDEO_ID'] ?? '';
+    if (!preg_match('~\A[0-9A-Fa-f-]{36}\z~', $videoId)) {
+        proxyError(400, 'invalid video id');
+    }
+    $path .= '/' . $videoId . '/';
 }
 
 $maxBodyBytes = 1024 * 1024;
@@ -71,6 +80,11 @@ if (!empty($_SERVER['CONTENT_TYPE'])) {
 }
 
 $curl = curl_init($origin . '/' . $path);
+$status = null;
+$contentType = null;
+$headersReady = false;
+$responseBytes = 0;
+$cacheControl = $method === 'GET' ? 'public, max-age=3600' : 'no-store';
 $options = [
     CURLOPT_CUSTOMREQUEST => $method,
     CURLOPT_HTTPHEADER => $headers,
@@ -78,24 +92,55 @@ $options = [
     CURLOPT_TIMEOUT => 30,
     CURLOPT_SSL_VERIFYPEER => true,
     CURLOPT_SSL_VERIFYHOST => 2,
-    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_HEADERFUNCTION => function ($curl, string $line) use (
+        &$status, &$contentType, &$headersReady, $cacheControl
+    ): int {
+        if (preg_match('~\AHTTP/\S+\s+([0-9]{3})\b~', $line, $match)) {
+            $status = (int) $match[1];
+            $contentType = null;
+            $headersReady = false;
+        } elseif ($status !== null && strncasecmp($line, 'Content-Type:', 13) === 0) {
+            $contentType = trim(substr($line, 13));
+        } elseif ($status !== null && trim($line) === '') {
+            if ($status >= 200) {
+                http_response_code($status);
+                if ($contentType !== null && $contentType !== '') {
+                    header('Content-Type: ' . $contentType);
+                } else {
+                    header_remove('Content-Type');
+                }
+                header('Cache-Control: ' . $cacheControl);
+                $headersReady = true;
+            }
+            $status = null;
+        }
+        return strlen($line);
+    },
+    CURLOPT_WRITEFUNCTION => function ($curl, string $chunk) use (
+        $maxResponseBytes, &$headersReady, &$responseBytes
+    ): int {
+        $length = strlen($chunk);
+        if (!$headersReady || $length > $maxResponseBytes - $responseBytes) {
+            return -1;
+        }
+
+        $responseBytes += $length;
+        echo $chunk;
+        if (ob_get_level() > 0) {
+            ob_flush();
+        }
+        flush();
+        return $length;
+    },
 ];
 if ($method === 'POST' || $body !== '') {
     $options[CURLOPT_POSTFIELDS] = $body;
 }
 curl_setopt_array($curl, $options);
 $response = curl_exec($curl);
-$status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-$contentType = curl_getinfo($curl, CURLINFO_CONTENT_TYPE);
 curl_close($curl);
 
-if ($response === false || $status === 0) {
+// Once streaming starts, a failed transfer ends without appending an error body.
+if ($responseBytes === 0 && ($response === false || !$headersReady)) {
     proxyError(502, 'upstream');
 }
-
-http_response_code($status);
-if ($contentType) {
-    header('Content-Type: ' . $contentType);
-}
-header('Cache-Control: ' . ($method === 'GET' ? 'public, max-age=3600' : 'no-store'));
-echo $response;

@@ -169,7 +169,7 @@ async function connect() {
       sdk = mobileSdk;
       sdk.addObserver(connectionObserver);
     }
-    sdk.connect();
+    sdk.connect(location.origin + P);
   } catch {
     loginError('Kunde inte ansluta till kameraservern. Försök igen.');
   }
@@ -379,8 +379,9 @@ function createFeed(camera, container, { width, height, fps, canPlay }) {
   async function pull(active) {
     const started = performance.now();
     try {
-      const response = await fetch(`${P}/XProtectMobile/Video/${encodeURIComponent(active.stream.videoId)}/`, {
+      const response = await fetch(`${P}/XProtectMobile/Video`, {
         method: 'POST',
+        headers: { 'X-MS-Video-Id': active.stream.videoId },
         cache: 'no-store',
         signal: AbortSignal.any([active.controller.signal, AbortSignal.timeout(10000)])
       });
@@ -480,8 +481,12 @@ function openViewer(camera) {
 }
 
 function cancelRecording(current) {
-  if (current.request) clearTimeout(current.request.timeout);
+  const pending = current.request;
   current.request = null;
+  if (pending) {
+    clearTimeout(pending.timeout);
+    if (pending.sdkRequest) sdk.cancelRequest(pending.sdkRequest);
+  }
   recordingButton.disabled = false;
   recordingButton.textContent = 'Visa';
 }
@@ -527,9 +532,10 @@ recordingForm.addEventListener('submit', event => {
   pending.timeout = setTimeout(fail, 15000);
 
   try {
-    sdk.getThumbnailByTime({
+    pending.sdkRequest = sdk.getThumbnailByTime({
       cameraId: current.camera.id, time: date.getTime(), width: 1280, height: 720
     }, async (base64, timestamp) => {
+      pending.sdkRequest = null;
       if (!stillViewing()) return;
       const probe = new Image();
       try {
@@ -552,7 +558,10 @@ recordingForm.addEventListener('submit', event => {
       } catch {
         fail();
       }
-    }, fail);
+    }, () => {
+      pending.sdkRequest = null;
+      fail();
+    });
   } catch {
     fail();
   }

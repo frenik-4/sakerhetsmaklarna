@@ -33,7 +33,7 @@ Portalen finns på `/kameror/` i produktion och `/sakerhetsmaklarna/kameror/` i 
 
 Skapa `api/ms-config.php` under sajtens katalog på servern. PHP-filen ska returnera en array med nyckeln `origin` och Milestone-serverns HTTPS-origin som värde, inklusive port om den behövs. Filen ligger utanför git och bevaras vid testpublicering.
 
-Proxyn tillåter bara GET för `.js`-filer under `XPMobileSDK/` och POST till `XProtectMobile/Communication` eller `XProtectMobile/Video/<id>/`.
+Proxyn tillåter bara GET för `.js`-filer under `XPMobileSDK/` och POST till `XProtectMobile/Communication` eller `XProtectMobile/Video`. Videoanrop skickar strömmens ID i huvudet `X-MS-Video-Id`.
 
 ## Lansering på sakerhetsmaklarna.se (senare)
 
